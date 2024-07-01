@@ -1,0 +1,70 @@
+name: portfolio
+description: "A new Flutter project."
+publish_to: 'none' 
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.6 <4.0.0'
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  cached_network_image: ^3.3.1
+  carousel_slider: ^4.2.1
+  easy_dynamic_theme: ^2.3.1
+  google_fonts: ^4.0.3
+  auto_size_text: ^3.0.0
+  url_strategy: ^0.2.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+
+flutter:
+  uses-material-design: true
+  fonts:
+    - family: Montserrat
+      fonts:
+        - asset: fonts/Montserrat-Regular.ttf
+
+    - family: Electrolize
+      fonts:
+        - asset: fonts/Electrolize-Regular.ttf
+  assets:
+    - assets/images/
+
+  
+  
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
