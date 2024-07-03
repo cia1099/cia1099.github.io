@@ -1,4 +1,5 @@
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:portfolio/widgets/web_scrollbar.dart';
 import 'package:portfolio/widgets/bottom_bar.dart';
 import 'package:portfolio/widgets/carousel.dart';
@@ -69,7 +70,7 @@ class _HomePageState extends State<HomePage> {
                   fontWeight: FontWeight.w400,
                   letterSpacing: 3,
                 ),
-              ),
+              ).tr(),
             )
           : PreferredSize(
               preferredSize: Size(screenSize.width, 1000),

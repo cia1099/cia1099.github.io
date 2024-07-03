@@ -18,6 +18,8 @@ dependencies:
   google_fonts: ^4.0.3
   auto_size_text: ^3.0.0
   url_strategy: ^0.2.0
+  easy_localization: ^3.0.7
+  easy_localization_loader: ^2.0.2
 
 dev_dependencies:
   flutter_test:
@@ -37,6 +39,7 @@ flutter:
         - asset: fonts/Electrolize-Regular.ttf
   assets:
     - assets/images/
+    - assets/langs/
 
   
   

@@ -1,4 +1,5 @@
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class TopBarContents extends StatefulWidget {
@@ -44,7 +45,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                   fontWeight: FontWeight.w400,
                   letterSpacing: 3,
                 ),
-              ),
+              ).tr(),
               Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -58,12 +59,12 @@ class _TopBarContentsState extends State<TopBarContents> {
                               : _isHovering[0] = false;
                         });
                       },
-                      onTap: () {},
+                      onTap: () => context.setLocale(Locale('en')),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            'Discover',
+                            'English', //'Discover',
                             style: TextStyle(
                               color: _isHovering[0]
                                   ? Colors.blue[200]
@@ -94,12 +95,12 @@ class _TopBarContentsState extends State<TopBarContents> {
                               : _isHovering[1] = false;
                         });
                       },
-                      onTap: () {},
+                      onTap: () => context.setLocale(Locale('zh')),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            'Contact Us',
+                            'Chinese', //'Contact Us',
                             style: TextStyle(
                               color: _isHovering[1]
                                   ? Colors.blue[200]
