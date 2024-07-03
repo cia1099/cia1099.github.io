@@ -90,20 +90,35 @@ class _HomePageState extends State<HomePage> {
             physics: ClampingScrollPhysics(),
             child: Column(
               children: [
-                Stack(
-                  children: [
-                    Container(
-                      child: SizedBox(
-                        height: screenSize.height * 0.45,
+                Container(
+                  color: Colors.grey,
+                  height: screenSize.height * 0.45,
+                  width: screenSize.width,
+                  child: Stack(
+                    children: [
+                      Image.asset(
+                        'assets/images/cover.jpg',
                         width: screenSize.width,
-                        child: Image.asset(
-                          'assets/images/cover.jpg',
-                          fit: BoxFit.cover,
-                        ),
+                        height: screenSize.height * 0.45,
+                        fit: BoxFit.cover,
                       ),
-                    ),
-                    FloatingQuickAccessBar(screenSize: screenSize)
-                  ],
+                      // FloatingQuickAccessBar(screenSize: screenSize),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Container(
+                          height: 200,
+                          // color: Colors.green,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              CircleAvatar(),
+                              Text("shit"),
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
                 Container(
                   child: Column(
