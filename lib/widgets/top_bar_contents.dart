@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class TopBarContents extends StatefulWidget {
@@ -22,11 +25,12 @@ class _TopBarContentsState extends State<TopBarContents> {
     false,
     false
   ];
+  late final localeStream = StreamController<Locale>()..add(context.locale);
+  final langDict = {"en": "English", "zh": "简体中文"};
 
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
-
     return PreferredSize(
       preferredSize: Size(screenSize.width, 1000),
       child: Container(
@@ -59,12 +63,12 @@ class _TopBarContentsState extends State<TopBarContents> {
                               : _isHovering[0] = false;
                         });
                       },
-                      onTap: () => context.setLocale(Locale('en')),
+                      onTap: () {},
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            'English', //'Discover',
+                            'Discover',
                             style: TextStyle(
                               color: _isHovering[0]
                                   ? Colors.blue[200]
@@ -95,12 +99,12 @@ class _TopBarContentsState extends State<TopBarContents> {
                               : _isHovering[1] = false;
                         });
                       },
-                      onTap: () => context.setLocale(Locale('zh')),
+                      onTap: () {},
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            'Chinese', //'Contact Us',
+                            'Contact Us',
                             style: TextStyle(
                               color: _isHovering[1]
                                   ? Colors.blue[200]
@@ -124,6 +128,43 @@ class _TopBarContentsState extends State<TopBarContents> {
                     ),
                   ],
                 ),
+              ),
+              PopupMenuButton(
+                tooltip: "",
+                position: PopupMenuPosition.under,
+                itemBuilder: (context) {
+                  final supportedLocales = context.supportedLocales;
+                  final items = supportedLocales.map((locale) => PopupMenuItem(
+                        value: locale,
+                        child: Text(langDict[locale.languageCode] ?? "error"),
+                      ));
+                  return items.toList();
+                },
+                onSelected: (locale) {
+                  context.setLocale(locale);
+                  localeStream.add(locale);
+                },
+                child: StreamBuilder(
+                    // initialData: context.locale,
+                    stream: localeStream.stream,
+                    builder: (context, snapshot) {
+                      final lang = snapshot.data?.languageCode ?? "no";
+                      return AnimatedSwitcher(
+                        duration: Durations.short4,
+                        transitionBuilder: (child, animation) =>
+                            SlideTransition(
+                                position: Tween(
+                                        begin: const Offset(-0.5, -1),
+                                        end: Offset.zero)
+                                    .animate(animation),
+                                child: child),
+                        child: Text(
+                          langDict[lang] ?? "error",
+                          key: Key(lang),
+                          style: TextStyle(color: Colors.white70),
+                        ),
+                      );
+                    }),
               ),
               IconButton(
                 icon: Icon(Icons.brightness_6),
