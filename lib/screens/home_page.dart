@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
         : 1;
 
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       extendBodyBehindAppBar: true,
       appBar: ResponsiveWidget.isSmallScreen(context)
           ? AppBar(
@@ -107,13 +107,33 @@ class _HomePageState extends State<HomePage> {
                       Align(
                         alignment: Alignment.bottomCenter,
                         child: Container(
+                          // margin: EdgeInsets.only(top: 50),
                           height: 200,
+                          width: !ResponsiveWidget.isSmallScreen(context)
+                              ? screenSize.width / 2
+                              : null,
                           // color: Colors.green,
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               CircleAvatar(),
-                              Text("shit"),
+                              Container(
+                                color: Colors.black12,
+                                child: Transform.translate(
+                                  offset: Offset(
+                                      0,
+                                      ResponsiveWidget.isSmallScreen(context)
+                                          ? 20
+                                          : 0),
+                                  child: Text("introduce.rough",
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w500,
+                                        fontFamily: 'Montserrat',
+                                        color: Colors.white.withOpacity(0.8),
+                                      )).tr(),
+                                ),
+                              ),
                             ],
                           ),
                         ),

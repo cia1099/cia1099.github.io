@@ -1,9 +1,19 @@
 en:
   EXPLORE: EXPLORE
+  skills: Skills
+  introduce:
+    rough: |
+      Hi, I am Otto. I am a full-stack developer with a passion for building dynamic, interactive interfaces and exceptional user experience products. I believe that interactions that are both engaging and intuitive are essential for delivering projects that delight clients.
+    detail: |
+      Developing AI combined with vision applications: smart home, people counting; expert in spatial localization by vision, enabling the camera to perceive its surroundings, allowing us to spatialize digital modeling and 3D space recognition; working on edge computing, with the goal of executing AI models on edge devices to significantly reduce the cost of landing projects. Furthermore I'd like to develope more AI application scenarios to implement AI on devices in public, and to integrate AI into our lives.
+    skill: Overview of work experience and acquired skills
+
 zh:
   EXPLORE: 探索
+  skills: 技能集
   introduce:
     rough: |
       嗨，我是Otto，一个全端开发者，喜欢打造动态交互界面，和出色的用户体验产品。可以让使用者惊艳和容易上手的交互操作，是我开发工程的信心，给客户能有满足的心情。
     detail: |
       开发AI结合视觉应用：智能家居，人流计数；擅长空间视觉定位，使相机能够感知周围的环境，可以做空间数位建模和3D空间识别；致力于边缘运算，目标是将AI模型在边缘设备上执行，以大幅缩减项目落地的成本，并发展更多AI应用的场景，将AI落实在大众的设备上，让AI融入在我们的生活里。
+    skill: 综观工作经历以及习得的技能

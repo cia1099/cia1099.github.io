@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:portfolio/widgets/responsive.dart';
 import 'package:flutter/material.dart';
 
@@ -24,19 +25,19 @@ class FeaturedHeading extends StatelessWidget {
               children: [
                 Row(),
                 Text(
-                  'Featured',
+                  'skills',
                   style: TextStyle(
                     fontSize: 24,
                     fontFamily: 'Montserrat',
                     fontWeight: FontWeight.bold,
                   ),
-                ),
+                ).tr(),
                 SizedBox(height: 5),
                 Text(
-                  'Unique wildlife tours & destinations',
+                  'introduce.skill',
                   textAlign: TextAlign.end,
                   style: Theme.of(context).primaryTextTheme.subtitle1,
-                ),
+                ).tr(),
                 SizedBox(height: 10),
               ],
             )
@@ -45,19 +46,19 @@ class FeaturedHeading extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  'Featured',
+                  'skills',
                   style: TextStyle(
                     fontSize: 40,
                     fontFamily: 'Montserrat',
                     fontWeight: FontWeight.bold,
                   ),
-                ),
+                ).tr(),
                 Expanded(
                   child: Text(
-                    'Unique wildlife tours & destinations',
+                    'introduce.skill',
                     textAlign: TextAlign.end,
                     style: Theme.of(context).primaryTextTheme.subtitle1,
-                  ),
+                  ).tr(),
                 ),
               ],
             ),
