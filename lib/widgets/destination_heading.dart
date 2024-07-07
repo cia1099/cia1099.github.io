@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:portfolio/widgets/responsive.dart';
 import 'package:flutter/material.dart';
 
@@ -20,14 +21,14 @@ class DestinationHeading extends StatelessWidget {
             width: screenSize.width,
             // color: Colors.black,
             child: Text(
-              'Destinations diversity',
+              'collections',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 24,
                 fontFamily: 'Montserrat',
                 fontWeight: FontWeight.bold,
               ),
-            ),
+            ).tr(),
           )
         : Container(
             padding: EdgeInsets.only(
@@ -37,14 +38,14 @@ class DestinationHeading extends StatelessWidget {
             width: screenSize.width,
             // color: Colors.black,
             child: Text(
-              'Destinations diversity',
+              'collections',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 40,
                 fontFamily: 'Montserrat',
                 fontWeight: FontWeight.bold,
               ),
-            ),
+            ).tr(),
           );
   }
 }

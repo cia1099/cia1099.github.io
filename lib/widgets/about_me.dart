@@ -41,7 +41,7 @@ class AboutMe extends StatelessWidget {
           Flexible(
             flex: 3,
             child: Container(
-              alignment: Alignment.bottomCenter,
+              alignment: isSmall ? null : Alignment.bottomCenter,
               padding: isSmall
                   ? null
                   : EdgeInsets.only(left: 4, right: screenWidth / 15),
