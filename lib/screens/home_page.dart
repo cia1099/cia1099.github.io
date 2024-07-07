@@ -1,5 +1,6 @@
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:portfolio/widgets/about_me.dart';
 import 'package:portfolio/widgets/web_scrollbar.dart';
 import 'package:portfolio/widgets/bottom_bar.dart';
 import 'package:portfolio/widgets/carousel.dart';
@@ -109,23 +110,18 @@ class _HomePageState extends State<HomePage> {
                         child: Container(
                           // margin: EdgeInsets.only(top: 50),
                           height: 200,
-                          width: !ResponsiveWidget.isSmallScreen(context)
-                              ? screenSize.width / 2
-                              : null,
-                          // color: Colors.green,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               CircleAvatar(),
                               Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: screenSize.width / 15),
                                 color: Colors.black12,
                                 child: Transform.translate(
-                                  offset: Offset(
-                                      0,
-                                      ResponsiveWidget.isSmallScreen(context)
-                                          ? 20
-                                          : 0),
+                                  offset: Offset(0, 20),
                                   child: Text("introduce.rough",
+                                      textAlign: TextAlign.justify,
                                       style: TextStyle(
                                         fontSize: 15,
                                         fontWeight: FontWeight.w500,
@@ -151,6 +147,7 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
+                AboutMe(),
                 // SizedBox(height: screenSize.height / 8),
                 DestinationHeading(screenSize: screenSize),
                 DestinationCarousel(),
