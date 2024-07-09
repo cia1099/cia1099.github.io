@@ -33,58 +33,39 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _leavedTime = 0;
-  late TimerBLoC timerBloc;
-  ValueNotifier<List<int>?> numbers = ValueNotifier(null);
+  int _leavedTime = 5;
+  late Stream timer;
+  List<int>? numbers;
   GameStatus gameStatus = GameStatus.fengPei;
   late List<int> sampleY;
   late List<int> shuffleCarImg;
 
-  void _incrementCounter() {
+  void _changedState() {
     switch (gameStatus) {
       case GameStatus.fengPei:
         gameStatus = GameStatus.success;
-        // numbers.value = [];
-        // final rng = Random();
-        // while (numbers!.length < 10) {
-        //   numbers!.add(rng.nextInt(10) + 1);
-        // }
-        numbers.value = List<int>.generate(10, (index) => index + 1);
+        numbers = List<int>.generate(10, (index) => index + 1);
         _leavedTime = 0;
+
         break;
       case GameStatus.success:
         gameStatus = GameStatus.fengPei;
         _shuffleCar();
-        numbers.value = null;
+        numbers = null;
         _leavedTime = 5;
-        timerBloc.reset();
         break;
     }
-  }
-
-  void resetCanvas(AnimationController c) {
-    c.forward(from: 0);
+    timer = resetTimer(_leavedTime);
+    setState(() {});
   }
 
   void _shuffleCar() {
     final rng = Random();
-    // () async {
-    //   final set = <int>{};
-    //   await Future.doWhile(() async {
-    //     if (set.length < 10) {
-    //       set.add(rng.nextInt(10));
-    //       return true;
-    //     }
-    //     shuffleCarImg = set.toList();
-    //     return false;
-    //   });
-    // }();
     final set = <int>{};
     while (set.length < 10) {
       set.add(rng.nextInt(10));
     }
     shuffleCarImg = set.toList();
-    // final set = <int>{};
     set.clear();
     while (set.length < 4) {
       set.add(rng.nextInt(4));
@@ -93,12 +74,17 @@ class _MyHomePageState extends State<MyHomePage> {
         set.toList() + set.toList() + [set.elementAt(0), set.elementAt(1)];
   }
 
+  Stream<int> resetTimer(int t) async* {
+    yield t;
+    if (t <= 0) return;
+    yield* Stream.periodic(Duration(seconds: 1), (count) => t - 1 - count)
+        .take(t);
+  }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    timerBloc = TimerBLoC(seconds: 5);
-    _leavedTime = timerBloc.seconds;
-    timerBloc.reset();
+    timer = resetTimer(_leavedTime);
     _shuffleCar();
   }
 
@@ -121,8 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
           alignment: FractionalOffset(0.5, 0.85),
           child: StreamBuilder(
             key: const ValueKey(112),
-            stream: timerBloc.secondsStream,
-            initialData: _leavedTime,
+            stream: timer,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return Text(
@@ -130,46 +115,24 @@ class _MyHomePageState extends State<MyHomePage> {
                   style: TextStyle(fontSize: 96, color: Colors.greenAccent),
                 );
               }
-              return Center();
+              return SizedBox();
             },
           ),
         ),
         Align(
           alignment: FractionalOffset(0.5, 0.5),
-          child: ValueListenableBuilder<List<int>?>(
-            valueListenable: numbers,
-            builder: (context, value, child) => FastFuriousAnimation(
-              key: const ValueKey(7),
-              leavedTime: _leavedTime,
-              size: Size(double.infinity, 200),
-              numbers: value,
-              sampleY: sampleY,
-              shuffleCarImg: shuffleCarImg,
-              // child: child,
-            ),
-            child: Container(
-              color: Colors.grey.withOpacity(0.2),
-              width: double.infinity,
-              height: 200,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  const Text(
-                    'You have pushed the button this many times:',
-                    // style: TextStyle(color: Colors.white),
-                  ),
-                  Text(
-                    '$_leavedTime',
-                    style: Theme.of(context).textTheme.headline4,
-                  ),
-                ],
-              ),
-            ),
+          child: FastFuriousAnimation(
+            key: const ValueKey(7),
+            leavedTime: _leavedTime,
+            size: Size(double.infinity, 200),
+            numbers: numbers,
+            sampleY: sampleY,
+            shuffleCarImg: shuffleCarImg,
           ),
         ),
       ]),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: _changedState,
         tooltip: 'Simulated FengPei and Success Status',
         child: const Icon(Icons.add),
       ),

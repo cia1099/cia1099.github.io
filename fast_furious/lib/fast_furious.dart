@@ -20,11 +20,8 @@ class FastFuriousAnimation extends StatefulWidget {
     this.size = Size.infinite,
     this.duration = const Duration(seconds: 5),
   }) : super(key: key) {
-    if (leavedTime > 5 || leavedTime < 0) {
-      leavedTime = 0;
-    }
+    leavedTime = leavedTime.clamp(0, duration.inSeconds);
   }
-
   final Widget? child;
   final List<int>? numbers;
   final List<int> sampleY;
