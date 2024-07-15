@@ -20,6 +20,13 @@ dependencies:
   url_strategy: ^0.2.0
   easy_localization: ^3.0.7
   easy_localization_loader: ^2.0.2
+  slot_machine_roller: ^1.0.1
+  roulette:
+    path: roulette
+  fast_furious:
+    path: fast_furious
+  dice3d:
+    path: dice3d
 
 dev_dependencies:
   flutter_test:

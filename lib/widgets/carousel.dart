@@ -2,6 +2,8 @@ import 'dart:isolate';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:easy_localization/easy_localization.dart'
+    show StringTranslateExtension;
 import 'package:portfolio/widgets/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -38,17 +40,15 @@ class _DestinationCarouselState extends State<DestinationCarousel>
     'assets/images/africa.jpg',
     'assets/images/europe.jpg',
     'assets/images/south_america.jpg',
-    'assets/images/australia.jpg',
-    'assets/images/antarctica.jpg',
+    // 'assets/images/australia.jpg',
+    // 'assets/images/antarctica.jpg',
   ];
 
   final List<String> places = [
-    'ASIA',
-    'AFRICA',
-    'EUROPE',
-    'SOUTH AMERICA',
-    'AUSTRALIA',
-    'ANTARCTICA',
+    'roulette',
+    'fast_furious',
+    'slot_machine',
+    'dice',
   ];
 
   @override
@@ -60,12 +60,6 @@ class _DestinationCarouselState extends State<DestinationCarousel>
     _animation = Tween<double>(begin: 2.0, end: 1.0).animate(
         CurvedAnimation(parent: _aniController, curve: Curves.easeInOutCirc));
     _controller = CarouselController();
-  }
-
-  @override
-  void dispose() {
-    _aniController.dispose();
-    super.dispose();
   }
 
   List<Widget> generateImageTiles(screenSize) {
@@ -94,87 +88,16 @@ class _DestinationCarouselState extends State<DestinationCarousel>
     ).toList();
   }
 
-  // List<Widget> generateImageTiles(screenSize) {
-  //   // var rp = ReceivePort();
-  //   return images.map((element) {
-  //     return ClipRRect(
-  //       borderRadius: BorderRadius.circular(8.0),
-  //       child: AnimatedBuilder(
-  //           animation: _animation,
-  //           builder: (context, child) {
-  //             return Transform.scale(child: child, scale: _animation.value);
-  //           },
-  //           child: FutureBuilder(
-  //             future: rootBundle.load(element),
-  //             builder: (context, snapshot) {
-  //               // futureData.then((data) {
-  //               // });
-  //               // rp.first.then((value) {
-  //               //   final mm = value as img.Image;
-  //               //   child = Image.memory(mm.getBytes());
-  //               // });
-  //               if (snapshot.connectionState != ConnectionState.done) {
-  //                 return Image.asset(
-  //                   element,
-  //                   fit: BoxFit.cover,
-  //                 );
-  //               }
-  //               final data = snapshot.data! as ByteData;
-  //               // Isolate.spawn<DecodeParam>((message) {
-  //               final src = img.decodeImage(data.buffer.asUint8List());
-  //               img.drawString(src!, img.arial_48, 520, 50, "Hello Thread");
-  //               // message.sendPort.send(src);
-  //               // }, DecodeParam(data, rp.sendPort));
-  //               return Image.memory(
-  //                 src.getBytes(format: img.Format.rgba),
-  //                 width: src.width.toDouble(),
-  //                 height: src.height.toDouble(),
-  //               );
-  //             },
-  //           )),
-  //     );
-  //   }).toList();
-  // }
-
-  List<Widget> generateTextTiles(screenSize, ctx) {
-    return places
-        .map((e) => Center(
-              child: AutoSizeText(
-                e,
-                style: GoogleFonts.electrolize(
-                  letterSpacing: 8,
-                  fontSize: screenSize.width / 16,
-                  color: Theme.of(ctx).bottomAppBarColor,
-                ),
-                maxLines: 1,
-              ),
-            ))
-        .toList();
-  }
-
-  Widget _createTextTiles(screenSize, str, myColor) {
-    return Center(
-      child: AutoSizeText(
-        str,
-        style: GoogleFonts.electrolize(
-          letterSpacing: 8,
-          fontSize: screenSize.width / 16,
-          color: myColor,
-        ),
-        maxLines: 1,
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
     var imageSliders = generateImageTiles(screenSize);
-    if (txtSliders == null) {
-      txtSliders = generateTextTiles(screenSize, context);
-      txtSliders![_current] = _createTextTiles(
-          screenSize, places[_current], Colors.white.withOpacity(0.7));
-    }
+    // if (txtSliders == null) {
+    // for localization rebuild languange
+    txtSliders = generateTextTiles(screenSize, context);
+    txtSliders![_current] = _createTextTiles(
+        screenSize, places[_current], Colors.white.withOpacity(0.7));
+    // }
 
     return Stack(
       children: [
@@ -267,7 +190,7 @@ class _DestinationCarouselState extends State<DestinationCarousel>
                                         top: screenSize.height / 80,
                                         bottom: screenSize.height / 90),
                                     child: Text(
-                                      places[i],
+                                      places[i].tr(),
                                       style: TextStyle(
                                         color: _isHovering[i]
                                             ? Theme.of(context)
@@ -314,6 +237,36 @@ class _DestinationCarouselState extends State<DestinationCarousel>
           ),
         ),
       ],
+    );
+  }
+
+  List<Widget> generateTextTiles(screenSize, ctx) {
+    return places
+        .map((e) => Center(
+              child: AutoSizeText(
+                e.tr(),
+                style: GoogleFonts.electrolize(
+                  letterSpacing: 8,
+                  fontSize: screenSize.width / 16,
+                  color: Theme.of(ctx).bottomAppBarColor,
+                ),
+                maxLines: 1,
+              ),
+            ))
+        .toList();
+  }
+
+  Widget _createTextTiles(screenSize, String str, myColor) {
+    return Center(
+      child: AutoSizeText(
+        str.tr(),
+        style: GoogleFonts.electrolize(
+          letterSpacing: 8,
+          fontSize: screenSize.width / 16,
+          color: myColor,
+        ),
+        maxLines: 1,
+      ),
     );
   }
 }

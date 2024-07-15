@@ -9,6 +9,10 @@ en:
     skill: Overview of work experience and acquired skills
   about_me: About Me
   collections: Collections
+  roulette: Roulette
+  fast_furious: Fast & Furious
+  slot_machine: Slot Machine
+  dice: Yahtzee
 
 zh:
   EXPLORE: 探索
@@ -21,3 +25,7 @@ zh:
     skill: 综观工作经历以及习得的技能
   about_me: 关于我
   collections: 作品集
+  roulette: 轮盘
+  fast_furious: 速度与激情
+  slot_machine: 吃角子老虎机
+  dice: 一分快三
