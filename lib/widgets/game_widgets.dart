@@ -54,6 +54,7 @@ Widget createDice(Duration period, BuildContext ctx) {
   final rng = Random();
   final length = ctx.locale.languageCode == 'en' ? 5 : 3;
   return StreamBuilder(
+    key: Key(ctx.locale.languageCode),
     initialData: List.generate(length, (index) => rng.nextInt(6) + 1),
     stream: Stream.periodic(
         period, (_) => List.generate(length, (index) => rng.nextInt(6) + 1)),
