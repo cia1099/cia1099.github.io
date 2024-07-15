@@ -121,4 +121,10 @@ class _Dice3DState extends State<Dice3D> with SingleTickerProviderStateMixin {
     }
     throw ('num $num is not in the dice');
   }
+
+  @override
+  void dispose() {
+    progress.dispose();
+    super.dispose();
+  }
 }

@@ -96,4 +96,11 @@ class _RouletteAnimationState extends State<RouletteAnimation>
         .chain(CurveTween(curve: Curves.fastLinearToSlowEaseIn));
     setState(() {});
   }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    blinkController.dispose();
+    super.dispose();
+  }
 }

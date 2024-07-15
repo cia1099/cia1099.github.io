@@ -8,7 +8,7 @@ import 'package:portfolio/widgets/destination_heading.dart';
 import 'package:portfolio/widgets/explore_drawer.dart';
 import 'package:portfolio/widgets/featured_heading.dart';
 import 'package:portfolio/widgets/featured_tiles.dart';
-import 'package:portfolio/widgets/floating_quick_access_bar.dart';
+// import 'package:portfolio/widgets/floating_quick_access_bar.dart';
 import 'package:portfolio/widgets/responsive.dart';
 import 'package:portfolio/widgets/top_bar_contents.dart';
 import 'package:flutter/material.dart';

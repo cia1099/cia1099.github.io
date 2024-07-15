@@ -8,6 +8,7 @@ import 'package:portfolio/widgets/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'game_widgets.dart';
 
 class DecodeParam {
   final ByteData byteData;
@@ -46,7 +47,7 @@ class _DestinationCarouselState extends State<DestinationCarousel>
 
   final List<String> places = [
     'roulette',
-    'fast_furious',
+    // 'fast_furious',
     'slot_machine',
     'dice',
   ];
@@ -65,23 +66,19 @@ class _DestinationCarouselState extends State<DestinationCarousel>
   List<Widget> generateImageTiles(screenSize) {
     return images.map(
       (element) {
-        return ClipRRect(
-          key: ValueKey<int>(images.indexWhere((item) => item == element)),
-          borderRadius: BorderRadius.circular(8.0),
-          child: AnimatedBuilder(
-            animation: _animation,
-            builder: (context, child) {
-              if (_animation.value < 1.7 && _animation.value > 1.2) {
-                String filePath =
-                    element.substring(0, element.length - 4) + '_blur.jpg';
-                child = Image.asset(filePath);
-              }
-              return Transform.scale(child: child, scale: _animation.value);
-            },
-            child: Image.asset(
-              element,
-              fit: BoxFit.cover,
-            ),
+        return AnimatedBuilder(
+          animation: _animation,
+          builder: (context, child) {
+            if (_animation.value < 1.7 && _animation.value > 1.2) {
+              String filePath =
+                  element.substring(0, element.length - 4) + '_blur.jpg';
+              child = Image.asset(filePath);
+            }
+            return Transform.scale(child: child, scale: _animation.value);
+          },
+          child: Image.asset(
+            element,
+            fit: BoxFit.cover,
           ),
         );
       },
@@ -91,7 +88,12 @@ class _DestinationCarouselState extends State<DestinationCarousel>
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
-    var imageSliders = generateImageTiles(screenSize);
+    final imageSliders = [
+      createRoulette(Duration(seconds: 7)),
+      createSlotMachine(Duration(seconds: 4)),
+      createDice(Duration(seconds: 4), context),
+    ];
+    //generateImageTiles(screenSize);
     // if (txtSliders == null) {
     // for localization rebuild languange
     txtSliders = generateTextTiles(screenSize, context);
@@ -114,7 +116,18 @@ class _DestinationCarouselState extends State<DestinationCarousel>
                             .animate(animation),
                         child: child,
                       ),
-                  child: imageSliders[_current]),
+                  child: ClipRRect(
+                      key: ValueKey(_current),
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: Container(
+                          height: double.maxFinite,
+                          width: double.maxFinite,
+                          decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage(
+                                      'assets/images/newbackground.png'),
+                                  fit: BoxFit.fill)),
+                          child: imageSliders[_current]))),
             ),
           ),
         ),
@@ -124,7 +137,7 @@ class _DestinationCarouselState extends State<DestinationCarousel>
             viewportFraction: 0.6,
             enlargeCenterPage: true,
             aspectRatio: 18 / 8,
-            autoPlay: true,
+            // autoPlay: true,
             onPageChanged: (index, reason) {
               txtSliders![_current] = _createTextTiles(screenSize,
                   places[_current], Theme.of(context).bottomAppBarColor);
