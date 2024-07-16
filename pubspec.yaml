@@ -27,6 +27,7 @@ dependencies:
     path: fast_furious
   dice3d:
     path: dice3d
+  url_launcher: ^6.3.0
 
 dev_dependencies:
   flutter_test:

@@ -129,51 +129,71 @@ class _TopBarContentsState extends State<TopBarContents> {
                   ],
                 ),
               ),
-              PopupMenuButton(
-                tooltip: "",
-                position: PopupMenuPosition.under,
-                itemBuilder: (context) {
-                  final supportedLocales = context.supportedLocales;
-                  final items = supportedLocales.map((locale) => PopupMenuItem(
-                        value: locale,
-                        child: Text(langDict[locale.languageCode] ?? "error"),
-                      ));
-                  return items.toList();
-                },
-                onSelected: (locale) {
-                  context.setLocale(locale);
-                  localeStream.add(locale);
-                },
-                child: StreamBuilder(
-                    // initialData: context.locale,
-                    stream: localeStream.stream,
-                    builder: (context, snapshot) {
-                      final lang = snapshot.data?.languageCode ?? "no";
-                      return AnimatedSwitcher(
-                        duration: Durations.short4,
-                        transitionBuilder: (child, animation) =>
-                            SlideTransition(
-                                position: Tween(
-                                        begin: const Offset(-0.5, -1),
-                                        end: Offset.zero)
-                                    .animate(animation),
-                                child: child),
-                        child: Text(
-                          langDict[lang] ?? "error",
-                          key: Key(lang),
-                          style: TextStyle(color: Colors.white70),
-                        ),
-                      );
-                    }),
+              MouseRegion(
+                onEnter: (event) => setState(() {
+                  _isHovering[4] = true;
+                }),
+                onExit: (event) => setState(() {
+                  _isHovering[4] = false;
+                }),
+                child: PopupMenuButton(
+                  tooltip: "",
+                  position: PopupMenuPosition.under,
+                  itemBuilder: (context) {
+                    final supportedLocales = context.supportedLocales;
+                    final items = supportedLocales.map((locale) =>
+                        PopupMenuItem(
+                          value: locale,
+                          child: Text(langDict[locale.languageCode] ?? "error"),
+                        ));
+                    return items.toList();
+                  },
+                  onSelected: (locale) {
+                    context.setLocale(locale);
+                    localeStream.add(locale);
+                  },
+                  child: StreamBuilder(
+                      // initialData: context.locale,
+                      stream: localeStream.stream,
+                      builder: (context, snapshot) {
+                        final lang = snapshot.data?.languageCode ?? "no";
+                        return AnimatedSwitcher(
+                          duration: Durations.short4,
+                          transitionBuilder: (child, animation) =>
+                              SlideTransition(
+                                  position: Tween(
+                                          begin: const Offset(-0.5, -1),
+                                          end: Offset.zero)
+                                      .animate(animation),
+                                  child: child),
+                          child: Text(
+                            langDict[lang] ?? "error",
+                            key: Key(lang),
+                            style: TextStyle(
+                                color: _isHovering[4]
+                                    ? Colors.blue[200]
+                                    : Colors.white70),
+                          ),
+                        );
+                      }),
+                ),
               ),
-              IconButton(
-                icon: Icon(Icons.brightness_6),
-                splashColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                color: Colors.white,
-                onPressed: () {
-                  EasyDynamicTheme.of(context).changeTheme();
-                },
+              MouseRegion(
+                onEnter: (event) => setState(() {
+                  _isHovering[5] = true;
+                }),
+                onExit: (event) => setState(() {
+                  _isHovering[5] = false;
+                }),
+                child: IconButton(
+                  icon: Icon(Icons.brightness_6),
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  color: _isHovering[5] ? Colors.blue[200] : Colors.white70,
+                  onPressed: () {
+                    EasyDynamicTheme.of(context).changeTheme();
+                  },
+                ),
               ),
               SizedBox(width: 10),
               InkWell(
@@ -186,7 +206,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                 child: Text(
                   'sign_up',
                   style: TextStyle(
-                    color: _isHovering[2] ? Colors.white : Colors.white70,
+                    color: _isHovering[2] ? Colors.blue[200] : Colors.white70,
                   ),
                 ).tr(),
               ),
@@ -203,7 +223,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                 child: Text(
                   'login',
                   style: TextStyle(
-                    color: _isHovering[3] ? Colors.white : Colors.white70,
+                    color: _isHovering[3] ? Colors.blue[200] : Colors.white70,
                   ),
                 ).tr(),
               ),

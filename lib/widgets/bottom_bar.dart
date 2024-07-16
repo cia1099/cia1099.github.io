@@ -2,6 +2,7 @@ import 'package:portfolio/widgets/bottom_bar_column.dart';
 import 'package:portfolio/widgets/info_text.dart';
 import 'package:portfolio/widgets/responsive.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class BottomBar extends StatelessWidget {
   const BottomBar({
@@ -37,6 +38,9 @@ class BottomBar extends StatelessWidget {
                       s1: 'github',
                       s2: 'linkin',
                       s3: 'medium',
+                      onTap1: _linkGithub,
+                      onTap2: _linkLinkIn,
+                      onTap3: _linkMedium,
                     ),
                   ],
                 ),
@@ -95,6 +99,9 @@ class BottomBar extends StatelessWidget {
                       s1: 'github',
                       s2: 'linkin',
                       s3: 'medium',
+                      onTap1: _linkGithub,
+                      onTap2: _linkLinkIn,
+                      onTap3: _linkMedium,
                     ),
                     Container(
                       color: Colors.blueGrey,
@@ -137,5 +144,32 @@ class BottomBar extends StatelessWidget {
               ],
             ),
     );
+  }
+}
+
+void _linkGithub() async {
+  final url = Uri.parse('https://github.com/cia1099');
+  if (await canLaunchUrl(url)) {
+    await launchUrl(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
+
+void _linkLinkIn() async {
+  final url = Uri.parse('https://www.linkedin.com/in/lin-hung-shan-7490b055');
+  if (await canLaunchUrl(url)) {
+    await launchUrl(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
+
+void _linkMedium() async {
+  final url = Uri.parse('https://medium.com/@cia1099');
+  if (await canLaunchUrl(url)) {
+    await launchUrl(url);
+  } else {
+    throw 'Could not launch $url';
   }
 }

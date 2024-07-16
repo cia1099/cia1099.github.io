@@ -5,8 +5,14 @@ class InfoText extends StatelessWidget {
   final String type;
   final String text;
   final bool doubleDot;
+  final VoidCallback? onTap;
+  final isHover = ValueNotifier(false);
 
-  InfoText({required this.type, required this.text, this.doubleDot = true});
+  InfoText(
+      {required this.type,
+      required this.text,
+      this.doubleDot = true,
+      this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -15,14 +21,21 @@ class InfoText extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text.rich(
-          TextSpan(children: [
-            TextSpan(text: '${type.tr()}'),
-            if (doubleDot) TextSpan(text: ': '),
-          ]),
-          style: TextStyle(
-            color: Colors.blueGrey[300],
-            fontSize: 16,
+        ValueListenableBuilder(
+          valueListenable: isHover,
+          builder: (context, value, child) => InkWell(
+            onHover: (value) => isHover.value = value,
+            onTap: onTap,
+            child: Text.rich(
+              TextSpan(children: [
+                TextSpan(text: '${type.tr()}'),
+                if (doubleDot) TextSpan(text: ': '),
+              ]),
+              style: TextStyle(
+                color: isHover.value ? Colors.blue[200] : Colors.blueGrey[300],
+                fontSize: 16,
+              ),
+            ),
           ),
         ),
         Flexible(
