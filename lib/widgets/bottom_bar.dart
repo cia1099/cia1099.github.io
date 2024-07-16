@@ -120,6 +120,7 @@ class BottomBar extends StatelessWidget {
                           type: 'resume',
                           text: '', //'128, Trymore Road, Delft, MN - 56124',
                           doubleDot: false,
+                          onTap: () {},
                         )
                       ],
                     ),

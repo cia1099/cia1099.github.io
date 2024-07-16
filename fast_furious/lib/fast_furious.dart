@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 part 'utilts.dart';
 
 class FastFuriousAnimation extends StatefulWidget {
-  FastFuriousAnimation({
+  const FastFuriousAnimation({
     Key? key,
     this.numbers,
     this.child,
@@ -19,9 +19,7 @@ class FastFuriousAnimation extends StatefulWidget {
     required this.shuffleCarImg,
     this.size = Size.infinite,
     this.duration = const Duration(seconds: 5),
-  }) : super(key: key) {
-    leavedTime = leavedTime.clamp(0, duration.inSeconds);
-  }
+  }) : super(key: key);
   final Widget? child;
   final List<int>? numbers;
   final List<int> sampleY;
@@ -30,7 +28,7 @@ class FastFuriousAnimation extends StatefulWidget {
   final Size size;
   final Duration duration;
   @protected
-  int leavedTime;
+  final int leavedTime;
 
   @override
   State<FastFuriousAnimation> createState() => _FastFuriousAnimationState();
@@ -48,6 +46,7 @@ class _FastFuriousAnimationState extends State<FastFuriousAnimation>
 
   @override
   Widget build(BuildContext context) {
+    final leavedTime = widget.leavedTime.clamp(0, widget.duration.inSeconds);
     return FutureBuilder(
       future: images,
       builder: (context, AsyncSnapshot<List<ui.Image>> snapshot) {
@@ -68,7 +67,7 @@ class _FastFuriousAnimationState extends State<FastFuriousAnimation>
                 Offset(constraints.minWidth, constraints.minHeight) & localSize;
             _distributeX(rect, roadGap);
             controller.forward(
-                from: 1 - widget.leavedTime / widget.duration.inSeconds);
+                from: 1 - leavedTime / widget.duration.inSeconds);
             return CustomPaint(
               painter: _RoadPainter(
                   images: snapshot.data!,

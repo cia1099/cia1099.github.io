@@ -6,7 +6,6 @@ class BottomBarColumn extends StatelessWidget {
   final String s1;
   final String s2;
   final String s3;
-  final hoverItem = ValueNotifier(0);
   final VoidCallback? onTap1, onTap2, onTap3;
 
   BottomBarColumn({
@@ -21,45 +20,43 @@ class BottomBarColumn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var hoverItem = 0;
     return Padding(
       padding: EdgeInsets.only(bottom: 20.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            heading,
-            style: TextStyle(
-              color: Colors.blueGrey[300],
-              fontSize: 18,
-              fontWeight: FontWeight.w500,
-            ),
-          ).tr(),
-          SizedBox(
-            height: 10,
-          ),
-          ...List.generate(
-              3,
-              (index) => ValueListenableBuilder(
-                    valueListenable: hoverItem,
-                    builder: (context, value, child) => Container(
+              Text(
+                heading,
+                style: TextStyle(
+                  color: Colors.blueGrey[300],
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                ),
+              ).tr(),
+              SizedBox(height: 10)
+            ] +
+            List.generate(
+                3,
+                (index) => Container(
                       margin: const EdgeInsets.only(bottom: 5),
-                      child: InkWell(
-                        onTap: getItemOnTap(index),
-                        onHover: (value) =>
-                            hoverItem.value = value ? index + 1 : 0,
-                        child: Text(
-                          getItemContent(index),
-                          style: TextStyle(
-                            color: hoverItem.value == index + 1
-                                ? Colors.blue[200]
-                                : Colors.blueGrey[100],
-                            fontSize: 14,
-                          ),
-                        ).tr(),
+                      child: StatefulBuilder(
+                        builder: (context, setState) => InkWell(
+                          onTap: getItemOnTap(index),
+                          onHover: (value) =>
+                              setState(() => hoverItem = value ? index + 1 : 0),
+                          child: Text(
+                            getItemContent(index),
+                            style: TextStyle(
+                              color: hoverItem == index + 1
+                                  ? Colors.blue[200]
+                                  : Colors.blueGrey[100],
+                              fontSize: 14,
+                            ),
+                          ).tr(),
+                        ),
                       ),
-                    ),
-                  )),
-        ],
+                    )),
       ),
     );
   }
