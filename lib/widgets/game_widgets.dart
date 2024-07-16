@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:dice3d/dice3d.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:fast_furious/fast_furious.dart';
 import 'package:flutter/material.dart';
 import 'package:roulette/roulette.dart';
 import 'package:slot_machine_roller/slot_machine_roller.dart';
@@ -63,4 +64,73 @@ Widget createDice(Duration period, BuildContext ctx) {
       points: snapshot.data!,
     ),
   );
+}
+
+Widget createFastFurious(Duration period) {
+  List<int>? numbers;
+  final dataMap = _shuffleCar();
+  var sampleY = dataMap["sampleY"];
+  var shuffleCarImg = dataMap["shuffleCarImg"];
+  return LayoutBuilder(
+    builder: (context, constraints) => StreamBuilder(
+      initialData: period.inSeconds,
+      stream: () async* {
+        // yield period.inSeconds;
+        while (true) {
+          for (int i = period.inSeconds; i > -1; i--) {
+            yield i;
+            await Future.delayed(Duration(seconds: 1));
+          }
+          numbers = List.generate(10, (index) => index + 1);
+          yield 0;
+          await Future.delayed(Duration(milliseconds: 1500));
+          numbers = null;
+          final dataMap = _shuffleCar();
+          sampleY = dataMap["sampleY"];
+          shuffleCarImg = dataMap["shuffleCarImg"];
+          yield period.inSeconds;
+        }
+      }(),
+      builder: (context, snapshot) => Stack(
+        children: [
+          Center(
+            child: FastFuriousAnimation(
+              leavedTime: snapshot.data!,
+              sampleY: sampleY!,
+              shuffleCarImg: shuffleCarImg!,
+              size: Size(constraints.maxWidth, constraints.maxHeight / 2),
+              numbers: numbers,
+              duration: period,
+            ),
+          ),
+          Offstage(
+            offstage: snapshot.data == 0,
+            child: Align(
+              alignment: FractionalOffset(0.5, 0.85),
+              child: Text(
+                snapshot.data.toString(),
+                style: TextStyle(fontSize: 96, color: Colors.greenAccent),
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+Map<String, List<int>> _shuffleCar() {
+  final rng = Random();
+  final set = <int>{};
+  while (set.length < 10) {
+    set.add(rng.nextInt(10));
+  }
+  final shuffleCarImg = set.toList();
+  set.clear();
+  while (set.length < 4) {
+    set.add(rng.nextInt(4));
+  }
+  final sampleY =
+      set.toList() + set.toList() + [set.elementAt(0), set.elementAt(1)];
+  return {"shuffleCarImg": shuffleCarImg, "sampleY": sampleY};
 }

@@ -70,7 +70,7 @@ class _FastFuriousAnimationState extends State<FastFuriousAnimation>
             controller.forward(
                 from: 1 - widget.leavedTime / widget.duration.inSeconds);
             return CustomPaint(
-              foregroundPainter: _RoadPainter(
+              painter: _RoadPainter(
                   images: snapshot.data!,
                   progress: controller,
                   moveX: moveX,

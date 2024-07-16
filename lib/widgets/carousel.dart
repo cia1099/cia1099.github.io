@@ -47,7 +47,7 @@ class _DestinationCarouselState extends State<DestinationCarousel>
 
   final List<String> places = [
     'roulette',
-    // 'fast_furious',
+    'fast_furious',
     'slot_machine',
     'dice',
   ];
@@ -90,6 +90,7 @@ class _DestinationCarouselState extends State<DestinationCarousel>
     var screenSize = MediaQuery.of(context).size;
     final imageSliders = [
       createRoulette(Duration(seconds: 7)),
+      createFastFurious(Duration(seconds: 5)),
       createSlotMachine(Duration(seconds: 4)),
       createDice(Duration(seconds: 4), context),
     ];
