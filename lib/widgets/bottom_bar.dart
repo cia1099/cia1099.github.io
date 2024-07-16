@@ -21,22 +21,22 @@ class BottomBar extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     BottomBarColumn(
-                      heading: 'ABOUT',
-                      s1: 'Contact Us',
-                      s2: 'About Us',
-                      s3: 'Careers',
+                      heading: 'about',
+                      s1: 'contact',
+                      s2: 'about_me',
+                      s3: 'work_experience',
                     ),
+                    // BottomBarColumn(
+                    //   heading: 'resume',
+                    //   s1: 'Payment',
+                    //   s2: 'Cancellation',
+                    //   s3: 'FAQ',
+                    // ),
                     BottomBarColumn(
-                      heading: 'HELP',
-                      s1: 'Payment',
-                      s2: 'Cancellation',
-                      s3: 'FAQ',
-                    ),
-                    BottomBarColumn(
-                      heading: 'SOCIAL',
-                      s1: 'Twitter',
-                      s2: 'Facebook',
-                      s3: 'YouTube',
+                      heading: 'community',
+                      s1: 'github',
+                      s2: 'linkin',
+                      s3: 'medium',
                     ),
                   ],
                 ),
@@ -47,13 +47,14 @@ class BottomBar extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 InfoText(
-                  type: 'Email',
-                  text: 'explore@gmail.com',
+                  type: 'email',
+                  text: 'otto@cia1099.cloudns.ch',
                 ),
                 SizedBox(height: 5),
                 InfoText(
-                  type: 'Address',
-                  text: '128, Trymore Road, Delft, MN - 56124',
+                  type: 'resume',
+                  text: '', //'128, Trymore Road, Delft, MN - 56124',
+                  doubleDot: false,
                 ),
                 SizedBox(height: 20),
                 Container(
@@ -63,7 +64,7 @@ class BottomBar extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 Text(
-                  'Copyright © 2020 | EXPLORE',
+                  'Copyright © 2024 | Otto Lin',
                   style: TextStyle(
                     color: Colors.blueGrey[300],
                     fontSize: 14,
@@ -78,22 +79,22 @@ class BottomBar extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     BottomBarColumn(
-                      heading: 'ABOUT',
-                      s1: 'Contact Us',
-                      s2: 'About Us',
-                      s3: 'Careers',
+                      heading: 'about',
+                      s1: 'contact',
+                      s2: 'about_me',
+                      s3: 'work_experience',
                     ),
+                    // BottomBarColumn(
+                    //   heading: 'resume',
+                    //   // s1: 'Payment',
+                    //   // s2: 'Cancellation',
+                    //   // s3: 'FAQ',
+                    // ),
                     BottomBarColumn(
-                      heading: 'HELP',
-                      s1: 'Payment',
-                      s2: 'Cancellation',
-                      s3: 'FAQ',
-                    ),
-                    BottomBarColumn(
-                      heading: 'SOCIAL',
-                      s1: 'Twitter',
-                      s2: 'Facebook',
-                      s3: 'YouTube',
+                      heading: 'community',
+                      s1: 'github',
+                      s2: 'linkin',
+                      s3: 'medium',
                     ),
                     Container(
                       color: Colors.blueGrey,
@@ -104,13 +105,14 @@ class BottomBar extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         InfoText(
-                          type: 'Email',
-                          text: 'explore@gmail.com',
+                          type: 'email',
+                          text: 'otto@cia1099.cloudns.ch',
                         ),
                         SizedBox(height: 5),
                         InfoText(
-                          type: 'Address',
-                          text: '128, Trymore Road, Delft, MN - 56124',
+                          type: 'resume',
+                          text: '', //'128, Trymore Road, Delft, MN - 56124',
+                          doubleDot: false,
                         )
                       ],
                     ),
@@ -126,7 +128,7 @@ class BottomBar extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 Text(
-                  'Copyright © 2020 | EXPLORE',
+                  'Copyright © 2024 | Otto Lin',
                   style: TextStyle(
                     color: Colors.blueGrey[300],
                     fontSize: 14,

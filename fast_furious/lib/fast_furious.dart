@@ -123,6 +123,12 @@ class _FastFuriousAnimationState extends State<FastFuriousAnimation>
         begin: rect.right / 4 * (1 - widget.duration.inSeconds),
         end: rect.right / 4);
   }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 }
 
 Future<List<ui.Image>> _fetchFastFuriousImages(BuildContext? context) async {

@@ -113,7 +113,11 @@ class _HomePageState extends State<HomePage> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              CircleAvatar(),
+                              CircleAvatar(
+                                backgroundImage:
+                                    AssetImage('assets/images/otto.jpeg'),
+                                radius: screenSize.width / 20,
+                              ),
                               Container(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: screenSize.width / 15),

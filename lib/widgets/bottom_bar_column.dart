@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class BottomBarColumn extends StatelessWidget {
@@ -8,9 +9,9 @@ class BottomBarColumn extends StatelessWidget {
 
   BottomBarColumn({
     required this.heading,
-    required this.s1,
-    required this.s2,
-    required this.s3,
+    this.s1 = "",
+    this.s2 = "",
+    this.s3 = "",
   });
 
   @override
@@ -27,7 +28,7 @@ class BottomBarColumn extends StatelessWidget {
               fontSize: 18,
               fontWeight: FontWeight.w500,
             ),
-          ),
+          ).tr(),
           SizedBox(
             height: 10,
           ),
@@ -37,7 +38,7 @@ class BottomBarColumn extends StatelessWidget {
               color: Colors.blueGrey[100],
               fontSize: 14,
             ),
-          ),
+          ).tr(),
           SizedBox(height: 5),
           Text(
             s2,
@@ -45,7 +46,7 @@ class BottomBarColumn extends StatelessWidget {
               color: Colors.blueGrey[100],
               fontSize: 14,
             ),
-          ),
+          ).tr(),
           SizedBox(height: 5),
           Text(
             s3,
@@ -53,7 +54,7 @@ class BottomBarColumn extends StatelessWidget {
               color: Colors.blueGrey[100],
               fontSize: 14,
             ),
-          ),
+          ).tr(),
         ],
       ),
     );

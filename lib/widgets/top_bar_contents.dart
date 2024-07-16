@@ -104,13 +104,13 @@ class _TopBarContentsState extends State<TopBarContents> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            'Contact Us',
+                            'contact',
                             style: TextStyle(
                               color: _isHovering[1]
                                   ? Colors.blue[200]
                                   : Colors.white,
                             ),
-                          ),
+                          ).tr(),
                           SizedBox(height: 5),
                           Visibility(
                             maintainAnimation: true,
@@ -184,11 +184,11 @@ class _TopBarContentsState extends State<TopBarContents> {
                 },
                 onTap: () {},
                 child: Text(
-                  'Sign Up',
+                  'sign_up',
                   style: TextStyle(
                     color: _isHovering[2] ? Colors.white : Colors.white70,
                   ),
-                ),
+                ).tr(),
               ),
               SizedBox(
                 width: screenSize.width / 50,
@@ -201,11 +201,11 @@ class _TopBarContentsState extends State<TopBarContents> {
                 },
                 onTap: () {},
                 child: Text(
-                  'Login',
+                  'login',
                   style: TextStyle(
                     color: _isHovering[3] ? Colors.white : Colors.white70,
                   ),
-                ),
+                ).tr(),
               ),
             ],
           ),

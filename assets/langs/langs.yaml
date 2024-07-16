@@ -13,6 +13,19 @@ en:
   fast_furious: Fast & Furious
   slot_machine: Slot Machine
   dice: Yahtzee
+  resume: Résumé
+  contact: Contact Me
+  work_experience: Work Experiences
+  about: About
+  community: Community
+  email: Email
+  login: Login
+  sign_up: Sign Up
+  linkin: Linkin
+  github: Github
+  medium: Medium
+
+
 
 zh:
   EXPLORE: 探索
@@ -29,3 +42,14 @@ zh:
   fast_furious: 速度与激情
   slot_machine: 吃角子老虎机
   dice: 一分快三
+  resume: 简历
+  contact: 联系我
+  work_experience: 工作经历
+  about: 关于
+  community: 社群
+  email: 电子邮箱
+  login: 登入
+  sign_up: 注册
+  linkin: 领英
+  github: Github
+  medium: Medium
