@@ -68,13 +68,13 @@ class _TopBarContentsState extends State<TopBarContents> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            'Discover',
+                            'work_experience',
                             style: TextStyle(
                               color: _isHovering[0]
                                   ? Colors.blue[200]
                                   : Colors.white,
                             ),
-                          ),
+                          ).tr(),
                           SizedBox(height: 5),
                           Visibility(
                             maintainAnimation: true,

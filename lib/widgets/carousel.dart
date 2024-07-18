@@ -27,23 +27,13 @@ class _DestinationCarouselState extends State<DestinationCarousel>
   final String imagePath = 'assets/images/';
 
   late CarouselController _controller; // = CarouselController();
+  late List<Widget> imageSliders;
 
   List _isHovering = [false, false, false, false, false, false, false];
   List _isSelected = [true, false, false, false, false, false, false];
 
   int _current = 0;
   List<Widget>? txtSliders;
-  late Animation<double> _animation;
-  late AnimationController _aniController;
-
-  final List<String> images = [
-    'assets/images/asia.jpg',
-    'assets/images/africa.jpg',
-    'assets/images/europe.jpg',
-    'assets/images/south_america.jpg',
-    // 'assets/images/australia.jpg',
-    // 'assets/images/antarctica.jpg',
-  ];
 
   final List<String> places = [
     'roulette',
@@ -55,48 +45,20 @@ class _DestinationCarouselState extends State<DestinationCarousel>
   @override
   void initState() {
     super.initState();
-    _aniController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 4100))
-          ..forward();
-    _animation = Tween<double>(begin: 2.0, end: 1.0).animate(
-        CurvedAnimation(parent: _aniController, curve: Curves.easeInOutCirc));
     _controller = CarouselController();
-  }
-
-  List<Widget> generateImageTiles(screenSize) {
-    return images.map(
-      (element) {
-        return AnimatedBuilder(
-          animation: _animation,
-          builder: (context, child) {
-            if (_animation.value < 1.7 && _animation.value > 1.2) {
-              String filePath =
-                  element.substring(0, element.length - 4) + '_blur.jpg';
-              child = Image.asset(filePath);
-            }
-            return Transform.scale(child: child, scale: _animation.value);
-          },
-          child: Image.asset(
-            element,
-            fit: BoxFit.cover,
-          ),
-        );
-      },
-    ).toList();
   }
 
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
-    final imageSliders = [
+    // if (txtSliders == null) {
+    // for localization rebuild languange
+    imageSliders = [
       createRoulette(Duration(seconds: 7)),
       createFastFurious(Duration(seconds: 5)),
       createSlotMachine(Duration(seconds: 4)),
       createDice(Duration(seconds: 4), context),
     ];
-    //generateImageTiles(screenSize);
-    // if (txtSliders == null) {
-    // for localization rebuild languange
     txtSliders = generateTextTiles(screenSize, context);
     txtSliders![_current] = _createTextTiles(
         screenSize, places[_current], Colors.white.withOpacity(0.7));
@@ -154,7 +116,6 @@ class _DestinationCarouselState extends State<DestinationCarousel>
                   }
                 }
               });
-              _aniController.forward(from: 0);
             },
           ),
           carouselController: _controller,

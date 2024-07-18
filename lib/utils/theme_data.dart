@@ -16,6 +16,11 @@ var lightThemeData = ThemeData(
       color: Colors.black,
     ),
     headline1: TextStyle(color: Colors.blueGrey.shade800),
+    headline2: TextStyle(
+      fontSize: 24,
+      fontFamily: 'Montserrat',
+      fontWeight: FontWeight.bold,
+    ),
   ),
   bottomAppBarColor: Colors.blueGrey.shade900,
   iconTheme: IconThemeData(color: Colors.blueGrey),
@@ -39,6 +44,11 @@ var darkThemeData = ThemeData(
     ),
     headline1: TextStyle(
       color: Colors.white70,
+    ),
+    headline2: TextStyle(
+      fontSize: 24,
+      fontFamily: 'Montserrat',
+      fontWeight: FontWeight.bold,
     ),
   ),
   bottomAppBarColor: Colors.black,

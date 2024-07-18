@@ -1,6 +1,7 @@
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_localization_loader/easy_localization_loader.dart';
+import 'package:portfolio/screens/experience.dart';
 import 'package:portfolio/utils/theme_data.dart';
 import 'package:flutter/material.dart';
 import 'package:url_strategy/url_strategy.dart';
@@ -37,7 +38,9 @@ class MyApp extends StatelessWidget {
       supportedLocales: context.supportedLocales,
       localizationsDelegates: context.localizationDelegates,
       locale: context.locale,
-      home: HomePage(),
+      home:
+          // HomePage(),
+          ExperiencePage(),
     );
   }
 }

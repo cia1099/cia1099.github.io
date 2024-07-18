@@ -120,7 +120,7 @@ class BottomBar extends StatelessWidget {
                           type: 'resume',
                           text: '', //'128, Trymore Road, Delft, MN - 56124',
                           doubleDot: false,
-                          onTap: () {},
+                          onTap: _downloadResume,
                         )
                       ],
                     ),
@@ -168,6 +168,15 @@ void _linkLinkIn() async {
 
 void _linkMedium() async {
   final url = Uri.parse('https://medium.com/@cia1099');
+  if (await canLaunchUrl(url)) {
+    await launchUrl(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
+
+void _downloadResume() async {
+  final url = Uri.parse('http://localhost:50050/profile/download_resume');
   if (await canLaunchUrl(url)) {
     await launchUrl(url);
   } else {
