@@ -24,9 +24,39 @@ en:
   linkin: LinkIn
   github: Github
   medium: Medium
-
-
-
+# experiences
+  bobi:
+    name: Bobi Entertainment
+    start: 1/10/2022
+    end: 1/3/2024
+    address: Manila Philippine
+    title: Mobile Application Engineer
+    content: |
+      Live stream application development. We published the app for crossed platform mobile devices by flutter. I am responsible of any animation, game and native plugin request in app. We have used Agora to get realtime media stream communication, SQLite to save and load as soon as local retrieval, build GraphQL client to fetch customized data resource, used Firebase for Notification, etc. I have also developed Swift and Objective-C++ experiences in hybrid compiles between Swift and Cpp programming. In addition, I have supported Cpp libraries to cross platform plugin for flutter.
+  patere:
+    name: Patere Tec.
+    start: 1/11/2020
+    end: 1/2/2022
+    address: Hsinchu Taiwan
+    title: Computer Vision Algorithm Engineer
+    content: |
+      We develop computer vision algorithms for Internet of Things applications, and develop intelligent houses that allow residents to control furniture with eye-tracking models. Using 3D camera scanning and Open3D building method to build a point cloud map of the house environment, with Mask-RCNN detecting RGB image objects, combining the anchor of RGB detection and depth to map to the point cloud which is an alternative to object detection under 3D space. Use LineTR algorithm to locate the camera in the point cloud map, LineTR algorithm extracts features of key points in query image, compared query and scanning image of record in feature space, we can get the best matching result for camera pose in image pair. Write flutter to develop mobile user interface for setting WIFI to remotely select the target objects of furniture that the system wants to user watching. Write the project patent.
+  foxconn:
+    name: Foxconn
+    start: 1/3/2019
+    end: 1/5/2020
+    title: System Software Engineer
+    address: Shenzhen Chian
+    content: |
+      According to the requirement of produced equipment in industry, to design and develop the software application and system operation. These functions include GUI, the architecture of the system, planning parameters structure, the method of the data communication, TCP/IP sockets module, logging the state of equipment with date of production, and using Machine Vision to implement the reliability of manufacturing process. To detect defect by deep learning method.
+  lips:
+    name: Lisp Tec.
+    address: Taipei Taiwan
+    start: 1/11/2017
+    end: 1/1/2019
+    title: Algorithm Engineer
+    content: |
+      Research and implement the algorithm on the application of TOF sensor. I was charged in the project of People Counting.
 zh:
   profile: 人物简介
   skills: 技能集

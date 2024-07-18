@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lorem/flutter_lorem.dart';
 import 'package:portfolio/widgets/explore_drawer.dart';
@@ -10,13 +11,14 @@ import '../widgets/responsive.dart';
 import '../widgets/top_bar_contents.dart';
 
 class ExperiencePage extends StatelessWidget {
-  ExperiencePage({super.key});
-  double _scrollPosition = 0;
-  double _opacity = 0;
-  final _scrollController = ScrollController();
+  const ExperiencePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    double _scrollPosition = 0;
+    double _opacity = 0;
+    final _scrollController = ScrollController();
+    const experiences = ['bobi', 'patere', 'foxconn', 'lips'];
     final screenSize = MediaQuery.of(context).size;
     _scrollController.addListener(() {
       _scrollPosition = _scrollController.position.pixels;
@@ -82,30 +84,54 @@ class ExperiencePage extends StatelessWidget {
               children: [
                 Text(lorem(paragraphs: 1, words: 20)),
                 ...List.generate(
-                  20,
+                  experiences.length,
                   (i) => Container(
                     margin: EdgeInsets.only(bottom: 10),
                     child: Wrap(
                       alignment: WrapAlignment.spaceBetween,
-                      crossAxisAlignment: WrapCrossAlignment.start,
+                      crossAxisAlignment: WrapCrossAlignment.end,
                       children: [
                         Container(
                             width: contentWidth,
-                            color: Colors.blue,
-                            child: Text(
-                              lorem(paragraphs: 1, words: 1),
+                            // color: Colors.blue,
+                            child: Text.rich(
+                              TextSpan(
+                                  text: '${experiences[i]}.name'.tr(),
+                                  children: [
+                                    WidgetSpan(
+                                        child: Icon(CupertinoIcons.minus)),
+                                    TextSpan(
+                                        text: '${experiences[i]}.title'.tr(),
+                                        style: Theme.of(context)
+                                            .primaryTextTheme
+                                            .button)
+                                  ]),
                               style:
                                   Theme.of(context).primaryTextTheme.headline2,
                             )),
                         Container(
-                            width: 200,
-                            color: Colors.red,
-                            child: Text(
-                              lorem(paragraphs: 1, words: 1),
+                            width: 150,
+                            // color: Colors.red,
+                            child: Text.rich(
+                              TextSpan(
+                                // text: "${experiences[i]}.address".tr() + "\n",
+                                children: [
+                                  TextSpan(
+                                      text: DateFormat.yMMM().format(
+                                          DateFormat("d/M/yyyy").parse(
+                                              '${experiences[i]}.start'.tr()))),
+                                  TextSpan(text: " ~ "),
+                                  TextSpan(
+                                      text: DateFormat.yMMM().format(
+                                          DateFormat('d/M/yyyy').parse(
+                                              '${experiences[i]}.end'.tr()))),
+                                ],
+                              ),
                               style:
                                   Theme.of(context).primaryTextTheme.subtitle2,
                             )),
                         Container(
+                          margin: EdgeInsets.only(top: 10),
                           width: contentWidth + 200,
                           child: Flex(
                               direction:
@@ -119,13 +145,14 @@ class ExperiencePage extends StatelessWidget {
                                 ),
                                 Container(
                                   width:
-                                      contentWidth + 200 - (isSmall ? 0 : 110),
+                                      contentWidth + 150 - (isSmall ? 0 : 110),
                                   child: Text(
-                                    lorem(paragraphs: 1, words: 200),
+                                    '${experiences[i]}.content',
                                     style: Theme.of(context)
                                         .primaryTextTheme
                                         .subtitle1,
-                                  ),
+                                    // textAlign: TextAlign.justify,
+                                  ).tr(),
                                 )
                               ]),
                         )

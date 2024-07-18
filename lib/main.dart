@@ -18,7 +18,7 @@ void main() {
           child: MyApp(),
           supportedLocales: [Locale('en'), Locale('zh')],
           path: 'assets/langs/langs.yaml',
-          // fallbackLocale: Locale('en'),
+          fallbackLocale: Locale('en'),
           assetLoader: YamlSingleAssetLoader(),
         ),
       ),
