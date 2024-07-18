@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
               title: Text(
-                'EXPLORE',
+                'profile',
                 style: TextStyle(
                   color: Colors.blueGrey.shade100,
                   fontSize: 20,
@@ -114,9 +114,10 @@ class _HomePageState extends State<HomePage> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               CircleAvatar(
-                                backgroundImage:
-                                    AssetImage('assets/images/otto.jpeg'),
+                                backgroundImage: NetworkImage(
+                                    'http://localhost:50050/profile/assets/otto.jpeg'),
                                 radius: screenSize.width / 20,
+                                backgroundColor: Colors.transparent,
                               ),
                               Container(
                                 padding: EdgeInsets.symmetric(
@@ -125,7 +126,7 @@ class _HomePageState extends State<HomePage> {
                                 child: Transform.translate(
                                   offset: Offset(0, 20),
                                   child: Text("introduce.rough",
-                                      textAlign: TextAlign.justify,
+                                      // textAlign: TextAlign.justify,
                                       style: TextStyle(
                                         fontSize: 15,
                                         fontWeight: FontWeight.w500,

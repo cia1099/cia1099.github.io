@@ -1,5 +1,5 @@
 en:
-  EXPLORE: EXPLORE
+  profile: PROFILE
   skills: Skills
   introduce:
     rough: |
@@ -8,7 +8,7 @@ en:
       Developing AI combined with vision applications: smart home, people counting; expert in spatial localization by vision, enabling the camera to perceive its surroundings, allowing us to spatialize digital modeling and 3D space recognition; working on edge computing, with the goal of executing AI models on edge devices to significantly reduce the cost of landing projects. Furthermore I'd like to develope more AI application scenarios to implement AI on devices in public, and to integrate AI into our lives.
     skill: Overview of work experience and acquired skills
   about_me: About Me
-  collections: Collections
+  portfolio: Portfolio
   roulette: Roulette
   fast_furious: Fast & Furious
   slot_machine: Slot Machine
@@ -28,7 +28,7 @@ en:
 
 
 zh:
-  EXPLORE: 探索
+  profile: 人物简介
   skills: 技能集
   introduce:
     rough: |
@@ -37,7 +37,7 @@ zh:
       开发AI结合视觉应用：智能家居，人流计数；擅长空间视觉定位，使相机能够感知周围的环境，可以做空间数位建模和3D空间识别；致力于边缘运算，目标是将AI模型在边缘设备上执行，以大幅缩减项目落地的成本，并发展更多AI应用的场景，将AI落实在大众的设备上，让AI融入在我们的生活里。
     skill: 综观工作经历以及习得的技能
   about_me: 关于我
-  collections: 作品集
+  portfolio: 作品集
   roulette: 轮盘
   fast_furious: 速度与激情
   slot_machine: 吃角子老虎机

@@ -41,7 +41,7 @@ class _TopBarContentsState extends State<TopBarContents> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                'EXPLORE',
+                'profile',
                 style: TextStyle(
                   color: Colors.blueGrey[100],
                   fontSize: 20,

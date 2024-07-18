@@ -47,7 +47,7 @@ class AboutMe extends StatelessWidget {
                   : EdgeInsets.only(left: 4, right: screenWidth / 15),
               child: Text(
                 "introduce.detail",
-                textAlign: TextAlign.justify,
+                // textAlign: TextAlign.justify,
                 overflow: TextOverflow.visible,
                 style: Theme.of(context).primaryTextTheme.subtitle1,
               ).tr(),
