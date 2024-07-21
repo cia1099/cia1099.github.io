@@ -57,7 +57,8 @@ en:
     title: Algorithm Engineer
     content: |
       Research and implement the algorithm on the application of TOF sensor. I was charged in the project of People Counting.
-zh:
+
+zh_CN:
   profile: 人物简介
   skills: 技能集
   introduce:
@@ -81,5 +82,32 @@ zh:
   login: 登入
   sign_up: 注册
   linkin: 领英
+  github: Github
+  medium: Medium
+
+zh_TW:
+  profile: 人物簡介
+  skills: 技能集
+  introduce:
+    rough: |
+      嗨，我是Otto，一個全端開發者，喜歡打造動態交互界面，和出色的用戶體驗產品。可以讓使用者驚艷和容易上手的交互操作，是我開發工程的信心，給客戶能有滿足的心情。
+    detail: |
+      開發AI結合視覺應用：智能家居，人流計數；擅長空間視覺定位，使相機能夠感知周圍的環境，可以做空間數位建模和3D空間識別；致力於邊緣運算，目標是將AI模型在邊緣設備上執行，以大幅縮減項目落地的成本，並發展更多AI應用的場景，將AI落實在大眾的設備上，讓AI融入在我們的生活裏。
+    skill: 綜觀工作經歷以及習得的技能
+  about_me: 關於我
+  portfolio: 作品集
+  roulette: 輪盤
+  fast_furious: 速度與激情
+  slot_machine: 吃角子老虎機
+  dice: 十八仔
+  resume: 簡歷
+  contact: 聯系我
+  work_experience: 工作經歷
+  about: 關於
+  community: 社群
+  email: 電子郵箱
+  login: 登入
+  sign_up: 註冊
+  linkin: 領英
   github: Github
   medium: Medium

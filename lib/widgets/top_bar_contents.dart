@@ -26,7 +26,7 @@ class _TopBarContentsState extends State<TopBarContents> {
     false
   ];
   late final localeStream = StreamController<Locale>()..add(context.locale);
-  final langDict = {"en": "English", "zh": "简体中文"};
+  final langDict = {"en": "English", "zh_CN": "简体中文", "zh_TW": "繁體中文"};
 
   @override
   Widget build(BuildContext context) {
@@ -141,11 +141,13 @@ class _TopBarContentsState extends State<TopBarContents> {
                   position: PopupMenuPosition.under,
                   itemBuilder: (context) {
                     final supportedLocales = context.supportedLocales;
-                    final items = supportedLocales.map((locale) =>
-                        PopupMenuItem(
-                          value: locale,
-                          child: Text(langDict[locale.languageCode] ?? "error"),
-                        ));
+                    final items =
+                        supportedLocales.map((locale) => PopupMenuItem(
+                              value: locale,
+                              child: Text(
+                                  langDict[locale.toStringWithSeparator()] ??
+                                      "error"),
+                            ));
                     return items.toList();
                   },
                   onSelected: (locale) {
@@ -156,7 +158,8 @@ class _TopBarContentsState extends State<TopBarContents> {
                       // initialData: context.locale,
                       stream: localeStream.stream,
                       builder: (context, snapshot) {
-                        final lang = snapshot.data?.languageCode ?? "no";
+                        final lang =
+                            snapshot.data?.toStringWithSeparator() ?? "no";
                         return AnimatedSwitcher(
                           duration: Durations.short4,
                           transitionBuilder: (child, animation) =>

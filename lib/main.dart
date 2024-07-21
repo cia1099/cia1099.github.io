@@ -16,7 +16,11 @@ void main() {
       EasyDynamicThemeWidget(
         child: EasyLocalization(
           child: MyApp(),
-          supportedLocales: [Locale('en'), Locale('zh')],
+          supportedLocales: [
+            Locale('en'),
+            Locale('zh', 'CN'),
+            Locale('zh', 'TW')
+          ],
           path: 'assets/langs/langs.yaml',
           fallbackLocale: Locale('en'),
           assetLoader: YamlSingleAssetLoader(),
@@ -39,8 +43,8 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       locale: context.locale,
       home:
-          // HomePage(),
-          ExperiencePage(),
+          // ExperiencePage(),
+          HomePage(),
     );
   }
 }
