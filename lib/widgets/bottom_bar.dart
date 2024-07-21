@@ -4,6 +4,8 @@ import 'package:portfolio/widgets/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../main.dart';
+
 class BottomBar extends StatelessWidget {
   const BottomBar({
     Key? key,
@@ -87,6 +89,8 @@ class BottomBar extends StatelessWidget {
                       s1: 'contact',
                       s2: 'about_me',
                       s3: 'work_experience',
+                      onTap3: () =>
+                          Navigator.of(context).pushNamed(MyApp.experience),
                     ),
                     // BottomBarColumn(
                     //   heading: 'resume',

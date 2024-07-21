@@ -28,6 +28,7 @@ dependencies:
   dice3d:
     path: dice3d
   url_launcher: ^6.3.0
+  flutter_inappwebview: ^6.0.0
 
 dev_dependencies:
   flutter_test:

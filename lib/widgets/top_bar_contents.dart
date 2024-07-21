@@ -4,6 +4,7 @@ import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:portfolio/main.dart';
 
 class TopBarContents extends StatefulWidget {
   final double opacity;
@@ -63,7 +64,9 @@ class _TopBarContentsState extends State<TopBarContents> {
                               : _isHovering[0] = false;
                         });
                       },
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context).pushNamed(MyApp.experience);
+                      },
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
