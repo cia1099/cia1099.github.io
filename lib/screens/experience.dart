@@ -1,11 +1,13 @@
 import 'dart:math';
 
+import 'package:path/path.dart' as p;
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lorem/flutter_lorem.dart';
 import 'package:portfolio/widgets/explore_drawer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../widgets/responsive.dart';
 import '../widgets/top_bar_contents.dart';
@@ -19,6 +21,7 @@ class ExperiencePage extends StatelessWidget {
     double _opacity = 0;
     final _scrollController = ScrollController();
     const experiences = ['bobi', 'patere', 'foxconn', 'lips'];
+    final expMapImg = {1: '3dGaze.webp', 3: 'people_counting.png'};
     final screenSize = MediaQuery.of(context).size;
     _scrollController.addListener(() {
       _scrollPosition = _scrollController.position.pixels;
@@ -85,80 +88,89 @@ class ExperiencePage extends StatelessWidget {
                 Text(lorem(paragraphs: 1, words: 20)),
                 ...List.generate(
                   experiences.length,
-                  (i) => Container(
-                    margin: EdgeInsets.only(bottom: 10),
-                    child: Wrap(
-                      alignment: WrapAlignment.spaceBetween,
-                      crossAxisAlignment: WrapCrossAlignment.end,
-                      children: [
-                        Container(
-                            width: contentWidth,
-                            // color: Colors.blue,
-                            child: Text.rich(
-                              TextSpan(
-                                  text: '${experiences[i]}.name'.tr(),
+                  (i) {
+                    final previewWidth = expMapImg.containsKey(i)
+                        ? isSmall
+                            ? screenSize.width * 0.8
+                            : 160.0
+                        : .0;
+                    return Container(
+                      margin: EdgeInsets.only(bottom: 10),
+                      child: Wrap(
+                        alignment: WrapAlignment.spaceBetween,
+                        crossAxisAlignment: WrapCrossAlignment.end,
+                        children: [
+                          Container(
+                              width: contentWidth,
+                              // color: Colors.blue,
+                              child: Text.rich(
+                                TextSpan(
+                                    text: '${experiences[i]}.name'.tr(),
+                                    children: [
+                                      WidgetSpan(
+                                          child: Icon(CupertinoIcons.minus)),
+                                      TextSpan(
+                                          text: '${experiences[i]}.title'.tr(),
+                                          style: Theme.of(context)
+                                              .primaryTextTheme
+                                              .button)
+                                    ]),
+                                style: Theme.of(context)
+                                    .primaryTextTheme
+                                    .headline2,
+                              )),
+                          Container(
+                              width: 150,
+                              // color: Colors.red,
+                              child: Text.rich(
+                                TextSpan(
+                                  // text: "${experiences[i]}.address".tr() + "\n",
                                   children: [
-                                    WidgetSpan(
-                                        child: Icon(CupertinoIcons.minus)),
                                     TextSpan(
-                                        text: '${experiences[i]}.title'.tr(),
-                                        style: Theme.of(context)
-                                            .primaryTextTheme
-                                            .button)
-                                  ]),
-                              style:
-                                  Theme.of(context).primaryTextTheme.headline2,
-                            )),
-                        Container(
-                            width: 150,
-                            // color: Colors.red,
-                            child: Text.rich(
-                              TextSpan(
-                                // text: "${experiences[i]}.address".tr() + "\n",
-                                children: [
-                                  TextSpan(
-                                      text: DateFormat.yMMM().format(
-                                          DateFormat("d/M/yyyy").parse(
-                                              '${experiences[i]}.start'.tr()))),
-                                  TextSpan(text: " ~ "),
-                                  TextSpan(
-                                      text: DateFormat.yMMM().format(
-                                          DateFormat('d/M/yyyy').parse(
-                                              '${experiences[i]}.end'.tr()))),
-                                ],
-                              ),
-                              style:
-                                  Theme.of(context).primaryTextTheme.subtitle2,
-                            )),
-                        Container(
-                          margin: EdgeInsets.only(top: 10),
-                          width: contentWidth + 200,
-                          child: Flex(
-                              direction:
-                                  isSmall ? Axis.vertical : Axis.horizontal,
-                              children: [
-                                Container(
-                                  width: 100,
-                                  height: 100,
-                                  margin: EdgeInsets.only(right: 10),
-                                  color: Colors.green,
+                                        text: DateFormat.yMMM().format(
+                                            DateFormat("d/M/yyyy").parse(
+                                                '${experiences[i]}.start'
+                                                    .tr()))),
+                                    TextSpan(text: " ~ "),
+                                    TextSpan(
+                                        text: DateFormat.yMMM().format(
+                                            DateFormat('d/M/yyyy').parse(
+                                                '${experiences[i]}.end'.tr()))),
+                                  ],
                                 ),
-                                Container(
-                                  width:
-                                      contentWidth + 150 - (isSmall ? 0 : 110),
-                                  child: Text(
-                                    '${experiences[i]}.content',
-                                    style: Theme.of(context)
-                                        .primaryTextTheme
-                                        .subtitle1,
-                                    // textAlign: TextAlign.justify,
-                                  ).tr(),
-                                )
-                              ]),
-                        )
-                      ],
-                    ),
-                  ),
+                                style: Theme.of(context)
+                                    .primaryTextTheme
+                                    .subtitle2,
+                              )),
+                          Container(
+                            margin: EdgeInsets.only(top: 10),
+                            width: contentWidth + 200,
+                            child: Flex(
+                                direction:
+                                    isSmall ? Axis.vertical : Axis.horizontal,
+                                children: [
+                                  if (expMapImg.containsKey(i))
+                                    MediaPreview(
+                                        previewWidth: previewWidth,
+                                        assetName: expMapImg[i]!),
+                                  Container(
+                                    width: contentWidth +
+                                        150 -
+                                        (isSmall ? 0 : previewWidth),
+                                    child: Text(
+                                      '${experiences[i]}.content',
+                                      style: Theme.of(context)
+                                          .primaryTextTheme
+                                          .subtitle1,
+                                      // textAlign: TextAlign.justify,
+                                    ).tr(),
+                                  )
+                                ]),
+                          )
+                        ],
+                      ),
+                    );
+                  },
                 ),
               ],
             ),
@@ -166,6 +178,60 @@ class ExperiencePage extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class MediaPreview extends StatefulWidget {
+  const MediaPreview({
+    super.key,
+    required this.previewWidth,
+    required this.assetName,
+  });
+
+  final double previewWidth;
+  final String assetName;
+
+  @override
+  State<MediaPreview> createState() => _MediaPreviewState();
+}
+
+class _MediaPreviewState extends State<MediaPreview> {
+  var isHover = false;
+  @override
+  Widget build(BuildContext context) {
+    final width = widget.previewWidth - 10;
+    return Container(
+      margin: const EdgeInsets.only(right: 10),
+      child: InkWell(
+        onTap: playVideo,
+        onHover: (value) => setState(() {
+          isHover = value;
+        }),
+        child: Container(
+            height: widget.previewWidth < 180 ? width * .8 : width / 2,
+            width: width,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('assets/images/${widget.assetName}'))),
+            child: isHover
+                ? Icon(
+                    CupertinoIcons.play_circle,
+                    size: width / (widget.previewWidth < 180 ? 2 : 4),
+                  )
+                : null),
+      ),
+    );
+  }
+
+  void playVideo() async {
+    final baseName = p.basenameWithoutExtension(widget.assetName);
+    final url = Uri.parse(
+        'http://localhost:50050/profile/media?filename=$baseName.mp4');
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
 
