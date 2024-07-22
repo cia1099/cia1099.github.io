@@ -53,50 +53,12 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Theme.of(context).colorScheme.background,
       extendBodyBehindAppBar: true,
       appBar: ResponsiveWidget.isSmallScreen(context)
-          ? AppBar(
-              backgroundColor:
-                  Theme.of(context).bottomAppBarColor.withOpacity(_opacity),
-              elevation: 0,
-              centerTitle: true,
-              leading: IconButton(
-                icon: Icon(Icons.menu),
-                onPressed: () {
-                  scaffoldKey.currentState?.openDrawer();
-                },
-              ),
-              actions: [
-                IconButton(
-                  icon: Icon(Icons.brightness_6),
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onPressed: () {
-                    EasyDynamicTheme.of(context).changeTheme();
-                  },
-                ),
-              ],
-              title: InkWell(
-                onHover: (value) => setState(() => isHover = value),
-                onTap: () => Navigator.of(context)
-                    .popUntil(ModalRoute.withName(MyApp.home)),
-                hoverColor: Colors.transparent,
-                child: Text(
-                  'profile',
-                  style: TextStyle(
-                    color:
-                        isHover ? Colors.blue[200] : Colors.blueGrey.shade100,
-                    fontSize: 20,
-                    fontFamily: 'Montserrat',
-                    fontWeight: FontWeight.w400,
-                    letterSpacing: 3,
-                  ),
-                ).tr(),
-              ),
-            )
+          ? generateAppBar(context)
           : PreferredSize(
               preferredSize: Size(screenSize.width, 1000),
               child: TopBarContents(_opacity),
             ),
-      drawer: ExploreDrawer(scaffoldState: innerScaffoldKey),
+      drawer: ExploreDrawer(innerScaffoldKey: innerScaffoldKey),
       body: Scaffold(
         key: innerScaffoldKey,
         drawer: LanguageDrawer(),
@@ -187,6 +149,47 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  AppBar generateAppBar(BuildContext context) {
+    return AppBar(
+      backgroundColor:
+          Theme.of(context).bottomAppBarColor.withOpacity(_opacity),
+      elevation: 0,
+      centerTitle: true,
+      leading: IconButton(
+        icon: Icon(Icons.menu),
+        onPressed: () {
+          scaffoldKey.currentState?.openDrawer();
+        },
+      ),
+      actions: [
+        IconButton(
+          icon: Icon(Icons.brightness_6),
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          onPressed: () {
+            EasyDynamicTheme.of(context).changeTheme();
+          },
+        ),
+      ],
+      title: InkWell(
+        onHover: (value) => setState(() => isHover = value),
+        onTap: () =>
+            Navigator.of(context).popUntil(ModalRoute.withName(MyApp.home)),
+        hoverColor: Colors.transparent,
+        child: Text(
+          'profile',
+          style: TextStyle(
+            color: isHover ? Colors.blue[200] : Colors.blueGrey.shade100,
+            fontSize: 20,
+            fontFamily: 'Montserrat',
+            fontWeight: FontWeight.w400,
+            letterSpacing: 3,
+          ),
+        ).tr(),
       ),
     );
   }

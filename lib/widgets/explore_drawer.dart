@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:portfolio/main.dart';
 
 class ExploreDrawer extends StatelessWidget {
-  final GlobalKey<ScaffoldState> scaffoldState;
+  final GlobalKey<ScaffoldState> innerScaffoldKey;
   const ExploreDrawer({
     Key? key,
-    required this.scaffoldState,
+    required this.innerScaffoldKey,
   }) : super(key: key);
 
   @override
@@ -81,7 +81,7 @@ class ExploreDrawer extends StatelessWidget {
               InkWell(
                   onTap: () {
                     Navigator.of(context).pop();
-                    scaffoldState.currentState?.openDrawer();
+                    innerScaffoldKey.currentState?.openDrawer();
                   },
                   child: Text(
                     langDict[context.locale.toStringWithSeparator()] ?? 'error',

@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_lorem/flutter_lorem.dart';
 import 'package:portfolio/main.dart';
 import 'package:portfolio/widgets/explore_drawer.dart';
+import 'package:portfolio/widgets/language_drawer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../widgets/responsive.dart';
@@ -18,9 +19,14 @@ class ExperiencePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double _scrollPosition = 0;
+    // for app bar
     double _opacity = 0;
+    var isHover = false;
+    final scaffoldKey = GlobalKey<ScaffoldState>();
+    // for main scaffold
+    double _scrollPosition = 0;
     final _scrollController = ScrollController();
+    final innerScaffoldKey = GlobalKey<ScaffoldState>();
     const experiences = ['bobi', 'patere', 'foxconn', 'lips'];
     final expMapImg = {1: '3dGaze.webp', 3: 'people_counting.png'};
     final screenSize = MediaQuery.of(context).size;
@@ -34,36 +40,12 @@ class ExperiencePage extends StatelessWidget {
     final contentWidth = (screenSize.width - 200 - 2 * screenSize.width / 15)
         .clamp(500.0, double.infinity);
     return Scaffold(
+      key: scaffoldKey,
       backgroundColor: Theme.of(context).colorScheme.background,
       extendBodyBehindAppBar: true,
-      // drawer: ExploreDrawer(),
+      drawer: ExploreDrawer(innerScaffoldKey: innerScaffoldKey),
       appBar: isSmall
-          ? AppBar(
-              backgroundColor:
-                  Theme.of(context).bottomAppBarColor.withOpacity(_opacity),
-              elevation: 0,
-              centerTitle: true,
-              actions: [
-                IconButton(
-                  icon: Icon(Icons.brightness_6),
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onPressed: () {
-                    EasyDynamicTheme.of(context).changeTheme();
-                  },
-                ),
-              ],
-              title: Text(
-                'profile',
-                style: TextStyle(
-                  color: Colors.blueGrey.shade100,
-                  fontSize: 20,
-                  fontFamily: 'Montserrat',
-                  fontWeight: FontWeight.w400,
-                  letterSpacing: 3,
-                ),
-              ).tr(),
-            )
+          ? generateAppBar(context, _opacity, isHover, scaffoldKey)
           : PreferredSize(
               preferredSize: Size(screenSize.width, 1000),
               child: AnimatedBuilder(
@@ -72,111 +54,160 @@ class ExperiencePage extends StatelessWidget {
                     return TopBarContents(_opacity);
                   }),
             ),
-      body: Stack(
-        children: [
-          Container(
-            color: Theme.of(context).bottomAppBarColor,
-            height: kToolbarHeight,
-          ),
-          SingleChildScrollView(
-            padding: EdgeInsets.only(
-                top: kToolbarHeight,
-                left: screenSize.width / 15,
-                right: screenSize.width / 15),
-            controller: _scrollController,
-            child: Column(
-              children: [
-                Text(lorem(paragraphs: 1, words: 20)),
-                ...List.generate(
-                  experiences.length,
-                  (i) {
-                    final previewWidth = expMapImg.containsKey(i)
-                        ? isSmall
-                            ? screenSize.width * 0.8
-                            : 160.0
-                        : .0;
-                    return Container(
-                      margin: EdgeInsets.only(bottom: 10),
-                      child: Wrap(
-                        alignment: WrapAlignment.spaceBetween,
-                        crossAxisAlignment: WrapCrossAlignment.end,
-                        children: [
-                          Container(
-                              width: contentWidth,
-                              // color: Colors.blue,
-                              child: Text.rich(
-                                TextSpan(
-                                    text: '${experiences[i]}.name'.tr(),
-                                    children: [
-                                      WidgetSpan(
-                                          child: Icon(CupertinoIcons.minus)),
-                                      TextSpan(
-                                          text: '${experiences[i]}.title'.tr(),
-                                          style: Theme.of(context)
-                                              .primaryTextTheme
-                                              .button)
-                                    ]),
-                                style: Theme.of(context)
-                                    .primaryTextTheme
-                                    .headline2,
-                              )),
-                          Container(
-                              width: 150,
-                              // color: Colors.red,
-                              child: Text.rich(
-                                TextSpan(
-                                  // text: "${experiences[i]}.address".tr() + "\n",
-                                  children: [
-                                    TextSpan(
-                                        text: DateFormat.yMMM().format(
-                                            DateFormat("d/M/yyyy").parse(
-                                                '${experiences[i]}.start'
-                                                    .tr()))),
-                                    TextSpan(text: " ~ "),
-                                    TextSpan(
-                                        text: DateFormat.yMMM().format(
-                                            DateFormat('d/M/yyyy').parse(
-                                                '${experiences[i]}.end'.tr()))),
-                                  ],
-                                ),
-                                style: Theme.of(context)
-                                    .primaryTextTheme
-                                    .subtitle2,
-                              )),
-                          Container(
-                            margin: EdgeInsets.only(top: 10),
-                            width: contentWidth + 200,
-                            child: Flex(
-                                direction:
-                                    isSmall ? Axis.vertical : Axis.horizontal,
-                                children: [
-                                  if (expMapImg.containsKey(i))
-                                    MediaPreview(
-                                        previewWidth: previewWidth,
-                                        assetName: expMapImg[i]!),
-                                  Container(
-                                    width: contentWidth +
-                                        150 -
-                                        (isSmall ? 0 : previewWidth),
-                                    child: Text(
-                                      '${experiences[i]}.content',
-                                      style: Theme.of(context)
-                                          .primaryTextTheme
-                                          .subtitle1,
-                                      // textAlign: TextAlign.justify,
-                                    ).tr(),
-                                  )
-                                ]),
-                          )
-                        ],
-                      ),
-                    );
-                  },
-                ),
-              ],
+      body: Scaffold(
+        key: innerScaffoldKey,
+        drawer: const LanguageDrawer(),
+        body: Stack(
+          children: [
+            Container(
+              color: Theme.of(context).bottomAppBarColor,
+              height: kToolbarHeight,
             ),
-          ),
-        ],
+            SingleChildScrollView(
+              padding: EdgeInsets.only(
+                  top: kToolbarHeight,
+                  left: screenSize.width / 15,
+                  right: screenSize.width / 15),
+              controller: _scrollController,
+              child: Column(
+                children: [
+                  Text(lorem(paragraphs: 1, words: 20)),
+                  ...List.generate(
+                    experiences.length,
+                    (i) {
+                      final previewWidth = expMapImg.containsKey(i)
+                          ? isSmall
+                              ? screenSize.width * 0.8
+                              : 160.0
+                          : .0;
+                      return Container(
+                        margin: EdgeInsets.only(bottom: 10),
+                        child: Wrap(
+                          alignment: WrapAlignment.spaceBetween,
+                          crossAxisAlignment: WrapCrossAlignment.end,
+                          children: [
+                            Container(
+                                width: contentWidth,
+                                // color: Colors.blue,
+                                child: Text.rich(
+                                  TextSpan(
+                                      text: '${experiences[i]}.name'.tr(),
+                                      children: [
+                                        WidgetSpan(
+                                            child: Icon(CupertinoIcons.minus)),
+                                        TextSpan(
+                                            text:
+                                                '${experiences[i]}.title'.tr(),
+                                            style: Theme.of(context)
+                                                .primaryTextTheme
+                                                .button)
+                                      ]),
+                                  style: Theme.of(context)
+                                      .primaryTextTheme
+                                      .headline2,
+                                )),
+                            Container(
+                                width: 150,
+                                // color: Colors.red,
+                                child: Text.rich(
+                                  TextSpan(
+                                    // text: "${experiences[i]}.address".tr() + "\n",
+                                    children: [
+                                      TextSpan(
+                                          text: DateFormat.yMMM().format(
+                                              DateFormat("d/M/yyyy").parse(
+                                                  '${experiences[i]}.start'
+                                                      .tr()))),
+                                      TextSpan(text: " ~ "),
+                                      TextSpan(
+                                          text: DateFormat.yMMM().format(
+                                              DateFormat('d/M/yyyy').parse(
+                                                  '${experiences[i]}.end'
+                                                      .tr()))),
+                                    ],
+                                  ),
+                                  style: Theme.of(context)
+                                      .primaryTextTheme
+                                      .subtitle2,
+                                )),
+                            Container(
+                              margin: EdgeInsets.only(top: 10),
+                              width: contentWidth + 200,
+                              child: Flex(
+                                  direction:
+                                      isSmall ? Axis.vertical : Axis.horizontal,
+                                  children: [
+                                    if (expMapImg.containsKey(i))
+                                      MediaPreview(
+                                          previewWidth: previewWidth,
+                                          assetName: expMapImg[i]!),
+                                    Container(
+                                      width: contentWidth +
+                                          150 -
+                                          (isSmall ? 0 : previewWidth),
+                                      child: Text(
+                                        '${experiences[i]}.content',
+                                        style: Theme.of(context)
+                                            .primaryTextTheme
+                                            .subtitle1,
+                                        // textAlign: TextAlign.justify,
+                                      ).tr(),
+                                    )
+                                  ]),
+                            )
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  AppBar generateAppBar(BuildContext context, double opacity, bool isHover,
+      GlobalKey<ScaffoldState> scaffoldKey) {
+    return AppBar(
+      backgroundColor: Theme.of(context).bottomAppBarColor.withOpacity(opacity),
+      elevation: 0,
+      centerTitle: true,
+      leading: IconButton(
+        icon: Icon(Icons.menu),
+        onPressed: () {
+          scaffoldKey.currentState?.openDrawer();
+        },
+      ),
+      actions: [
+        IconButton(
+          icon: Icon(Icons.brightness_6),
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          onPressed: () {
+            EasyDynamicTheme.of(context).changeTheme();
+          },
+        ),
+      ],
+      title: StatefulBuilder(
+        builder: (context, setState) => InkWell(
+          onHover: (value) => setState(() => isHover = value),
+          onTap: () =>
+              Navigator.of(context).popUntil(ModalRoute.withName(MyApp.home)),
+          hoverColor: Colors.transparent,
+          child: Text(
+            'profile',
+            style: TextStyle(
+              color: isHover ? Colors.blue[200] : Colors.blueGrey.shade100,
+              fontSize: 20,
+              fontFamily: 'Montserrat',
+              fontWeight: FontWeight.w400,
+              letterSpacing: 3,
+            ),
+          ).tr(),
+        ),
       ),
     );
   }
