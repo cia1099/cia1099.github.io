@@ -6,6 +6,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lorem/flutter_lorem.dart';
+import 'package:portfolio/main.dart';
 import 'package:portfolio/widgets/explore_drawer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -225,8 +226,8 @@ class _MediaPreviewState extends State<MediaPreview> {
 
   void playVideo() async {
     final baseName = p.basenameWithoutExtension(widget.assetName);
-    final url = Uri.parse(
-        'http://localhost:50050/profile/media?filename=$baseName.mp4');
+    final url =
+        Uri.parse(MyApp.monitorUrl + '/profile/media?filename=$baseName.mp4');
     if (await canLaunchUrl(url)) {
       await launchUrl(url);
     } else {

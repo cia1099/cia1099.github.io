@@ -1,0 +1,49 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+
+class LanguageDrawer extends StatelessWidget {
+  const LanguageDrawer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final langDict = {"en": "English", "zh_CN": "简体中文", "zh_TW": "繁體中文"};
+    final supportedLocales = context.supportedLocales;
+    return Drawer(
+      backgroundColor: Theme.of(context).bottomAppBarColor,
+      child: Container(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: List.generate(
+              supportedLocales.length,
+              (index) => [
+                    InkWell(
+                      onTap: () {
+                        final selected = supportedLocales[index];
+                        context.setLocale(selected);
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        langDict[supportedLocales[index]
+                                .toStringWithSeparator()] ??
+                            'error',
+                        style: TextStyle(color: Colors.white, fontSize: 22),
+                      ),
+                    ),
+                    if (index < supportedLocales.length - 1)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+                        child: Divider(
+                          color: Colors.blueGrey[400],
+                          thickness: 2,
+                        ),
+                      ),
+                  ]).expand((list) sync* {
+            for (var i in list) yield i;
+          }).toList(),
+        ),
+      ),
+    );
+  }
+}

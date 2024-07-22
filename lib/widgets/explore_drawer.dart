@@ -1,12 +1,17 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:portfolio/main.dart';
 
 class ExploreDrawer extends StatelessWidget {
+  final ScaffoldState scaffoldState;
   const ExploreDrawer({
     Key? key,
+    required this.scaffoldState,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final langDict = {"en": "English", "zh_CN": "简体中文", "zh_TW": "繁體中文"};
     return Drawer(
       child: Container(
         color: Theme.of(context).bottomAppBarColor,
@@ -19,9 +24,9 @@ class ExploreDrawer extends StatelessWidget {
               InkWell(
                 onTap: () {},
                 child: Text(
-                  'Login',
+                  'login',
                   style: TextStyle(color: Colors.white, fontSize: 22),
-                ),
+                ).tr(),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
@@ -33,9 +38,24 @@ class ExploreDrawer extends StatelessWidget {
               InkWell(
                 onTap: () {},
                 child: Text(
-                  'Sign Up',
+                  'sign_up',
                   style: TextStyle(color: Colors.white, fontSize: 22),
+                ).tr(),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+                child: Divider(
+                  color: Colors.blueGrey[400],
+                  thickness: 2,
                 ),
+              ),
+              InkWell(
+                onTap: () =>
+                    Navigator.of(context).popAndPushNamed(MyApp.experience),
+                child: Text(
+                  'work_experience',
+                  style: TextStyle(color: Colors.white, fontSize: 22),
+                ).tr(),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
@@ -47,9 +67,9 @@ class ExploreDrawer extends StatelessWidget {
               InkWell(
                 onTap: () {},
                 child: Text(
-                  'Discover',
+                  'contact',
                   style: TextStyle(color: Colors.white, fontSize: 22),
-                ),
+                ).tr(),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
@@ -59,17 +79,19 @@ class ExploreDrawer extends StatelessWidget {
                 ),
               ),
               InkWell(
-                onTap: () {},
-                child: Text(
-                  'Contact Us',
-                  style: TextStyle(color: Colors.white, fontSize: 22),
-                ),
-              ),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    scaffoldState.openDrawer();
+                  },
+                  child: Text(
+                    langDict[context.locale.toStringWithSeparator()] ?? 'error',
+                    style: TextStyle(color: Colors.white, fontSize: 22),
+                  )),
               Expanded(
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Text(
-                    'Copyright © 2020 | EXPLORE',
+                    'Copyright © 2024 | Otto Lin',
                     style: TextStyle(
                       color: Colors.blueGrey[300],
                       fontSize: 14,

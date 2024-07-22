@@ -180,7 +180,7 @@ void _linkMedium() async {
 }
 
 void _downloadResume() async {
-  final url = Uri.parse('http://localhost:50050/profile/download_resume');
+  final url = Uri.parse(MyApp.monitorUrl + '/profile/download_resume');
   if (await canLaunchUrl(url)) {
     await launchUrl(url);
   } else {

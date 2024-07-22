@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_localization_loader/easy_localization_loader.dart';
@@ -47,28 +49,36 @@ class MyApp extends StatelessWidget {
       supportedLocales: context.supportedLocales,
       localizationsDelegates: context.localizationDelegates,
       locale: context.locale,
-      home:
-          // ExperiencePage(),
-          HomePage(),
+      home: HomePage(),
       initialRoute: MyApp.home,
-      //customized route by PageRouteBuilder
-      onGenerateRoute: (settings) => MaterialPageRoute(
-          settings: settings,
-          builder: (context) {
-            final uri = Uri.tryParse(settings.name!);
-            if (uri != null) {
-              switch (uri.path) {
-                case MyApp.experience:
-                  return ExperiencePage();
-                case MyApp.lan:
-                  return HtmlPage(
-                      url: MyApp.monitorUrl,
-                      path: MyApp.lan,
-                      queryArgs: uri.queryParameters);
-              }
+      onGenerateRoute: (settings) => PageRouteBuilder(
+        settings: settings,
+        pageBuilder: (context, animation, secondaryAnimation) {
+          final uri = Uri.tryParse(settings.name!);
+          if (uri != null) {
+            switch (uri.path) {
+              case MyApp.experience:
+                return ExperiencePage();
+              case MyApp.lan:
+                return HtmlPage(
+                    url: MyApp.monitorUrl,
+                    path: MyApp.lan,
+                    queryArgs: uri.queryParameters);
             }
-            return HomePage();
-          }),
+          }
+          return HomePage();
+        },
+        transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+            Transform.rotate(
+          angle: Tween(begin: .0, end: -pi / 2).evaluate(animation),
+          alignment: Alignment.bottomRight,
+          child: Transform.rotate(
+            angle: pi / 2,
+            alignment: Alignment.bottomRight,
+            child: child,
+          ),
+        ),
+      ),
     );
   }
 }

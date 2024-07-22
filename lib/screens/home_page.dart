@@ -1,6 +1,8 @@
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:portfolio/main.dart';
 import 'package:portfolio/widgets/about_me.dart';
+import 'package:portfolio/widgets/language_drawer.dart';
 import 'package:portfolio/widgets/web_scrollbar.dart';
 import 'package:portfolio/widgets/bottom_bar.dart';
 import 'package:portfolio/widgets/carousel.dart';
@@ -22,6 +24,8 @@ class _HomePageState extends State<HomePage> {
   late ScrollController _scrollController;
   double _scrollPosition = 0;
   double _opacity = 0;
+  var isHover = false;
+  final innerScaffoldKey = ValueKey(ScaffoldState());
 
   _scrollListener() {
     setState(() {
@@ -62,103 +66,116 @@ class _HomePageState extends State<HomePage> {
                   },
                 ),
               ],
-              title: Text(
-                'profile',
-                style: TextStyle(
-                  color: Colors.blueGrey.shade100,
-                  fontSize: 20,
-                  fontFamily: 'Montserrat',
-                  fontWeight: FontWeight.w400,
-                  letterSpacing: 3,
-                ),
-              ).tr(),
+              title: InkWell(
+                onHover: (value) => setState(() => isHover = value),
+                onTap: () => Navigator.of(context)
+                    .popUntil(ModalRoute.withName(MyApp.home)),
+                hoverColor: Colors.transparent,
+                child: Text(
+                  'profile',
+                  style: TextStyle(
+                    color:
+                        isHover ? Colors.blue[200] : Colors.blueGrey.shade100,
+                    fontSize: 20,
+                    fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.w400,
+                    letterSpacing: 3,
+                  ),
+                ).tr(),
+              ),
             )
           : PreferredSize(
               preferredSize: Size(screenSize.width, 1000),
               child: TopBarContents(_opacity),
             ),
-      drawer: ExploreDrawer(),
-      body: WebScrollbar(
-        color: Colors.red,
-        backgroundColor: Colors.blueGrey.withOpacity(0.3),
-        width: 10,
-        heightFraction: 0.3,
-        controller: _scrollController,
-        //ref. https://stackoverflow.com/questions/67662141/flutter-how-to-hide-a-scrollbarthumb-in-scrollable-widgets-like-listview-build
-        child: ScrollConfiguration(
-          behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
-          child: SingleChildScrollView(
-            controller: _scrollController,
-            physics: ClampingScrollPhysics(),
-            child: Column(
-              children: [
-                Container(
-                  color: Colors.grey,
-                  height: screenSize.height * 0.45,
-                  width: screenSize.width,
-                  child: Stack(
-                    children: [
-                      Image.asset(
-                        'assets/images/cover.jpg',
-                        width: screenSize.width,
-                        height: screenSize.height * 0.45,
-                        fit: BoxFit.cover,
-                      ),
-                      // FloatingQuickAccessBar(screenSize: screenSize),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Container(
-                          // margin: EdgeInsets.only(top: 50),
-                          height: 200,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              CircleAvatar(
-                                backgroundImage: NetworkImage(
-                                    'http://localhost:50050/profile/assets/otto.jpeg'),
-                                radius: screenSize.width / 20,
-                                backgroundColor: Colors.transparent,
-                              ),
-                              Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: screenSize.width / 15),
-                                color: Colors.black12,
-                                child: Transform.translate(
-                                  offset: Offset(0, 20),
-                                  child: Text("introduce.rough",
-                                      // textAlign: TextAlign.justify,
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w500,
-                                        fontFamily: 'Montserrat',
-                                        color: Colors.white.withOpacity(0.8),
-                                      )).tr(),
-                                ),
-                              ),
-                            ],
-                          ),
+      drawer: ExploreDrawer(scaffoldState: innerScaffoldKey.value),
+      body: Scaffold(
+        key: innerScaffoldKey,
+        drawer: LanguageDrawer(),
+        body: WebScrollbar(
+          color: Colors.red,
+          backgroundColor: Colors.blueGrey.withOpacity(0.3),
+          width: 10,
+          heightFraction: 0.3,
+          controller: _scrollController,
+          //ref. https://stackoverflow.com/questions/67662141/flutter-how-to-hide-a-scrollbarthumb-in-scrollable-widgets-like-listview-build
+          child: ScrollConfiguration(
+            behavior:
+                ScrollConfiguration.of(context).copyWith(scrollbars: false),
+            child: SingleChildScrollView(
+              controller: _scrollController,
+              physics: ClampingScrollPhysics(),
+              child: Column(
+                children: [
+                  Container(
+                    color: Colors.grey,
+                    height: screenSize.height * 0.45,
+                    width: screenSize.width,
+                    child: Stack(
+                      children: [
+                        Image.asset(
+                          'assets/images/cover.jpg',
+                          width: screenSize.width,
+                          height: screenSize.height * 0.45,
+                          fit: BoxFit.cover,
                         ),
-                      )
-                    ],
+                        // FloatingQuickAccessBar(screenSize: screenSize),
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Container(
+                            // margin: EdgeInsets.only(top: 50),
+                            height: 200,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                CircleAvatar(
+                                  backgroundImage: NetworkImage(
+                                      MyApp.monitorUrl +
+                                          '/profile/assets/otto.jpeg'),
+                                  radius: screenSize.width / 20,
+                                  backgroundColor: Colors.transparent,
+                                ),
+                                Container(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: screenSize.width / 15),
+                                  color: Colors.black12,
+                                  child: Transform.translate(
+                                    offset: Offset(0, 20),
+                                    child: Text("introduce.rough",
+                                        // textAlign: TextAlign.justify,
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w500,
+                                          fontFamily: 'Montserrat',
+                                          color: Colors.white.withOpacity(0.8),
+                                        )).tr(),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-                Container(
-                  child: Column(
-                    children: [
-                      FeaturedHeading(
-                        screenSize: screenSize,
-                      ),
-                      FeaturedTiles(screenSize: screenSize)
-                    ],
+                  Container(
+                    child: Column(
+                      children: [
+                        FeaturedHeading(
+                          screenSize: screenSize,
+                        ),
+                        FeaturedTiles(screenSize: screenSize)
+                      ],
+                    ),
                   ),
-                ),
-                AboutMe(),
-                // SizedBox(height: screenSize.height / 8),
-                DestinationHeading(screenSize: screenSize),
-                DestinationCarousel(),
-                SizedBox(height: screenSize.height / 10),
-                BottomBar(),
-              ],
+                  AboutMe(),
+                  // SizedBox(height: screenSize.height / 8),
+                  DestinationHeading(screenSize: screenSize),
+                  DestinationCarousel(),
+                  SizedBox(height: screenSize.height / 10),
+                  BottomBar(),
+                ],
+              ),
             ),
           ),
         ),

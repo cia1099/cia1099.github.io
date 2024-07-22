@@ -41,16 +41,25 @@ class _TopBarContentsState extends State<TopBarContents> {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                'profile',
-                style: TextStyle(
-                  color: Colors.blueGrey[100],
-                  fontSize: 20,
-                  fontFamily: 'Montserrat',
-                  fontWeight: FontWeight.w400,
-                  letterSpacing: 3,
-                ),
-              ).tr(),
+              InkWell(
+                onHover: (value) => setState(() {
+                  _isHovering[6] = value;
+                }),
+                onTap: () => Navigator.of(context)
+                    .popUntil((route) => route.settings.name == MyApp.home),
+                child: Text(
+                  'profile',
+                  style: TextStyle(
+                    color: _isHovering[6]
+                        ? Colors.blue[200]
+                        : Colors.blueGrey[100],
+                    fontSize: 20,
+                    fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.w400,
+                    letterSpacing: 3,
+                  ),
+                ).tr(),
+              ),
               Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -163,23 +172,13 @@ class _TopBarContentsState extends State<TopBarContents> {
                       builder: (context, snapshot) {
                         final lang =
                             snapshot.data?.toStringWithSeparator() ?? "no";
-                        return AnimatedSwitcher(
-                          duration: Durations.short4,
-                          transitionBuilder: (child, animation) =>
-                              SlideTransition(
-                                  position: Tween(
-                                          begin: const Offset(-0.5, -1),
-                                          end: Offset.zero)
-                                      .animate(animation),
-                                  child: child),
-                          child: Text(
-                            langDict[lang] ?? "error",
-                            key: Key(lang),
-                            style: TextStyle(
-                                color: _isHovering[4]
-                                    ? Colors.blue[200]
-                                    : Colors.white70),
-                          ),
+                        return Text(
+                          langDict[lang] ?? "error",
+                          key: Key(lang),
+                          style: TextStyle(
+                              color: _isHovering[4]
+                                  ? Colors.blue[200]
+                                  : Colors.white70),
                         );
                       }),
                 ),
