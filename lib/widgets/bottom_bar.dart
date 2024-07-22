@@ -28,6 +28,8 @@ class BottomBar extends StatelessWidget {
                       s1: 'contact',
                       s2: 'about_me',
                       s3: 'work_experience',
+                      onTap3: () =>
+                          Navigator.of(context).pushNamed(MyApp.experience),
                     ),
                     // BottomBarColumn(
                     //   heading: 'resume',
@@ -61,6 +63,7 @@ class BottomBar extends StatelessWidget {
                   type: 'resume',
                   text: '', //'128, Trymore Road, Delft, MN - 56124',
                   doubleDot: false,
+                  onTap: _downloadResume,
                 ),
                 SizedBox(height: 20),
                 Container(

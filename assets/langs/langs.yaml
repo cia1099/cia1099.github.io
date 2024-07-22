@@ -7,6 +7,10 @@ en:
     detail: |
       Developing AI combined with vision applications: smart home, people counting; expert in spatial localization by vision, enabling the camera to perceive its surroundings, allowing us to spatialize digital modeling and 3D space recognition; working on edge computing, with the goal of executing AI models on edge devices to significantly reduce the cost of landing projects. Furthermore I'd like to develope more AI application scenarios to implement AI on devices in public, and to integrate AI into our lives.
     skill: Overview of work experience and acquired skills
+    advantage: |
+      1. Responsible for the application development and technical evaluation of visual algorithms, selecting appropriate algorithms, realizing AI functions, and releasing them in the product system;
+      2. Responsible for the realization of product client Android, iOS, Desktop;
+      3. Release and integrate the application in various platforms, complete the cross-platform operation.
   about_me: About Me
   portfolio: Portfolio
   roulette: Roulette
@@ -57,7 +61,7 @@ en:
     end: 1/1/2019
     title: Algorithm Engineer
     content: |
-      Research and implement the algorithm on the application of TOF sensor. I was charged in the project of People Counting.
+      Research and implement the algorithm on the application of TOF sensor. I was charged in the project of People Counting. Completed the ability to count daily foot traffic at the mall entrance. Up to 95% accuracy.
 
 zh_CN:
   profile: 人物简介
@@ -68,6 +72,10 @@ zh_CN:
     detail: |
       开发AI结合视觉应用：智能家居，人流计数；擅长空间视觉定位，使相机能够感知周围的环境，可以做空间数位建模和3D空间识别；致力于边缘运算，目标是将AI模型在边缘设备上执行，以大幅缩减项目落地的成本，并发展更多AI应用的场景，将AI落实在大众的设备上，让AI融入在我们的生活里。
     skill: 综观工作经历以及习得的技能
+    advantage: |
+      1. 负责视觉算法的应用开发和技术评估，选择合适的算法，实现人工智能功能，并在产品系统中发布；
+      2. 负责产品客户端 Android、iOS、桌面端的实现；
+      3. 发布并整合各平台应用，完成跨平台运营。
   about_me: 关于我
   portfolio: 作品集
   roulette: 轮盘
@@ -86,6 +94,52 @@ zh_CN:
   linkin: 领英
   github: Github
   medium: Medium
+  # experiences
+  bobi:
+    name: 波比娛乐有限公司
+    start: 1/10/2022
+    end: 1/3/2024
+    address: 马尼拉 菲律宾
+    title: 移动应用程序开发工程师
+    content: |
+      内容：即時串流應用程式開發。我們使用 flutter 在跨平台行動裝置上發佈應用程式。我負責應用程式中任何動畫、遊戲和原生外掛的要求。我們使用Agora來取得即時媒體串流通訊，使用SQLite來儲存和載入本地檢索，建立GraphQL client來取得自訂的資料資源，使用Firebase來取得通知等。我也開發了Swift和Objective-C++的經驗，在Swift和Cpp程式設計之間進行混合編譯。此外，我還支援Cpp函式庫為flutter提供跨平台插件。  
+      成绩：
+        1. 负责接入后台API接口和逻辑，设计MVC架构来增强项目维护
+        2. 负责优化和开发UX界面，提升用户交互体验
+        3. 开发动画效果组件
+        4. 提供跨平台需要的插件，供开发者使用
+        5. 编写C++来建置跨平台用的插件
+        6. 使用flame和canvas套件来开发游戏
+        7. 引用inappwebview套件实现小程序本地化运行
+        8. 开发游戏项目供线上项目使用
+        9. 项目管理建立submodule流程
+        10. 除错线上产品问题，发现并定位出死循环，以优化产品的性能
+  patere:
+    name: 彭特科技有限公司
+    start: 1/11/2020
+    end: 1/2/2022
+    address: 新竹 台湾
+    title: 计算机视觉算法工程师
+    content: |
+      内容：开发远程家电控制专案，将3D视觉模型导入至机上盒，撰写行动装置客户端应用，能用手机来设定系统和连接室内Wi-Fi设备，进行监控操作。利用安装在机上盒的摄像头捕捉用户的视觉方向，推算用户所目视的家俱目标，来与室内环境进行互动。
+      成绩：我们为物联网应用开发计算机视觉算法，并开发智能房屋，让住户通过眼球追踪模型控制家具。利用3D摄像头扫描和Open3D构建方法构建房屋环境的点云图，使用Mask-RCNN检测RGB图像对象，结合RGB检测和深度的锚点映射到点云，这是3D空间下对象检测的替代方法。使用LineTR算法在点云图中定位摄像头，LineTR算法提取查询图像中关键点的特征，在特征空间中对比查询图像和扫描记录图像，可以得到图像对中摄像头姿态的最佳匹配结果。编写flutter，开发设置WIFI的移动用户界面，远程选择系统希望用户观看的家具目标对象。撰写项目专利。
+  foxconn:
+    name: 富士康精密组件有限公司
+    start: 1/3/2019
+    end: 1/5/2020
+    title: halcon图像处理工程师 制造工程总部
+    address: 深圳 中国
+    content: |
+      依工业制造设备软件需求，设计开发系统软件，包含操作系统接口、软件系统架构、规划数据结构方法和访问方法、网络通讯模块、系统状态及设备运作产能日志，和利用机器视觉方法开发产品制程的可靠度生产或自动化检验。
+  lips:
+    name: 立普斯科技有限公司
+    address: 台北 台湾
+    start: 1/11/2017
+    end: 1/1/2019
+    title: 算法工程师
+    content: |
+      内容：负责3D视觉的算法开发，分析问题，评估相关应用的可行性，找寻合适的方法，以实现产品计划，并优化现成的算法，来达到特定目的需求。
+      成绩：实现人流计数的算法，针对深度摄像头的应用去开发。完成能在商城门口计数统计每日的人流量。精准度高达95%。
 
 zh_TW:
   profile: 人物簡介
@@ -96,6 +150,10 @@ zh_TW:
     detail: |
       開發AI結合視覺應用：智能家居，人流計數；擅長空間視覺定位，使相機能夠感知周圍的環境，可以做空間數位建模和3D空間識別；致力於邊緣運算，目標是將AI模型在邊緣設備上執行，以大幅縮減項目落地的成本，並發展更多AI應用的場景，將AI落實在大眾的設備上，讓AI融入在我們的生活裏。
     skill: 綜觀工作經歷以及習得的技能
+    advantage: |
+      1. 負責視覺算法的應用開發和技術評估，選擇合適的算法，實現人工智能功能，並在產品系統中發布；
+      2. 負責產品客戶端 Android、iOS、桌面端的實現；
+      3. 發布並整合各平臺應用，完成跨平臺運營。
   about_me: 關於我
   portfolio: 作品集
   roulette: 輪盤
@@ -114,3 +172,49 @@ zh_TW:
   linkin: 領英
   github: Github
   medium: Medium
+  # experiences
+  bobi:
+    name: 波比娛樂有限公司
+    start: 1/10/2022
+    end: 1/3/2024
+    address: 馬尼拉 菲律賓
+    title: 移動應用程序開發工程師
+    content: |
+      內容：即時串流應用程式開發。我們使用 flutter 在跨平臺行動裝置上發佈應用程式。我負責應用程式中任何動畫、遊戲和原生外掛的要求。我們使用Agora來取得即時媒體串流通訊，使用SQLite來儲存和載入本地檢索，建立GraphQL client來取得自訂的資料資源，使用Firebase來取得通知等。我也開發了Swift和Objective-C++的經驗，在Swift和Cpp程式設計之間進行混合編譯。此外，我還支援Cpp函式庫為flutter提供跨平臺插件。  
+      成績：
+      1. 負責接入後臺API接口和邏輯，設計MVC架構來增強項目維護
+      2. 負責優化和開發UX界面，提升用戶交互體驗
+      3. 開發動畫效果組件
+      4. 提供跨平臺需要的插件，供開發者使用
+      5. 編寫C++來建置跨平臺用的插件
+      6. 使用flame和canvas套件來開發遊戲
+      7. 引用inappwebview套件實現小程序本地化運行
+      8. 開發遊戲項目供線上項目使用
+      9. 項目管理建立submodule流程
+      10. 除錯線上產品問題，發現並定位出死循環，以優化產品的性能
+  patere:
+    name: 彭特科技有限公司.
+    start: 1/11/2020
+    end: 1/2/2022
+    address: 新竹 臺灣
+    title: 計算機視覺算法工程師
+    content: |
+      內容：開發遠程家電控製專案，將3D視覺模型導入至機上盒，撰寫行動裝置客戶端應用，能用手機來設定系統和連接室內Wi-Fi設備，進行監控操作。利用安裝在機上盒的攝像頭捕捉用戶的視覺方向，推算用戶所目視的家俱目標，來與室內環境進行互動。
+      成績：我們為物聯網應用開發計算機視覺算法，並開發智能房屋，讓住戶通過眼球追蹤模型控製家具。利用 3D 攝像頭掃描和 Open3D 構建方法構建房屋環境的點雲圖，使用 Mask-RCNN檢測RGB圖像對象，結合RGB檢測和深度的錨點映射到點雲，這是3D空間下對象檢測的替代方法。使用LineTR算法在點雲圖中定位攝像頭，LineTR算法提取查詢圖像中關鍵點的特征，在特征空間中對比查詢圖像和掃描記錄圖像，可以得到圖像對中攝像頭姿態的最佳匹配結果。編寫flutter，開發設置WIFI的移動用戶界面，遠程選擇系統希望用戶觀看的家具目標對象。撰寫項目專利。
+  foxconn:
+    name: 富士康精密組件有限公司
+    start: 1/3/2019
+    end: 1/5/2020
+    title: halcon圖像處理工程師 製造工程總部
+    address: 深圳 中國
+    content: |
+      依工業製造設備軟件需求，設計開發系統軟件，包含操作系統接口、軟件系統架構、規劃數據結構方法和訪問方法、網絡通訊模塊、系統狀態及設備運作產能日誌，和利用機器視覺方法開發產品製程的可靠度生產或自動化檢驗。
+  lips:
+    name: 立普斯科技有限公司
+    address: 臺北 臺灣
+    start: 1/11/2017
+    end: 1/1/2019
+    title: 算法工程師
+    content: |
+      內容：負責3D視覺的算法開發，分析問題，評估相關應用的可行性，找尋合適的方法，以實現產品計劃，並優化現成的算法，來達到特定目的需求。
+      成績：實現人流計數的算法，針對深度攝像頭的應用去開發。完成能在商城門口計數統計每日的人流量。精準度高達95%。

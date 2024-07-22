@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:google_fonts/google_fonts.dart';
 import 'package:path/path.dart' as p;
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -71,8 +72,35 @@ class ExperiencePage extends StatelessWidget {
                   right: screenSize.width / 15),
               controller: _scrollController,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(lorem(paragraphs: 1, words: 20)),
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Otto Lin",
+                          style: GoogleFonts.electrolize(
+                            letterSpacing: 2,
+                            fontSize: screenSize.width / 16,
+                            color: Theme.of(context)
+                                .primaryTextTheme
+                                .headline2!
+                                .color,
+                          ),
+                        ),
+                        Text(
+                          "Expert Flutter Developer and Vision Algorithm Engineer",
+                          style: Theme.of(context).primaryTextTheme.subtitle2,
+                        )
+                      ],
+                    ),
+                  ),
+                  Text('introduce.advantage',
+                          style: Theme.of(context).primaryTextTheme.subtitle1)
+                      .tr(),
+                  Divider(height: 32),
                   ...List.generate(
                     experiences.length,
                     (i) {

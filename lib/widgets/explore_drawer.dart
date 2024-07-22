@@ -11,7 +11,6 @@ class ExploreDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const langDict = {"en": "English", "zh_CN": "简体中文", "zh_TW": "繁體中文"};
     final isHover = List.filled(5, false);
     return Drawer(
       child: Container(
