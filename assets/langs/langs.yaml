@@ -21,6 +21,7 @@ en:
   email: Email
   login: Login
   sign_up: Sign Up
+  language: Language
   linkin: LinkIn
   github: Github
   medium: Medium
@@ -81,6 +82,7 @@ zh_CN:
   email: 电子邮箱
   login: 登入
   sign_up: 注册
+  language: 语言
   linkin: 领英
   github: Github
   medium: Medium
@@ -108,6 +110,7 @@ zh_TW:
   email: 電子郵箱
   login: 登入
   sign_up: 註冊
+  language: 語言
   linkin: 領英
   github: Github
   medium: Medium

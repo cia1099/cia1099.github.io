@@ -6,8 +6,9 @@ class LanguageDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final langDict = {"en": "English", "zh_CN": "简体中文", "zh_TW": "繁體中文"};
+    const langDict = {"en": "English", "zh_CN": "简体中文", "zh_TW": "繁體中文"};
     final supportedLocales = context.supportedLocales;
+    final isHover = List.filled(supportedLocales.length, false);
     return Drawer(
       backgroundColor: Theme.of(context).bottomAppBarColor,
       child: Container(
@@ -18,17 +19,25 @@ class LanguageDrawer extends StatelessWidget {
           children: List.generate(
               supportedLocales.length,
               (index) => [
-                    InkWell(
-                      onTap: () {
-                        final selected = supportedLocales[index];
-                        context.setLocale(selected);
-                        Navigator.of(context).pop();
-                      },
-                      child: Text(
-                        langDict[supportedLocales[index]
-                                .toStringWithSeparator()] ??
-                            'error',
-                        style: TextStyle(color: Colors.white, fontSize: 22),
+                    StatefulBuilder(
+                      builder: (context, setState) => InkWell(
+                        onTap: () {
+                          final selected = supportedLocales[index];
+                          context.setLocale(selected);
+                          Navigator.of(context).pop();
+                        },
+                        onHover: (value) =>
+                            setState(() => isHover[index] = value),
+                        child: Text(
+                          langDict[supportedLocales[index]
+                                  .toStringWithSeparator()] ??
+                              'error',
+                          style: TextStyle(
+                              color: isHover[index]
+                                  ? Colors.blue[200]
+                                  : Colors.white,
+                              fontSize: 22),
+                        ),
                       ),
                     ),
                     if (index < supportedLocales.length - 1)

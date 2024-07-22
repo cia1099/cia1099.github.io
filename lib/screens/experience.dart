@@ -23,10 +23,10 @@ class ExperiencePage extends StatelessWidget {
     double _opacity = 0;
     var isHover = false;
     final scaffoldKey = GlobalKey<ScaffoldState>();
+    final innerScaffoldKey = GlobalKey<ScaffoldState>();
     // for main scaffold
     double _scrollPosition = 0;
     final _scrollController = ScrollController();
-    final innerScaffoldKey = GlobalKey<ScaffoldState>();
     const experiences = ['bobi', 'patere', 'foxconn', 'lips'];
     final expMapImg = {1: '3dGaze.webp', 3: 'people_counting.png'};
     final screenSize = MediaQuery.of(context).size;
@@ -45,7 +45,8 @@ class ExperiencePage extends StatelessWidget {
       extendBodyBehindAppBar: true,
       drawer: ExploreDrawer(innerScaffoldKey: innerScaffoldKey),
       appBar: isSmall
-          ? generateAppBar(context, _opacity, isHover, scaffoldKey)
+          ? generateAppBar(
+              context, _opacity, isHover, scaffoldKey, innerScaffoldKey)
           : PreferredSize(
               preferredSize: Size(screenSize.width, 1000),
               child: AnimatedBuilder(
@@ -169,8 +170,12 @@ class ExperiencePage extends StatelessWidget {
     );
   }
 
-  AppBar generateAppBar(BuildContext context, double opacity, bool isHover,
-      GlobalKey<ScaffoldState> scaffoldKey) {
+  AppBar generateAppBar(
+      BuildContext context,
+      double opacity,
+      bool isHover,
+      GlobalKey<ScaffoldState> scaffoldKey,
+      GlobalKey<ScaffoldState> innerScaffoldKey) {
     return AppBar(
       backgroundColor: Theme.of(context).bottomAppBarColor.withOpacity(opacity),
       elevation: 0,
@@ -178,6 +183,9 @@ class ExperiencePage extends StatelessWidget {
       leading: IconButton(
         icon: Icon(Icons.menu),
         onPressed: () {
+          if (innerScaffoldKey.currentState!.isDrawerOpen) {
+            innerScaffoldKey.currentState?.closeDrawer();
+          }
           scaffoldKey.currentState?.openDrawer();
         },
       ),

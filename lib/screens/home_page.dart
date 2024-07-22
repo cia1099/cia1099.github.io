@@ -162,6 +162,9 @@ class _HomePageState extends State<HomePage> {
       leading: IconButton(
         icon: Icon(Icons.menu),
         onPressed: () {
+          if (innerScaffoldKey.currentState!.isDrawerOpen) {
+            innerScaffoldKey.currentState?.closeDrawer();
+          }
           scaffoldKey.currentState?.openDrawer();
         },
       ),
