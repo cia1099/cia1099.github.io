@@ -25,7 +25,8 @@ class _HomePageState extends State<HomePage> {
   double _scrollPosition = 0;
   double _opacity = 0;
   var isHover = false;
-  final innerScaffoldKey = ValueKey(ScaffoldState());
+  final innerScaffoldKey = GlobalKey<ScaffoldState>();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   _scrollListener() {
     setState(() {
@@ -48,6 +49,7 @@ class _HomePageState extends State<HomePage> {
         : 1;
 
     return Scaffold(
+      key: scaffoldKey,
       backgroundColor: Theme.of(context).colorScheme.background,
       extendBodyBehindAppBar: true,
       appBar: ResponsiveWidget.isSmallScreen(context)
@@ -56,6 +58,12 @@ class _HomePageState extends State<HomePage> {
                   Theme.of(context).bottomAppBarColor.withOpacity(_opacity),
               elevation: 0,
               centerTitle: true,
+              leading: IconButton(
+                icon: Icon(Icons.menu),
+                onPressed: () {
+                  scaffoldKey.currentState?.openDrawer();
+                },
+              ),
               actions: [
                 IconButton(
                   icon: Icon(Icons.brightness_6),
@@ -88,7 +96,7 @@ class _HomePageState extends State<HomePage> {
               preferredSize: Size(screenSize.width, 1000),
               child: TopBarContents(_opacity),
             ),
-      drawer: ExploreDrawer(scaffoldState: innerScaffoldKey.value),
+      drawer: ExploreDrawer(scaffoldState: innerScaffoldKey),
       body: Scaffold(
         key: innerScaffoldKey,
         drawer: LanguageDrawer(),
