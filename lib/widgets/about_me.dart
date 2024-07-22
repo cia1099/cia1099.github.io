@@ -13,7 +13,7 @@ class AboutMe extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     return Container(
       margin: EdgeInsets.only(top: isSmall ? 16 : 64, bottom: isSmall ? 32 : 0),
-      height: isSmall ? 240 : 160,
+      height: isSmall ? 260 : 160,
       padding:
           isSmall ? EdgeInsets.symmetric(horizontal: screenWidth / 15) : null,
       child: Flex(
@@ -45,12 +45,12 @@ class AboutMe extends StatelessWidget {
               padding: isSmall
                   ? null
                   : EdgeInsets.only(left: 4, right: screenWidth / 15),
-              child: Text(
-                "introduce.detail",
+              child: SelectableText(
+                "introduce.detail".tr(),
                 // textAlign: TextAlign.justify,
-                overflow: TextOverflow.visible,
+                // overflow: TextOverflow.visible,
                 style: Theme.of(context).primaryTextTheme.subtitle1,
-              ).tr(),
+              ),
             ),
           ),
         ],

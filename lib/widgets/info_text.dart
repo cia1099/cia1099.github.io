@@ -38,7 +38,7 @@ class InfoText extends StatelessWidget {
           ),
         ),
         Flexible(
-          child: Text(
+          child: SelectableText(
             text,
             style: TextStyle(
               color: Colors.blueGrey[100],

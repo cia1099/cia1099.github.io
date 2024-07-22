@@ -33,11 +33,11 @@ class FeaturedHeading extends StatelessWidget {
                   ),
                 ).tr(),
                 SizedBox(height: 5),
-                Text(
-                  'introduce.skill',
+                SelectableText(
+                  'introduce.skill'.tr(),
                   textAlign: TextAlign.end,
                   style: Theme.of(context).primaryTextTheme.subtitle1,
-                ).tr(),
+                ),
                 SizedBox(height: 10),
               ],
             )
@@ -54,11 +54,11 @@ class FeaturedHeading extends StatelessWidget {
                   ),
                 ).tr(),
                 Expanded(
-                  child: Text(
-                    'introduce.skill',
+                  child: SelectableText(
+                    'introduce.skill'.tr(),
                     textAlign: TextAlign.end,
                     style: Theme.of(context).primaryTextTheme.subtitle1,
-                  ).tr(),
+                  ),
                 ),
               ],
             ),

@@ -6,7 +6,6 @@ import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_lorem/flutter_lorem.dart';
 import 'package:portfolio/main.dart';
 import 'package:portfolio/widgets/explore_drawer.dart';
 import 'package:portfolio/widgets/language_drawer.dart';
@@ -97,9 +96,8 @@ class ExperiencePage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Text('introduce.advantage',
-                          style: Theme.of(context).primaryTextTheme.subtitle1)
-                      .tr(),
+                  SelectableText('introduce.advantage'.tr(),
+                      style: Theme.of(context).primaryTextTheme.subtitle1),
                   Divider(height: 32),
                   ...List.generate(
                     experiences.length,
@@ -118,7 +116,7 @@ class ExperiencePage extends StatelessWidget {
                             Container(
                                 width: contentWidth,
                                 // color: Colors.blue,
-                                child: Text.rich(
+                                child: SelectableText.rich(
                                   TextSpan(
                                       text: '${experiences[i]}.name'.tr(),
                                       children: [
@@ -138,7 +136,7 @@ class ExperiencePage extends StatelessWidget {
                             Container(
                                 width: 150,
                                 // color: Colors.red,
-                                child: Text.rich(
+                                child: SelectableText.rich(
                                   TextSpan(
                                     // text: "${experiences[i]}.address".tr() + "\n",
                                     children: [
@@ -174,13 +172,13 @@ class ExperiencePage extends StatelessWidget {
                                       width: contentWidth +
                                           150 -
                                           (isSmall ? 0 : previewWidth),
-                                      child: Text(
-                                        '${experiences[i]}.content',
+                                      child: SelectableText(
+                                        '${experiences[i]}.content'.tr(),
                                         style: Theme.of(context)
                                             .primaryTextTheme
                                             .subtitle1,
                                         // textAlign: TextAlign.justify,
-                                      ).tr(),
+                                      ),
                                     )
                                   ]),
                             )

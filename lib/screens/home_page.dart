@@ -111,14 +111,15 @@ class _HomePageState extends State<HomePage> {
                                   color: Colors.black12,
                                   child: Transform.translate(
                                     offset: Offset(0, 20),
-                                    child: Text("introduce.rough",
+                                    child: SelectableText(
+                                        "introduce.rough".tr(),
                                         // textAlign: TextAlign.justify,
                                         style: TextStyle(
                                           fontSize: 15,
                                           fontWeight: FontWeight.w500,
                                           fontFamily: 'Montserrat',
                                           color: Colors.white.withOpacity(0.8),
-                                        )).tr(),
+                                        )),
                                   ),
                                 ),
                               ],
