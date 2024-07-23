@@ -4,6 +4,7 @@ import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:portfolio/dialogs/login_dialog.dart';
 import 'package:portfolio/main.dart';
 
 class TopBarContents extends StatefulWidget {
@@ -207,7 +208,12 @@ class _TopBarContentsState extends State<TopBarContents> {
                     value ? _isHovering[2] = true : _isHovering[2] = false;
                   });
                 },
-                onTap: () {},
+                onTap: () => showAdaptiveDialog(
+                  context: context,
+                  barrierDismissible: true,
+                  builder: (context) =>
+                      LoginDialog(isCreatedAccountClicked: true),
+                ),
                 child: Text(
                   'sign_up',
                   style: TextStyle(
@@ -224,7 +230,11 @@ class _TopBarContentsState extends State<TopBarContents> {
                     value ? _isHovering[3] = true : _isHovering[3] = false;
                   });
                 },
-                onTap: () {},
+                onTap: () => showAdaptiveDialog(
+                  context: context,
+                  barrierDismissible: true,
+                  builder: (context) => LoginDialog(),
+                ),
                 child: Text(
                   'login',
                   style: TextStyle(
