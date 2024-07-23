@@ -79,33 +79,60 @@ class ExperiencePage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          margin: EdgeInsets.symmetric(vertical: 16),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          margin: EdgeInsets.only(top: 16),
+                          child: Flex(
+                            direction: Axis.horizontal,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              Text(
-                                "Otto Lin",
-                                style: GoogleFonts.electrolize(
-                                  letterSpacing: 2,
-                                  fontSize: screenSize.width / 16,
-                                  color: Theme.of(context)
-                                      .primaryTextTheme
-                                      .headline2!
-                                      .color,
+                              Container(
+                                color: Colors.blue,
+                                width: screenSize.width - 500,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Otto Lin",
+                                      style: GoogleFonts.electrolize(
+                                        letterSpacing: 2,
+                                        fontSize: screenSize.width / 16,
+                                        color: Theme.of(context)
+                                            .primaryTextTheme
+                                            .headline2!
+                                            .color,
+                                      ),
+                                    ),
+                                    Text(
+                                      "Expert Flutter Developer and Vision Algorithm Engineer",
+                                      style: Theme.of(context)
+                                          .primaryTextTheme
+                                          .subtitle2,
+                                    ),
+                                    Transform.translate(
+                                      offset: Offset(0, 32),
+                                      child: Container(
+                                        width: contentWidth + 150,
+                                        child: SelectableText(
+                                            'introduce.advantage'.tr(),
+                                            style: Theme.of(context)
+                                                .primaryTextTheme
+                                                .subtitle1),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                              Text(
-                                "Expert Flutter Developer and Vision Algorithm Engineer",
-                                style: Theme.of(context)
-                                    .primaryTextTheme
-                                    .subtitle2,
+                              Flexible(
+                                child: Container(
+                                  color: Colors.brown,
+                                  // width: 220,
+                                  // height: 400,
+                                  child: Text("shit" * 220),
+                                ),
                               )
                             ],
                           ),
                         ),
-                        SelectableText('introduce.advantage'.tr(),
-                            style:
-                                Theme.of(context).primaryTextTheme.subtitle1),
                         Divider(height: 32),
                         ...List.generate(
                           experiences.length,

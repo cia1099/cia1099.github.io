@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       locale: context.locale,
       home: HomePage(),
-      initialRoute: MyApp.home,
+      initialRoute: MyApp.experience,
       onGenerateRoute: (settings) => PageRouteBuilder(
         settings: settings,
         pageBuilder: (context, animation, secondaryAnimation) {
