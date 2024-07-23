@@ -28,8 +28,6 @@ class ExperiencePage extends StatelessWidget {
     // for main scaffold
     double _scrollPosition = 0;
     final _scrollController = ScrollController();
-    const experiences = ['bobi', 'patere', 'foxconn', 'lips'];
-    final expMapImg = {1: '3dGaze.webp', 3: 'people_counting.png'};
     final screenSize = MediaQuery.of(context).size;
     _scrollController.addListener(() {
       _scrollPosition = _scrollController.position.pixels;
@@ -38,8 +36,7 @@ class ExperiencePage extends StatelessWidget {
           : 1;
     });
     final isSmall = ResponsiveWidget.isSmallScreen(context);
-    final contentWidth = (screenSize.width - 200 - 2 * screenSize.width / 15)
-        .clamp(500.0, double.infinity);
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: Theme.of(context).colorScheme.background,
@@ -75,155 +72,28 @@ class ExperiencePage extends StatelessWidget {
                   Padding(
                     padding:
                         EdgeInsets.symmetric(horizontal: screenSize.width / 15),
-                    child: Column(
+                    child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          margin: EdgeInsets.only(top: 16),
-                          child: Flex(
-                            direction: Axis.horizontal,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Container(
-                                color: Colors.blue,
-                                width: screenSize.width - 500,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Otto Lin",
-                                      style: GoogleFonts.electrolize(
-                                        letterSpacing: 2,
-                                        fontSize: screenSize.width / 16,
-                                        color: Theme.of(context)
-                                            .primaryTextTheme
-                                            .headline2!
-                                            .color,
-                                      ),
-                                    ),
-                                    Text(
-                                      "Expert Flutter Developer and Vision Algorithm Engineer",
-                                      style: Theme.of(context)
-                                          .primaryTextTheme
-                                          .subtitle2,
-                                    ),
-                                    Transform.translate(
-                                      offset: Offset(0, 32),
-                                      child: Container(
-                                        width: contentWidth + 150,
-                                        child: SelectableText(
-                                            'introduce.advantage'.tr(),
-                                            style: Theme.of(context)
-                                                .primaryTextTheme
-                                                .subtitle1),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Flexible(
-                                child: Container(
-                                  color: Colors.brown,
-                                  // width: 220,
-                                  // height: 400,
-                                  child: Text("shit" * 220),
-                                ),
-                              )
-                            ],
+                        Offstage(
+                          offstage: isSmall,
+                          child: Container(
+                            padding: EdgeInsets.only(top: 16),
+                            width: 160,
+                            height: (2.3e3 - screenSize.width).clamp(100, 2e3),
+                            color: Colors.brown,
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Core Techonology:"),
+                                  Text("g++"),
+                                  Text("cool"),
+                                ]),
                           ),
                         ),
-                        Divider(height: 32),
-                        ...List.generate(
-                          experiences.length,
-                          (i) {
-                            final previewWidth = expMapImg.containsKey(i)
-                                ? isSmall
-                                    ? screenSize.width * 0.8
-                                    : 160.0
-                                : .0;
-                            return Container(
-                              margin: EdgeInsets.only(bottom: 10),
-                              child: Wrap(
-                                alignment: WrapAlignment.spaceBetween,
-                                crossAxisAlignment: WrapCrossAlignment.end,
-                                children: [
-                                  Container(
-                                      width: contentWidth,
-                                      // color: Colors.blue,
-                                      child: SelectableText.rich(
-                                        TextSpan(
-                                            text: '${experiences[i]}.name'.tr(),
-                                            children: [
-                                              WidgetSpan(
-                                                  child: Icon(
-                                                      CupertinoIcons.minus)),
-                                              TextSpan(
-                                                  text:
-                                                      '${experiences[i]}.title'
-                                                          .tr(),
-                                                  style: Theme.of(context)
-                                                      .primaryTextTheme
-                                                      .button)
-                                            ]),
-                                        style: Theme.of(context)
-                                            .primaryTextTheme
-                                            .headline2,
-                                      )),
-                                  Container(
-                                      width: 150,
-                                      // color: Colors.red,
-                                      child: SelectableText.rich(
-                                        TextSpan(
-                                          // text: "${experiences[i]}.address".tr() + "\n",
-                                          children: [
-                                            TextSpan(
-                                                text: DateFormat.yMMM().format(
-                                                    DateFormat("d/M/yyyy").parse(
-                                                        '${experiences[i]}.start'
-                                                            .tr()))),
-                                            TextSpan(text: " ~ "),
-                                            TextSpan(
-                                                text: DateFormat.yMMM().format(
-                                                    DateFormat('d/M/yyyy').parse(
-                                                        '${experiences[i]}.end'
-                                                            .tr()))),
-                                          ],
-                                        ),
-                                        style: Theme.of(context)
-                                            .primaryTextTheme
-                                            .subtitle2,
-                                      )),
-                                  Container(
-                                    margin: EdgeInsets.only(top: 10),
-                                    width: contentWidth + 200,
-                                    child: Flex(
-                                        direction: isSmall
-                                            ? Axis.vertical
-                                            : Axis.horizontal,
-                                        children: [
-                                          if (expMapImg.containsKey(i))
-                                            MediaPreview(
-                                                previewWidth: previewWidth,
-                                                assetName: expMapImg[i]!),
-                                          Container(
-                                            width: contentWidth +
-                                                150 -
-                                                (isSmall ? 0 : previewWidth),
-                                            child: SelectableText(
-                                              '${experiences[i]}.content'.tr(),
-                                              style: Theme.of(context)
-                                                  .primaryTextTheme
-                                                  .subtitle1,
-                                              // textAlign: TextAlign.justify,
-                                            ),
-                                          )
-                                        ]),
-                                  )
-                                ],
-                              ),
-                            );
-                          },
+                        Expanded(
+                          child: ExperienceColumn(
+                              screenSize: screenSize, isSmall: isSmall),
                         ),
                       ],
                     ),
@@ -296,6 +166,129 @@ class ExperiencePage extends StatelessWidget {
             ),
           ).tr(),
         ),
+      ),
+    );
+  }
+}
+
+class ExperienceColumn extends StatelessWidget {
+  const ExperienceColumn({
+    super.key,
+    required this.screenSize,
+    required this.isSmall,
+  });
+
+  final Size screenSize;
+  final bool isSmall;
+
+  @override
+  Widget build(BuildContext context) {
+    const experiences = ['bobi', 'patere', 'foxconn', 'lips'];
+    const expMapImg = {1: '3dGaze.webp', 3: 'people_counting.png'};
+    return LayoutBuilder(
+      builder: (context, constraints) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Otto Lin",
+                style: GoogleFonts.electrolize(
+                  letterSpacing: 2,
+                  fontSize: screenSize.width / 16,
+                  color: Theme.of(context).primaryTextTheme.headline2!.color,
+                ),
+              ),
+              Text(
+                "Expert Flutter Developer and Vision Algorithm Engineer",
+                style: Theme.of(context).primaryTextTheme.subtitle2,
+              ),
+            ],
+          ),
+          Transform.translate(
+            offset: Offset(0, 32),
+            child: Container(
+              child: SelectableText('introduce.advantage'.tr(),
+                  style: Theme.of(context).primaryTextTheme.subtitle1),
+            ),
+          ),
+          Divider(height: 32),
+          ...List.generate(
+            experiences.length,
+            (i) {
+              final previewWidth = expMapImg.containsKey(i)
+                  ? isSmall
+                      ? constraints.maxWidth
+                      : 160.0
+                  : .0;
+              return Container(
+                margin: EdgeInsets.only(bottom: 10),
+                child: Wrap(
+                  alignment: WrapAlignment.spaceBetween,
+                  crossAxisAlignment: WrapCrossAlignment.end,
+                  children: [
+                    Container(
+                        // color: Colors.blue,
+                        child: SelectableText.rich(
+                      TextSpan(text: '${experiences[i]}.name'.tr(), children: [
+                        WidgetSpan(child: Icon(CupertinoIcons.minus)),
+                        TextSpan(
+                            text: '${experiences[i]}.title'.tr(),
+                            style: Theme.of(context).primaryTextTheme.button)
+                      ]),
+                      style: Theme.of(context).primaryTextTheme.headline2,
+                    )),
+                    Container(
+                        width: 150,
+                        // color: Colors.red,
+                        child: SelectableText.rich(
+                          TextSpan(
+                            // text: "${experiences[i]}.address".tr() + "\n",
+                            children: [
+                              TextSpan(
+                                  text: DateFormat.yMMM().format(
+                                      DateFormat("d/M/yyyy").parse(
+                                          '${experiences[i]}.start'.tr()))),
+                              TextSpan(text: " ~ "),
+                              TextSpan(
+                                  text: DateFormat.yMMM().format(
+                                      DateFormat('d/M/yyyy').parse(
+                                          '${experiences[i]}.end'.tr()))),
+                            ],
+                          ),
+                          style: Theme.of(context).primaryTextTheme.subtitle2,
+                        )),
+                    Container(
+                      // color: Colors.green,
+                      margin: EdgeInsets.only(top: 10),
+                      width: constraints.maxWidth,
+                      child: Flex(
+                          direction: isSmall ? Axis.vertical : Axis.horizontal,
+                          children: [
+                            if (expMapImg.containsKey(i))
+                              MediaPreview(
+                                  previewWidth: previewWidth,
+                                  assetName: expMapImg[i]!),
+                            Container(
+                              width: constraints.maxWidth -
+                                  previewWidth * (isSmall ? 0 : 1),
+                              child: SelectableText(
+                                '${experiences[i]}.content'.tr(),
+                                style: Theme.of(context)
+                                    .primaryTextTheme
+                                    .subtitle1,
+                                // textAlign: TextAlign.justify,
+                              ),
+                            )
+                          ]),
+                    )
+                  ],
+                ),
+              );
+            },
+          ),
+        ],
       ),
     );
   }
