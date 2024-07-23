@@ -7,6 +7,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio/main.dart';
+import 'package:portfolio/widgets/bottom_bar.dart';
 import 'package:portfolio/widgets/explore_drawer.dart';
 import 'package:portfolio/widgets/language_drawer.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -66,127 +67,153 @@ class ExperiencePage extends StatelessWidget {
             ),
             SingleChildScrollView(
               padding: EdgeInsets.only(
-                  top: kToolbarHeight,
-                  left: screenSize.width / 15,
-                  right: screenSize.width / 15),
+                top: kToolbarHeight,
+              ),
               controller: _scrollController,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: 16),
+                  Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: screenSize.width / 15),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "Otto Lin",
-                          style: GoogleFonts.electrolize(
-                            letterSpacing: 2,
-                            fontSize: screenSize.width / 16,
-                            color: Theme.of(context)
-                                .primaryTextTheme
-                                .headline2!
-                                .color,
+                        Container(
+                          margin: EdgeInsets.symmetric(vertical: 16),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Otto Lin",
+                                style: GoogleFonts.electrolize(
+                                  letterSpacing: 2,
+                                  fontSize: screenSize.width / 16,
+                                  color: Theme.of(context)
+                                      .primaryTextTheme
+                                      .headline2!
+                                      .color,
+                                ),
+                              ),
+                              Text(
+                                "Expert Flutter Developer and Vision Algorithm Engineer",
+                                style: Theme.of(context)
+                                    .primaryTextTheme
+                                    .subtitle2,
+                              )
+                            ],
                           ),
                         ),
-                        Text(
-                          "Expert Flutter Developer and Vision Algorithm Engineer",
-                          style: Theme.of(context).primaryTextTheme.subtitle2,
-                        )
+                        SelectableText('introduce.advantage'.tr(),
+                            style:
+                                Theme.of(context).primaryTextTheme.subtitle1),
+                        Divider(height: 32),
+                        ...List.generate(
+                          experiences.length,
+                          (i) {
+                            final previewWidth = expMapImg.containsKey(i)
+                                ? isSmall
+                                    ? screenSize.width * 0.8
+                                    : 160.0
+                                : .0;
+                            return Container(
+                              margin: EdgeInsets.only(bottom: 10),
+                              child: Wrap(
+                                alignment: WrapAlignment.spaceBetween,
+                                crossAxisAlignment: WrapCrossAlignment.end,
+                                children: [
+                                  Container(
+                                      width: contentWidth,
+                                      // color: Colors.blue,
+                                      child: SelectableText.rich(
+                                        TextSpan(
+                                            text: '${experiences[i]}.name'.tr(),
+                                            children: [
+                                              WidgetSpan(
+                                                  child: Icon(
+                                                      CupertinoIcons.minus)),
+                                              TextSpan(
+                                                  text:
+                                                      '${experiences[i]}.title'
+                                                          .tr(),
+                                                  style: Theme.of(context)
+                                                      .primaryTextTheme
+                                                      .button)
+                                            ]),
+                                        style: Theme.of(context)
+                                            .primaryTextTheme
+                                            .headline2,
+                                      )),
+                                  Container(
+                                      width: 150,
+                                      // color: Colors.red,
+                                      child: SelectableText.rich(
+                                        TextSpan(
+                                          // text: "${experiences[i]}.address".tr() + "\n",
+                                          children: [
+                                            TextSpan(
+                                                text: DateFormat.yMMM().format(
+                                                    DateFormat("d/M/yyyy").parse(
+                                                        '${experiences[i]}.start'
+                                                            .tr()))),
+                                            TextSpan(text: " ~ "),
+                                            TextSpan(
+                                                text: DateFormat.yMMM().format(
+                                                    DateFormat('d/M/yyyy').parse(
+                                                        '${experiences[i]}.end'
+                                                            .tr()))),
+                                          ],
+                                        ),
+                                        style: Theme.of(context)
+                                            .primaryTextTheme
+                                            .subtitle2,
+                                      )),
+                                  Container(
+                                    margin: EdgeInsets.only(top: 10),
+                                    width: contentWidth + 200,
+                                    child: Flex(
+                                        direction: isSmall
+                                            ? Axis.vertical
+                                            : Axis.horizontal,
+                                        children: [
+                                          if (expMapImg.containsKey(i))
+                                            MediaPreview(
+                                                previewWidth: previewWidth,
+                                                assetName: expMapImg[i]!),
+                                          Container(
+                                            width: contentWidth +
+                                                150 -
+                                                (isSmall ? 0 : previewWidth),
+                                            child: SelectableText(
+                                              '${experiences[i]}.content'.tr(),
+                                              style: Theme.of(context)
+                                                  .primaryTextTheme
+                                                  .subtitle1,
+                                              // textAlign: TextAlign.justify,
+                                            ),
+                                          )
+                                        ]),
+                                  )
+                                ],
+                              ),
+                            );
+                          },
+                        ),
                       ],
                     ),
                   ),
-                  SelectableText('introduce.advantage'.tr(),
-                      style: Theme.of(context).primaryTextTheme.subtitle1),
-                  Divider(height: 32),
-                  ...List.generate(
-                    experiences.length,
-                    (i) {
-                      final previewWidth = expMapImg.containsKey(i)
-                          ? isSmall
-                              ? screenSize.width * 0.8
-                              : 160.0
-                          : .0;
-                      return Container(
-                        margin: EdgeInsets.only(bottom: 10),
-                        child: Wrap(
-                          alignment: WrapAlignment.spaceBetween,
-                          crossAxisAlignment: WrapCrossAlignment.end,
-                          children: [
-                            Container(
-                                width: contentWidth,
-                                // color: Colors.blue,
-                                child: SelectableText.rich(
-                                  TextSpan(
-                                      text: '${experiences[i]}.name'.tr(),
-                                      children: [
-                                        WidgetSpan(
-                                            child: Icon(CupertinoIcons.minus)),
-                                        TextSpan(
-                                            text:
-                                                '${experiences[i]}.title'.tr(),
-                                            style: Theme.of(context)
-                                                .primaryTextTheme
-                                                .button)
-                                      ]),
-                                  style: Theme.of(context)
-                                      .primaryTextTheme
-                                      .headline2,
-                                )),
-                            Container(
-                                width: 150,
-                                // color: Colors.red,
-                                child: SelectableText.rich(
-                                  TextSpan(
-                                    // text: "${experiences[i]}.address".tr() + "\n",
-                                    children: [
-                                      TextSpan(
-                                          text: DateFormat.yMMM().format(
-                                              DateFormat("d/M/yyyy").parse(
-                                                  '${experiences[i]}.start'
-                                                      .tr()))),
-                                      TextSpan(text: " ~ "),
-                                      TextSpan(
-                                          text: DateFormat.yMMM().format(
-                                              DateFormat('d/M/yyyy').parse(
-                                                  '${experiences[i]}.end'
-                                                      .tr()))),
-                                    ],
-                                  ),
-                                  style: Theme.of(context)
-                                      .primaryTextTheme
-                                      .subtitle2,
-                                )),
-                            Container(
-                              margin: EdgeInsets.only(top: 10),
-                              width: contentWidth + 200,
-                              child: Flex(
-                                  direction:
-                                      isSmall ? Axis.vertical : Axis.horizontal,
-                                  children: [
-                                    if (expMapImg.containsKey(i))
-                                      MediaPreview(
-                                          previewWidth: previewWidth,
-                                          assetName: expMapImg[i]!),
-                                    Container(
-                                      width: contentWidth +
-                                          150 -
-                                          (isSmall ? 0 : previewWidth),
-                                      child: SelectableText(
-                                        '${experiences[i]}.content'.tr(),
-                                        style: Theme.of(context)
-                                            .primaryTextTheme
-                                            .subtitle1,
-                                        // textAlign: TextAlign.justify,
-                                      ),
-                                    )
-                                  ]),
-                            )
-                          ],
-                        ),
-                      );
-                    },
-                  ),
+                  // Container(
+                  //   padding: const EdgeInsets.all(30),
+                  //   width: double.maxFinite,
+                  //   color: Theme.of(context).bottomAppBarColor,
+                  //   child: Text(
+                  //     'Copyright © 2024 | Otto Lin',
+                  //     style: TextStyle(
+                  //       color: Colors.blueGrey[300],
+                  //       fontSize: 14,
+                  //     ),
+                  //   ),
+                  // ),
+                  BottomBar()
                 ],
               ),
             ),

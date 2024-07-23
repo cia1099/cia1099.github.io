@@ -150,7 +150,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                   _isHovering[4] = false;
                 }),
                 child: PopupMenuButton(
-                  tooltip: "",
+                  tooltip: "language".tr(),
                   position: PopupMenuPosition.under,
                   itemBuilder: (context) {
                     final supportedLocales = context.supportedLocales;
@@ -174,7 +174,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                         final lang =
                             snapshot.data?.toStringWithSeparator() ?? "no";
                         return Text(
-                          langDict[lang] ?? "error",
+                          langDict[lang] ?? "language".tr(),
                           key: Key(lang),
                           style: TextStyle(
                               color: _isHovering[4]

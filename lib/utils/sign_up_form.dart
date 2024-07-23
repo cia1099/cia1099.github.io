@@ -31,15 +31,13 @@ class SignUpForm extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'Please enter a valid email and password that is at least 6 character.',
+            'Please enter a valid email and password that is arbitrary characters.',
             style: Theme.of(context).primaryTextTheme.subtitle1,
           ),
           Padding(
             padding: const EdgeInsets.all(15.0),
             child: TextFormField(
-              validator: (value) {
-                return value!.isEmpty ? 'Please enter an email' : null;
-              },
+              validator: isValidEmail,
               controller: _emailTextController,
               decoration:
                   buildInputDecoration(context, 'email', 'john@gmail.com'),
