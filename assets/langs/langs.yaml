@@ -62,6 +62,17 @@ en:
     title: Algorithm Engineer
     content: |
       Research and implement the algorithm on the application of TOF sensor. I was charged in the project of People Counting. Completed the ability to count daily foot traffic at the mall entrance. Up to 95% accuracy.
+  core_technologies: Core Technologies
+  kernel_competence: Kernel Competence
+  education: Education Background
+  master: 
+    degree: Master
+    school: National Tsinghua University
+    subject: Engineering and System Science
+  bachelor: 
+    degree: Bachelor
+    school: Yuanzhi University
+    subject: Electrical Engineering
 
 zh_CN:
   profile: 人物简介
@@ -140,6 +151,17 @@ zh_CN:
     content: |
       内容：负责3D视觉的算法开发，分析问题，评估相关应用的可行性，找寻合适的方法，以实现产品计划，并优化现成的算法，来达到特定目的需求。
       成绩：实现人流计数的算法，针对深度摄像头的应用去开发。完成能在商城门口计数统计每日的人流量。精准度高达95%。
+  core_technologies: 核心技术
+  kernel_competence: 内核能力
+  education: 教育背景
+  master: 
+    degree: 硕士
+    school: 国立清华大学
+    subject: 工程与系统科学
+  bachelor: 
+    degree: 学士
+    school: 元智大学
+    subject: 电机工程与应用电子技术
 
 zh_TW:
   profile: 人物簡介
@@ -218,3 +240,14 @@ zh_TW:
     content: |
       內容：負責3D視覺的算法開發，分析問題，評估相關應用的可行性，找尋合適的方法，以實現產品計劃，並優化現成的算法，來達到特定目的需求。
       成績：實現人流計數的算法，針對深度攝像頭的應用去開發。完成能在商城門口計數統計每日的人流量。精準度高達95%。
+  core_technologies: 核心技術
+  kernel_competence: 內核能力
+  education: 教育背景
+  master: 
+    degree: 碩士
+    school: 國立清華大學
+    subject: 工程與系統科學
+  bachelor: 
+    degree: 學士
+    school: 元智大學
+    subject: 電機工程

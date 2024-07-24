@@ -1,4 +1,3 @@
-import 'dart:html';
 import 'dart:math';
 
 import 'package:google_fonts/google_fonts.dart';
@@ -92,6 +91,12 @@ class ExperiencePage extends StatelessWidget {
                                 }),
                               );
                               return Container(
+                                margin: EdgeInsets.only(right: 32),
+                                decoration: const BoxDecoration(
+                                    border: Border(
+                                        right: BorderSide(
+                                            width: 1,
+                                            color: Color(0x8ACBC6D1)))),
                                 padding: EdgeInsets.only(top: 16),
                                 width: 200,
                                 height: leftSideHeight,
@@ -99,7 +104,8 @@ class ExperiencePage extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      const HighlineText("Core Technologies:"),
+                                      HighlineText(
+                                          '${"core_technologies".tr()}:'),
                                       SelectableText(
                                           coreTechnologies
                                               .map((e) =>
@@ -110,7 +116,8 @@ class ExperiencePage extends StatelessWidget {
                                               .primaryTextTheme
                                               .subtitle2
                                               ?.apply(heightDelta: 0.8)),
-                                      const HighlineText('Kernel Competence:'),
+                                      HighlineText(
+                                          '${'kernel_competence'.tr()}:'),
                                       SelectableText(
                                         kernelCompetence
                                             .map((e) =>
@@ -121,7 +128,36 @@ class ExperiencePage extends StatelessWidget {
                                             .primaryTextTheme
                                             .subtitle2
                                             ?.apply(heightDelta: 0.8),
-                                      )
+                                      ),
+                                      if (leftSideHeight != null)
+                                        ...[
+                                              const Expanded(child: SizedBox()),
+                                              HighlineText(
+                                                  '${'education'.tr()}:'),
+                                            ] +
+                                            degreeEdu
+                                                .map((e) => SelectableText.rich(
+                                                    TextSpan(children: [
+                                                      const WidgetSpan(
+                                                          child: Icon(
+                                                        Icons.school_sharp,
+                                                        size: 16,
+                                                      )),
+                                                      TextSpan(
+                                                          text:
+                                                              '${'$e.degree'.tr()}@${'$e.subject'.tr()}'),
+                                                      TextSpan(
+                                                          text:
+                                                              '\n${'$e.school'.tr()}',
+                                                          style: Theme.of(
+                                                                  context)
+                                                              .primaryTextTheme
+                                                              .subtitle2),
+                                                    ]),
+                                                    style: Theme.of(context)
+                                                        .primaryTextTheme
+                                                        .button))
+                                                .toList(),
                                     ]),
                               );
                             },
@@ -262,7 +298,7 @@ class ExperienceColumn extends StatelessWidget {
                 "Otto Lin",
                 style: GoogleFonts.electrolize(
                   letterSpacing: 2,
-                  fontSize: screenSize.width / 16,
+                  fontSize: screenSize.width / 8,
                   color: Theme.of(context).primaryTextTheme.headline2!.color,
                 ),
               ),
@@ -270,6 +306,26 @@ class ExperienceColumn extends StatelessWidget {
                 "Expert Flutter Developer and Vision Algorithm Engineer",
                 style: Theme.of(context).primaryTextTheme.subtitle2,
               ),
+              if (isSmall) ...[
+                Text.rich(TextSpan(
+                    text: String.fromCharCode(9635),
+                    style: Theme.of(context).primaryTextTheme.subtitle2,
+                    children: [
+                      WidgetSpan(
+                          child: HighlineText(' ${'core_technologies'.tr()}:')),
+                    ])),
+                SelectableText(coreTechnologies.join(', '),
+                    style: Theme.of(context).primaryTextTheme.subtitle2),
+                Text.rich(TextSpan(
+                    text: String.fromCharCode(9635),
+                    style: Theme.of(context).primaryTextTheme.subtitle2,
+                    children: [
+                      WidgetSpan(
+                          child: HighlineText(' ${'kernel_competence'.tr()}:')),
+                    ])),
+                SelectableText(kernelCompetence.join(', '),
+                    style: Theme.of(context).primaryTextTheme.subtitle2)
+              ]
             ],
           ),
           Transform.translate(
