@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:path/path.dart' as p;
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
@@ -390,8 +391,10 @@ class ExperienceColumn extends StatelessWidget {
                           children: [
                             if (expMapImg.containsKey(i))
                               MediaPreview(
-                                  previewWidth: previewWidth,
-                                  assetName: expMapImg[i]!),
+                                previewWidth: previewWidth,
+                                assetName: expMapImg[i]!,
+                                embeddingPlayer: isSmall,
+                              ),
                             Container(
                               width: constraints.maxWidth -
                                   previewWidth * (isSmall ? 0 : 1),
@@ -421,52 +424,71 @@ class MediaPreview extends StatefulWidget {
     super.key,
     required this.previewWidth,
     required this.assetName,
+    this.embeddingPlayer = false,
   });
 
   final double previewWidth;
   final String assetName;
+  final bool embeddingPlayer;
 
   @override
   State<MediaPreview> createState() => _MediaPreviewState();
 }
 
 class _MediaPreviewState extends State<MediaPreview> {
-  var isHover = false;
+  var isHover = false, isPlayer = false;
   @override
   Widget build(BuildContext context) {
     final width = widget.previewWidth - 10;
-    return Container(
-      margin: const EdgeInsets.only(right: 10),
-      child: InkWell(
-        onTap: playVideo,
-        onHover: (value) => setState(() {
-          isHover = value;
-        }),
-        child: Container(
-            height: widget.previewWidth < 180 ? width * .8 : width / 2,
+    final height = widget.previewWidth < 180 ? width * .8 : width / 2;
+    return isPlayer
+        ? Container(
             width: width,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage('assets/images/${widget.assetName}'))),
-            child: isHover
-                ? Icon(
-                    CupertinoIcons.play_circle,
-                    size: width / (widget.previewWidth < 180 ? 2 : 4),
-                  )
-                : null),
-      ),
-    );
+            height: height,
+            child: InAppWebView(
+                initialUrlRequest: URLRequest(url: WebUri.uri(getUri()))),
+          )
+        : Container(
+            margin: const EdgeInsets.only(right: 10),
+            child: InkWell(
+              onTap: widget.embeddingPlayer
+                  ? () => setState(() {
+                        isPlayer = true;
+                      })
+                  : playVideo,
+              onHover: (value) => setState(() {
+                isHover = value;
+              }),
+              child: Container(
+                  height: height,
+                  width: width,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image:
+                              AssetImage('assets/images/${widget.assetName}'))),
+                  child: isHover
+                      ? Icon(
+                          CupertinoIcons.play_circle,
+                          size: width / (widget.previewWidth < 180 ? 2 : 4),
+                        )
+                      : null),
+            ),
+          );
   }
 
   void playVideo() async {
-    final baseName = p.basenameWithoutExtension(widget.assetName);
-    final url =
-        Uri.parse(MyApp.monitorUrl + '/profile/media?filename=$baseName.mp4');
+    final url = getUri();
     if (await canLaunchUrl(url)) {
       await launchUrl(url);
     } else {
       throw 'Could not launch $url';
     }
+  }
+
+  Uri getUri() {
+    final baseName = p.basenameWithoutExtension(widget.assetName);
+    return Uri.parse(
+        MyApp.monitorUrl + '/profile/media?filename=$baseName.mp4');
   }
 }
 
