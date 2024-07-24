@@ -25,6 +25,7 @@ class ExperiencePage extends StatelessWidget {
     var isHover = false;
     final scaffoldKey = GlobalKey<ScaffoldState>();
     final innerScaffoldKey = GlobalKey<ScaffoldState>();
+    final experienceColumnKey = GlobalKey();
     // for main scaffold
     double _scrollPosition = 0;
     final _scrollController = ScrollController();
@@ -36,6 +37,7 @@ class ExperiencePage extends StatelessWidget {
           : 1;
     });
     final isSmall = ResponsiveWidget.isSmallScreen(context);
+    double? leftSideHeight;
 
     return Scaffold(
       key: scaffoldKey,
@@ -77,23 +79,38 @@ class ExperiencePage extends StatelessWidget {
                       children: [
                         Offstage(
                           offstage: isSmall,
-                          child: Container(
-                            padding: EdgeInsets.only(top: 16),
-                            width: 160,
-                            height: (2.3e3 - screenSize.width).clamp(100, 2e3),
-                            color: Colors.brown,
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text("Core Techonology:"),
-                                  Text("g++"),
-                                  Text("cool"),
-                                ]),
+                          child: StatefulBuilder(
+                            builder: (context, setState) {
+                              WidgetsBinding.instance.addPostFrameCallback(
+                                (_) => setState(() {
+                                  final renderBox = experienceColumnKey
+                                      .currentContext
+                                      ?.findRenderObject() as RenderBox;
+                                  leftSideHeight = renderBox.size.height;
+                                }),
+                              );
+                              return Container(
+                                padding: EdgeInsets.only(top: 16),
+                                width: 160,
+                                height: leftSideHeight,
+                                color: Colors.brown,
+                                child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text("Core Technologies:"),
+                                      Text("g++"),
+                                      Text("cool"),
+                                    ]),
+                              );
+                            },
                           ),
                         ),
                         Expanded(
                           child: ExperienceColumn(
-                              screenSize: screenSize, isSmall: isSmall),
+                              key: experienceColumnKey,
+                              screenSize: screenSize,
+                              isSmall: isSmall),
                         ),
                       ],
                     ),
