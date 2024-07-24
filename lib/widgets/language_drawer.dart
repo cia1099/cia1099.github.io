@@ -1,12 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+import '../utils/global_data.dart' show langDict;
+
 class LanguageDrawer extends StatelessWidget {
   const LanguageDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
-    const langDict = {"en": "English", "zh_CN": "简体中文", "zh_TW": "繁體中文"};
     final supportedLocales = context.supportedLocales;
     final isHover = List.filled(supportedLocales.length, false);
     return Drawer(

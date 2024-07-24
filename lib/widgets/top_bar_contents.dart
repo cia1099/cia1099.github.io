@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:portfolio/dialogs/login_dialog.dart';
 import 'package:portfolio/main.dart';
 
+import '../utils/global_data.dart' show langDict;
+
 class TopBarContents extends StatefulWidget {
   final double opacity;
 
@@ -28,7 +30,6 @@ class _TopBarContentsState extends State<TopBarContents> {
     false
   ];
   late final localeStream = StreamController<Locale>()..add(context.locale);
-  final langDict = {"en": "English", "zh_CN": "简体中文", "zh_TW": "繁體中文"};
 
   @override
   Widget build(BuildContext context) {

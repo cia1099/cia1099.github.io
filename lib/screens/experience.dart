@@ -1,3 +1,4 @@
+import 'dart:html';
 import 'dart:math';
 
 import 'package:google_fonts/google_fonts.dart';
@@ -7,6 +8,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio/main.dart';
+import 'package:portfolio/utils/global_data.dart';
 import 'package:portfolio/widgets/bottom_bar.dart';
 import 'package:portfolio/widgets/explore_drawer.dart';
 import 'package:portfolio/widgets/language_drawer.dart';
@@ -91,16 +93,35 @@ class ExperiencePage extends StatelessWidget {
                               );
                               return Container(
                                 padding: EdgeInsets.only(top: 16),
-                                width: 160,
+                                width: 200,
                                 height: leftSideHeight,
-                                color: Colors.brown,
                                 child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text("Core Technologies:"),
-                                      Text("g++"),
-                                      Text("cool"),
+                                      const HighlineText("Core Technologies:"),
+                                      SelectableText(
+                                          coreTechnologies
+                                              .map((e) =>
+                                                  String.fromCharCode(9635) +
+                                                  ' $e')
+                                              .join('\n'),
+                                          style: Theme.of(context)
+                                              .primaryTextTheme
+                                              .subtitle2
+                                              ?.apply(heightDelta: 0.8)),
+                                      const HighlineText('Kernel Competence:'),
+                                      SelectableText(
+                                        kernelCompetence
+                                            .map((e) =>
+                                                String.fromCharCode(9635) +
+                                                ' $e')
+                                            .join('\n'),
+                                        style: Theme.of(context)
+                                            .primaryTextTheme
+                                            .subtitle2
+                                            ?.apply(heightDelta: 0.8),
+                                      )
                                     ]),
                               );
                             },
@@ -184,6 +205,34 @@ class ExperiencePage extends StatelessWidget {
           ).tr(),
         ),
       ),
+    );
+  }
+}
+
+class HighlineText extends StatelessWidget {
+  final String text;
+  const HighlineText(
+    this.text, {
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+        colors: [
+          Colors.transparent,
+          Colors.yellow.shade400,
+          Colors.yellow.shade50,
+          Colors.transparent,
+        ],
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        stops: [.6, .61, .85, .86],
+      )),
+      child: SelectableText(text,
+          style: Theme.of(context).primaryTextTheme.subtitle1),
     );
   }
 }
