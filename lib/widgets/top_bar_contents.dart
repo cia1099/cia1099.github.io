@@ -4,6 +4,7 @@ import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:portfolio/dialogs/contact_dialog.dart';
 import 'package:portfolio/dialogs/login_dialog.dart';
 import 'package:portfolio/main.dart';
 
@@ -113,7 +114,11 @@ class _TopBarContentsState extends State<TopBarContents> {
                               : _isHovering[1] = false;
                         });
                       },
-                      onTap: () {},
+                      onTap: () => showAdaptiveDialog(
+                        context: context,
+                        barrierDismissible: true,
+                        builder: (context) => ContactMeDialog(),
+                      ),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
