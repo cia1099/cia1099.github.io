@@ -1,6 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:portfolio/dialogs/login_dialog.dart';
 import 'package:portfolio/main.dart';
+
+import '../dialogs/contact_dialog.dart';
 
 class ExploreDrawer extends StatelessWidget {
   final GlobalKey<ScaffoldState> innerScaffoldKey;
@@ -23,7 +26,14 @@ class ExploreDrawer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    showAdaptiveDialog(
+                      context: context,
+                      barrierDismissible: true,
+                      builder: (context) => LoginDialog(),
+                    );
+                  },
                   onHover: (value) => setState(() => isHover[0] = value),
                   child: Text(
                     'login',
@@ -40,7 +50,15 @@ class ExploreDrawer extends StatelessWidget {
                   ),
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    showAdaptiveDialog(
+                      context: context,
+                      barrierDismissible: true,
+                      builder: (context) =>
+                          LoginDialog(isCreatedAccountClicked: true),
+                    );
+                  },
                   onHover: (value) => setState(() => isHover[1] = value),
                   child: Text(
                     'sign_up',
@@ -75,7 +93,14 @@ class ExploreDrawer extends StatelessWidget {
                   ),
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    showAdaptiveDialog(
+                      context: context,
+                      barrierDismissible: true,
+                      builder: (context) => ContactMeDialog(),
+                    );
+                  },
                   onHover: (value) => setState(() => isHover[3] = value),
                   child: Text(
                     'contact',

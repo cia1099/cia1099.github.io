@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:portfolio/widgets/turnstile.dart';
 
 import 'input_decorator.dart';
 
@@ -96,7 +97,8 @@ class LoginForm extends StatelessWidget {
                   // },
                 }
               },
-              child: Text('login').tr())
+              child: Text('login').tr()),
+          TurnStileHtmlView(),
         ],
       ),
     );

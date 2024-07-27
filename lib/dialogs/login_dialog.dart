@@ -22,7 +22,7 @@ class _LoginWidgetState extends State<LoginDialog> {
   Widget build(BuildContext context) {
     return Dialog(
       child: Container(
-        height: isCreatedAccountClicked ? 440 : 400,
+        height: 440, //isCreatedAccountClicked ? 440 : 440,
         width: 400,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: Column(
