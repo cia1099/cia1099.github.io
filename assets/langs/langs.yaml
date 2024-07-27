@@ -29,6 +29,7 @@ en:
   linkin: LinkIn
   github: Github
   medium: Medium
+  download: Download
 # experiences
   bobi:
     name: Bobi Entertainment
@@ -105,6 +106,7 @@ zh_CN:
   linkin: 领英
   github: Github
   medium: Medium
+  download: 下载
   # experiences
   bobi:
     name: 波比娛乐有限公司
@@ -194,6 +196,7 @@ zh_TW:
   linkin: 領英
   github: Github
   medium: Medium
+  download: 下載
   # experiences
   bobi:
     name: 波比娛樂有限公司

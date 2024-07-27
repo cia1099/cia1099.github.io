@@ -125,7 +125,8 @@ class BottomBar extends StatelessWidget {
                         SizedBox(height: 5),
                         InfoText(
                           type: 'resume',
-                          text: '', //'128, Trymore Road, Delft, MN - 56124',
+                          text:
+                              'download', //'128, Trymore Road, Delft, MN - 56124',
                           doubleDot: false,
                           onTap: _downloadResume,
                         )

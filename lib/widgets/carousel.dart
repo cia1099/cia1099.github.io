@@ -100,7 +100,8 @@ class _DestinationCarouselState extends State<DestinationCarousel>
             viewportFraction: 0.6,
             enlargeCenterPage: true,
             aspectRatio: 18 / 8,
-            // autoPlay: true,
+            autoPlay: true,
+            autoPlayInterval: const Duration(seconds: 15),
             onPageChanged: (index, reason) {
               txtSliders![_current] = _createTextTiles(screenSize,
                   places[_current], Theme.of(context).bottomAppBarColor);

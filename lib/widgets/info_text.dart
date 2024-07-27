@@ -21,31 +21,29 @@ class InfoText extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        StatefulBuilder(
-          builder: (context, setState) => InkWell(
-            onHover: (value) => setState(() => isHover = value),
-            onTap: onTap,
-            child: Text.rich(
-              TextSpan(children: [
-                TextSpan(text: '${type.tr()}'),
-                if (doubleDot) TextSpan(text: ': '),
-              ]),
-              style: TextStyle(
-                color: isHover ? Colors.blue[200] : Colors.blueGrey[300],
-                fontSize: 16,
+        SelectableText(
+          '${type.tr()}: ',
+          style: TextStyle(
+            color: Colors.blueGrey[300],
+            fontSize: 16,
+          ),
+        ),
+        Flexible(
+          child: StatefulBuilder(
+            builder: (context, setState) => InkWell(
+              onHover: (value) => setState(() => isHover = value),
+              onTap: onTap,
+              child: SelectableText(
+                '${onTap == null ? text : text.tr()}',
+                style: TextStyle(
+                  color: isHover ? Colors.blue[200] : Colors.blueGrey[100],
+                  fontSize: 16,
+                ),
+                onTap: onTap,
               ),
             ),
           ),
         ),
-        Flexible(
-          child: SelectableText(
-            text,
-            style: TextStyle(
-              color: Colors.blueGrey[100],
-              fontSize: 16,
-            ),
-          ),
-        )
       ],
     );
   }
