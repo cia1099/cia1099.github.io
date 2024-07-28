@@ -7,7 +7,7 @@ class TurnStileHtmlView extends StatelessWidget {
     platformViewRegistry.registerViewFactory(
       'turnstile-view',
       (int viewId) => html.IFrameElement()
-        ..src = 'web/turnstile.html'
+        ..src = '../turnstile.html' //default will concatenate web/
         ..style.border = 'none'
         ..style.width = '100%'
         ..style.height = '100%',
