@@ -35,7 +35,12 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^2.0.0
   flutter_lorem: ^2.0.0
+  flutter_launcher_icons: ^0.13.1
 
+# flutter_launcher_icons:
+#   web:
+#     generate: true
+#     image_path: "assets/images/portfolio_icon.png"
 
 flutter:
   uses-material-design: true

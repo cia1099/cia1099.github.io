@@ -32,6 +32,23 @@
 
   <title>portfolio</title>
   <link rel="manifest" href="manifest.json">
+  <style>
+    /* 暗色模式样式 */
+    @media (prefers-color-scheme: dark) {
+      body {
+        background-color: #1f1f2f;
+        color: azure;
+      }
+    }
+
+    /* 亮色模式样式 */
+    @media (prefers-color-scheme: light) {
+      body {
+        background-color: azure;
+        color: #1f1f2f;
+      }
+    }
+  </style>
 
   <script>
     // The value below is injected by flutter build, do not touch.
@@ -44,6 +61,8 @@
 </head>
 
 <body>
+  <div id="flutter_host">Loading...</div>
+  <!-- <iframe src="web/turnstile.html"></iframe> -->
   <script>
     window.addEventListener('load', function (ev) {
       // Download main.dart.js
@@ -60,7 +79,7 @@
     });
   </script>
   <script type="text/javascript">
-    let useHtml = false;
+    let useHtml = false; //debug mode is true
     if (useHtml) {
       window.flutterWebRenderer = "auto";
     } else {

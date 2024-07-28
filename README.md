@@ -25,7 +25,7 @@ Assuming you have two services running on ports 50500 and 50005, and you want to
 ```txt
 # In /etc/nginx/sites-available/cia1099.cloudns.ch
 server {
-    listen 50050;
+    listen 80;
     server_name cia1099.cloudns.ch;
 
     location /api/ {
@@ -59,5 +59,11 @@ In Addition, when you use html render, the Canvas in Painter of `ui.ImageFilter`
 python3 -m http.server $PORT -b $HOST -d $DIRECTORY
 # python3 -m http.server 50005 -b 127.0.0.1 -d web/
 ```
+
+# Flutter Launcher Icon
+Just use the package [flutter_launcher_icons](https://pub.dev/packages/flutter_launcher_icons), this is recommended in official document.\
+You can download icons from there:
+1. https://icons8.com/
+2. https://www.flaticon.com/
 
 

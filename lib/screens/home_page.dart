@@ -94,7 +94,7 @@ class _HomePageState extends State<HomePage> {
                           alignment: Alignment.bottomCenter,
                           child: Container(
                             // margin: EdgeInsets.only(top: 50),
-                            height: 200,
+                            height: 210,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
