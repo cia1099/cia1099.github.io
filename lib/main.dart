@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
   static const home = '/';
   static const experience = '/work_experiences';
   static const lan = '/lan';
-  static const monitorUrl = 'http://localhost:50050';
+  static const monitorUrl = 'https://www.cia1099.cloudns.ch/api';
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
