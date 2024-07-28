@@ -66,4 +66,9 @@ You can download icons from there:
 1. https://icons8.com/
 2. https://www.flaticon.com/
 
+Flutter Web is really latency in initialization, we can embed static element for flutter initialization. The official pages are:
+1. https://docs.flutter.dev/deployment/web
+2. https://docs.flutter.dev/platform-integration/web/initialization-legacy
+3. [example code for initialization](https://github.com/flutter/gallery/blob/main/web/index.html)
+
 
