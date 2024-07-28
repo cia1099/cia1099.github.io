@@ -53,6 +53,7 @@ Remember if you want to run Flutter web in root URL, you have to revise the `web
      <!-- <base href="/PURPOSE_NAME/"> -->
 </head>
 ```
+In Addition, when you use html render, the Canvas in Painter of `ui.ImageFilter` will be failure. We should keep canvaskit to render Flutter web.
 * [Python Simple http server](https://fig.io/manual/python/http.server)
 ```sh
 python3 -m http.server $PORT -b $HOST -d $DIRECTORY
