@@ -27,6 +27,7 @@ class _HomePageState extends State<HomePage> {
   var isHover = false;
   final innerScaffoldKey = GlobalKey<ScaffoldState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final aboutMeKey = GlobalKey();
 
   _scrollListener() {
     setState(() {
@@ -139,12 +140,12 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                   ),
-                  AboutMe(),
+                  AboutMe(key: aboutMeKey),
                   // SizedBox(height: screenSize.height / 8),
                   DestinationHeading(screenSize: screenSize),
                   DestinationCarousel(),
                   SizedBox(height: screenSize.height / 10),
-                  BottomBar(),
+                  BottomBar(scrollCall: scrollToAboutMe),
                 ],
               ),
             ),
@@ -152,6 +153,18 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  void scrollToAboutMe() {
+    _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+    final renderBox =
+        aboutMeKey.currentContext?.findRenderObject() as RenderBox;
+    final offset = renderBox.localToGlobal(Offset.zero);
+    // print('\x1b[43mAboutMe at = $offset, size = ${renderBox.size}\x1b[0m');
+    // final scrollAt = _scrollController.position.pixels;
+    // print('\x1b[42mscroll at $scrollAt\x1b[0m');
+    _scrollController.animateTo(offset.dy.abs() + renderBox.size.height * 1.3,
+        duration: Durations.extralong1, curve: Curves.ease);
   }
 
   AppBar generateAppBar(BuildContext context) {

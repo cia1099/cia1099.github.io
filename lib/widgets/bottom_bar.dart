@@ -4,11 +4,14 @@ import 'package:portfolio/widgets/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../dialogs/contact_dialog.dart';
 import '../main.dart';
 
 class BottomBar extends StatelessWidget {
+  final VoidCallback? scrollCall;
   const BottomBar({
     Key? key,
+    this.scrollCall,
   }) : super(key: key);
 
   @override
@@ -30,6 +33,12 @@ class BottomBar extends StatelessWidget {
                       s3: 'work_experience',
                       onTap3: () =>
                           Navigator.of(context).pushNamed(MyApp.experience),
+                      onTap1: () => showAdaptiveDialog(
+                        context: context,
+                        barrierDismissible: true,
+                        builder: (context) => ContactMeDialog(),
+                      ),
+                      onTap2: scrollCall,
                     ),
                     // BottomBarColumn(
                     //   heading: 'resume',
@@ -94,6 +103,12 @@ class BottomBar extends StatelessWidget {
                       s3: 'work_experience',
                       onTap3: () =>
                           Navigator.of(context).pushNamed(MyApp.experience),
+                      onTap1: () => showAdaptiveDialog(
+                        context: context,
+                        barrierDismissible: true,
+                        builder: (context) => ContactMeDialog(),
+                      ),
+                      onTap2: scrollCall,
                     ),
                     // BottomBarColumn(
                     //   heading: 'resume',

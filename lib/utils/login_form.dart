@@ -26,6 +26,8 @@ class LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final turnstileToken = TextEditingController();
+    String? emailNotFound, errorPassword;
     return Form(
       key: _globalKey,
       child: Column(
@@ -34,7 +36,7 @@ class LoginForm extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(15.0),
             child: TextFormField(
-              validator: isValidEmail,
+              validator: (email) => isValidEmail(email) ?? emailNotFound,
               controller: _emailTextController,
               decoration:
                   buildInputDecoration(context, 'email', 'john@gmail.com'),
@@ -46,9 +48,8 @@ class LoginForm extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(15.0),
             child: TextFormField(
-              validator: (value) {
-                return value!.isEmpty ? 'Please enter a password' : null;
-              },
+              validator: (value) =>
+                  value!.isEmpty ? 'Please enter a password' : errorPassword,
               obscureText: true,
               controller: _passwordTextController,
               decoration: buildInputDecoration(context, 'password', ''),
@@ -61,44 +62,51 @@ class LoginForm extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          TextButton(
-              focusNode: _submitFocusNode,
-              style: TextButton.styleFrom(
-                  primary: Colors.white,
-                  padding: EdgeInsets.all(15),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4)),
-                  backgroundColor: Theme.of(context).bottomAppBarColor,
-                  textStyle: TextStyle(fontSize: 18)),
-              onPressed: () {
-                if (_globalKey!.currentState!.validate()) {
-                  FocusScope.of(context).unfocus();
-                  // var future = FirebaseAuth.instance
-                  //     .signInWithEmailAndPassword(
-                  //         email: _emailTextController.text,
-                  //         password: _passwordTextController.text)
-                  //     .then((value) => Navigator.pushReplacement(
-                  //         context,
-                  //         MaterialPageRoute(
-                  //             settings: RouteSettings(name: MainPage.routeName),
-                  //             builder: (ctx) => MainPage())))
-                  //     .onError<FirebaseAuthException>(
-                  // (error, _) {
-                  //   final message = error.message ??
-                  //       'An error occured, please check your credentials!';
-                  // ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(
-                  //     content: Text(
-                  //   message,
-                  //   style: const TextStyle(
-                  //     color: Colors.red,
-                  //     fontSize: 20,
-                  //   ),
-                  // )));
-                  // },
-                }
-              },
-              child: Text('login').tr()),
-          TurnStileHtmlView(),
+          ValueListenableBuilder(
+            valueListenable: turnstileToken,
+            builder: (context, value, child) => TextButton(
+                focusNode: _submitFocusNode,
+                style: TextButton.styleFrom(
+                    primary: Colors.white,
+                    padding: EdgeInsets.all(15),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4)),
+                    backgroundColor: Theme.of(context).bottomAppBarColor,
+                    textStyle: TextStyle(fontSize: 18)),
+                onPressed: value.text.isEmpty
+                    ? null
+                    : () {
+                        if (_globalKey!.currentState!.validate()) {
+                          //   FocusScope.of(context).unfocus();
+                          // var future = FirebaseAuth.instance
+                          //     .signInWithEmailAndPassword(
+                          //         email: _emailTextController.text,
+                          //         password: _passwordTextController.text)
+                          //     .then((value) => Navigator.pushReplacement(
+                          //         context,
+                          //         MaterialPageRoute(
+                          //             settings: RouteSettings(name: MainPage.routeName),
+                          //             builder: (ctx) => MainPage())))
+                          //     .onError<FirebaseAuthException>(
+                          // (error, _) {
+                          //   final message = error.message ??
+                          //       'An error occured, please check your credentials!';
+                          // ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(
+                          //     content: Text(
+                          //   message,
+                          //   style: const TextStyle(
+                          //     color: Colors.red,
+                          //     fontSize: 20,
+                          //   ),
+                          // )));
+                          // },
+                        }
+                      },
+                child: child!),
+            child: Text('login').tr(),
+          ),
+          TurnStileHtmlView(
+              tokenFeedback: (token) => turnstileToken.text = token),
         ],
       ),
     );

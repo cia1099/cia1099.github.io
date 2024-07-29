@@ -3,7 +3,8 @@ import 'dart:html' as html;
 import 'package:flutter/material.dart';
 
 class TurnStileHtmlView extends StatelessWidget {
-  TurnStileHtmlView({super.key}) {
+  final void Function(String token)? tokenFeedback;
+  TurnStileHtmlView({super.key, this.tokenFeedback}) {
     platformViewRegistry.registerViewFactory(
       'turnstile-view',
       (int viewId) => html.IFrameElement()
@@ -20,7 +21,8 @@ class TurnStileHtmlView extends StatelessWidget {
   Widget build(BuildContext context) {
     // Listen for messages from the iframe
     html.window.onMessage.listen((event) {
-      print('\x1b[43mwhat is turnstile? ${event.data}\x1b[0m');
+      // print('what is turnstile? ${event.data}');
+      tokenFeedback?.call(event.data);
     });
     return Container(
       // color: Colors.blue,
