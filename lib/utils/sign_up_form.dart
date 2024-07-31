@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:http/http.dart' as http;
 
 import '../main.dart';
@@ -79,7 +80,7 @@ class SignUpForm extends StatelessWidget {
                   backgroundColor: Theme.of(context).bottomAppBarColor,
                   textStyle: TextStyle(fontSize: 18)),
               onPressed: () async {
-                if (_globalKey!.currentState!.validate()) return;
+                if (!_globalKey!.currentState!.validate()) return;
                 final url = Uri.parse('${MyApp.monitorUrl}/register');
                 final res = await http.post(url,
                     body: jsonEncode({
@@ -91,6 +92,14 @@ class SignUpForm extends StatelessWidget {
                 switch (res.statusCode) {
                   case 400:
                     emailAlreadyExist = msg;
+                    break;
+                  case 201:
+                    showToast("Successfully create an account!",
+                        // context: context,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(8)),
+                        position: StyledToastPosition.center,
+                        animation: StyledToastAnimation.scale);
                     break;
                 }
                 if (emailAlreadyExist != null) {

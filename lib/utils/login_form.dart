@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:portfolio/main.dart';
 import 'package:portfolio/widgets/turnstile.dart';
 import 'package:http/http.dart' as http;
@@ -82,7 +83,6 @@ class LoginForm extends StatelessWidget {
                     //     :
                     () async {
                   if (!_globalKey!.currentState!.validate()) return;
-                  print("\x1b[43mpress login\x1b[0m");
                   final url = Uri.parse('${MyApp.monitorUrl}/login');
                   final res = await http.post(url,
                       body: jsonEncode({
@@ -101,11 +101,16 @@ class LoginForm extends StatelessWidget {
                     case 403:
                       errorPassword = msg;
                       break;
-                    default:
-                    // detail = msg;
+                    case 201:
+                      print("successful login to get access token");
+                      break;
                   }
-                  if (_globalKey!.currentState!.validate()) {
-                    print("\x1b[43mSuccessful login\x1b[0m");
+                  if (_globalKey.currentState!.validate()) {
+                    showToast("Successfully login",
+                        // context: context,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(8)),
+                        position: StyledToastPosition.center);
                   }
                   emailNotFound = null;
                   errorPassword = null;
