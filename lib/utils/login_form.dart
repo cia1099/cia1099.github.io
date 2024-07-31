@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:portfolio/main.dart';
 import 'package:portfolio/widgets/turnstile.dart';
+import 'package:http/http.dart' as http;
 
 import 'input_decorator.dart';
 
@@ -73,40 +76,45 @@ class LoginForm extends StatelessWidget {
                         borderRadius: BorderRadius.circular(4)),
                     backgroundColor: Theme.of(context).bottomAppBarColor,
                     textStyle: TextStyle(fontSize: 18)),
-                onPressed: value.text.isEmpty
-                    ? null
-                    : () {
-                        if (_globalKey!.currentState!.validate()) {
-                          //   FocusScope.of(context).unfocus();
-                          // var future = FirebaseAuth.instance
-                          //     .signInWithEmailAndPassword(
-                          //         email: _emailTextController.text,
-                          //         password: _passwordTextController.text)
-                          //     .then((value) => Navigator.pushReplacement(
-                          //         context,
-                          //         MaterialPageRoute(
-                          //             settings: RouteSettings(name: MainPage.routeName),
-                          //             builder: (ctx) => MainPage())))
-                          //     .onError<FirebaseAuthException>(
-                          // (error, _) {
-                          //   final message = error.message ??
-                          //       'An error occured, please check your credentials!';
-                          // ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(
-                          //     content: Text(
-                          //   message,
-                          //   style: const TextStyle(
-                          //     color: Colors.red,
-                          //     fontSize: 20,
-                          //   ),
-                          // )));
-                          // },
-                        }
-                      },
+                onPressed:
+                    // value.text.isEmpty
+                    //     ? null
+                    //     :
+                    () async {
+                  if (!_globalKey!.currentState!.validate()) return;
+                  print("\x1b[43mpress login\x1b[0m");
+                  final url = Uri.parse('${MyApp.monitorUrl}/login');
+                  final res = await http.post(url,
+                      body: jsonEncode({
+                        'email': _emailTextController.text,
+                        'password': _passwordTextController.text
+                      }),
+                      headers: {
+                        'Content-Type': 'application/json',
+                        'cf-turnstile-response': turnstileToken.text
+                      });
+                  final msg = json.decode(res.body)['detail'];
+                  switch (res.statusCode) {
+                    case 404:
+                      emailNotFound = msg;
+                      break;
+                    case 403:
+                      errorPassword = msg;
+                      break;
+                    default:
+                    // detail = msg;
+                  }
+                  if (_globalKey!.currentState!.validate()) {
+                    print("\x1b[43mSuccessful login\x1b[0m");
+                  }
+                  emailNotFound = null;
+                  errorPassword = null;
+                },
                 child: child!),
             child: Text('login').tr(),
           ),
-          TurnStileHtmlView(
-              tokenFeedback: (token) => turnstileToken.text = token),
+          // TurnStileHtmlView(
+          //     tokenFeedback: (token) => turnstileToken.text = token),
         ],
       ),
     );

@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 
+import '../main.dart';
 import 'input_decorator.dart';
 
 class SignUpForm extends StatelessWidget {
@@ -25,6 +29,7 @@ class SignUpForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String? emailAlreadyExist;
     return Form(
       key: _globalKey,
       child: Column(
@@ -37,7 +42,7 @@ class SignUpForm extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(15.0),
             child: TextFormField(
-              validator: isValidEmail,
+              validator: (email) => isValidEmail(email) ?? emailAlreadyExist,
               controller: _emailTextController,
               decoration:
                   buildInputDecoration(context, 'email', 'john@gmail.com'),
@@ -73,38 +78,24 @@ class SignUpForm extends StatelessWidget {
                       borderRadius: BorderRadius.circular(4)),
                   backgroundColor: Theme.of(context).bottomAppBarColor,
                   textStyle: TextStyle(fontSize: 18)),
-              onPressed: () {
-                if (_globalKey!.currentState!.validate()) {
-                  final email = _emailTextController.text;
-                  // FirebaseAuth.instance
-                  //     .createUserWithEmailAndPassword(
-                  //         email: _emailTextController.text,
-                  //         password: _passwordTextController.text)
-                  //     .then((value) {
-                  //   if (value.user != null) {
-                  //     DiaryService()
-                  //         .createUser(
-                  //             email.split('@')[0], context, value.user!.uid)
-                  //         .then((value) {
-                  //       DiaryService()
-                  //           .loginUser(email, _passwordTextController.text)
-                  //           .then((value) => Navigator.push(
-                  //               context,
-                  //               MaterialPageRoute(
-                  //                 builder: (context) => MainPage(),
-                  //               )));
-                  //     });
-                  //   }
-                  // }).onError<FirebaseAuthException>((error, _) {
-                  //   ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(
-                  //       content: Text(
-                  //     error.message!,
-                  //     style: const TextStyle(
-                  //       color: Colors.red,
-                  //       fontSize: 20,
-                  //     ),
-                  //   )));
-                  // });
+              onPressed: () async {
+                if (_globalKey!.currentState!.validate()) return;
+                final url = Uri.parse('${MyApp.monitorUrl}/register');
+                final res = await http.post(url,
+                    body: jsonEncode({
+                      'email': _emailTextController.text,
+                      'password': _passwordTextController.text
+                    }),
+                    headers: {'Content-Type': 'application/json'});
+                final msg = json.decode(res.body)['detail'];
+                switch (res.statusCode) {
+                  case 400:
+                    emailAlreadyExist = msg;
+                    break;
+                }
+                if (emailAlreadyExist != null) {
+                  _globalKey.currentState!.validate();
+                  emailAlreadyExist = null;
                 }
               },
               child: Text('sign_up').tr())
