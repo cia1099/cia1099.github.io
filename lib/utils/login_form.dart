@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:portfolio/main.dart';
@@ -42,8 +43,14 @@ class LoginForm extends StatelessWidget {
             child: TextFormField(
               validator: (email) => isValidEmail(email) ?? emailNotFound,
               controller: _emailTextController,
-              decoration:
-                  buildInputDecoration(context, 'email', 'john@gmail.com'),
+              decoration: buildInputDecoration(
+                context,
+                'email',
+                'john@gmail.com',
+                suffixIcon: IconButton(
+                    onPressed: () => _emailTextController.clear(),
+                    icon: const Icon(CupertinoIcons.delete_left)),
+              ),
               textInputAction: TextInputAction.next,
               onFieldSubmitted: (_) =>
                   FocusScope.of(context).requestFocus(_passwordFocusNode),
@@ -56,7 +63,14 @@ class LoginForm extends StatelessWidget {
                   value!.isEmpty ? 'Please enter a password' : errorPassword,
               obscureText: true,
               controller: _passwordTextController,
-              decoration: buildInputDecoration(context, 'password', ''),
+              decoration: buildInputDecoration(
+                context,
+                'password',
+                '',
+                suffixIcon: IconButton(
+                    onPressed: () => _passwordTextController.clear(),
+                    icon: const Icon(CupertinoIcons.delete_left)),
+              ),
               textInputAction: TextInputAction.next,
               focusNode: _passwordFocusNode,
               onFieldSubmitted: (_) =>
@@ -77,49 +91,51 @@ class LoginForm extends StatelessWidget {
                         borderRadius: BorderRadius.circular(4)),
                     backgroundColor: Theme.of(context).bottomAppBarColor,
                     textStyle: TextStyle(fontSize: 18)),
-                onPressed:
-                    // value.text.isEmpty
-                    //     ? null
-                    //     :
-                    () async {
-                  if (!_globalKey!.currentState!.validate()) return;
-                  final url = Uri.parse('${MyApp.monitorUrl}/login');
-                  final res = await http.post(url,
-                      body: jsonEncode({
-                        'email': _emailTextController.text,
-                        'password': _passwordTextController.text
-                      }),
-                      headers: {
-                        'Content-Type': 'application/json',
-                        'cf-turnstile-response': turnstileToken.text
-                      });
-                  final msg = json.decode(res.body)['detail'];
-                  switch (res.statusCode) {
-                    case 404:
-                      emailNotFound = msg;
-                      break;
-                    case 403:
-                      errorPassword = msg;
-                      break;
-                    case 201:
-                      print("successful login to get access token");
-                      break;
-                  }
-                  if (_globalKey.currentState!.validate()) {
-                    showToast("Successfully login",
-                        // context: context,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(8)),
-                        position: StyledToastPosition.center);
-                  }
-                  emailNotFound = null;
-                  errorPassword = null;
-                },
+                onPressed: value.text.isEmpty
+                    ? null
+                    : () async {
+                        if (!_globalKey!.currentState!.validate()) return;
+                        final url = Uri.parse('${MyApp.monitorUrl}/login');
+                        final res = await http.post(url,
+                            body: jsonEncode({
+                              'email': _emailTextController.text,
+                              'password': _passwordTextController.text
+                            }),
+                            headers: {
+                              'Content-Type': 'application/json',
+                              'cf-turnstile-response': turnstileToken.text
+                            });
+                        final msg = json.decode(res.body)['detail'];
+                        switch (res.statusCode) {
+                          case 404:
+                            emailNotFound = msg;
+                            break;
+                          case 403:
+                            errorPassword = msg;
+                            break;
+                          case 201:
+                            print("successful login to get access token");
+                            break;
+                          default:
+                            showToast(msg,
+                                textStyle: TextStyle(
+                                    color: Theme.of(context).errorColor),
+                                context: context,
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(8)),
+                                position: StyledToastPosition.center);
+                        }
+                        if (emailNotFound != null || errorPassword != null) {
+                          _globalKey.currentState!.validate();
+                          emailNotFound = null;
+                          errorPassword = null;
+                        }
+                      },
                 child: child!),
             child: Text('login').tr(),
           ),
-          // TurnStileHtmlView(
-          //     tokenFeedback: (token) => turnstileToken.text = token),
+          TurnStileHtmlView(
+              tokenFeedback: (token) => turnstileToken.text = token),
         ],
       ),
     );

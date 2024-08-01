@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
@@ -45,8 +46,14 @@ class SignUpForm extends StatelessWidget {
             child: TextFormField(
               validator: (email) => isValidEmail(email) ?? emailAlreadyExist,
               controller: _emailTextController,
-              decoration:
-                  buildInputDecoration(context, 'email', 'john@gmail.com'),
+              decoration: buildInputDecoration(
+                context,
+                'email',
+                'john@gmail.com',
+                suffixIcon: IconButton(
+                    onPressed: () => _emailTextController.clear(),
+                    icon: const Icon(CupertinoIcons.delete_left)),
+              ),
               textInputAction: TextInputAction.next,
               onFieldSubmitted: (_) =>
                   FocusScope.of(context).requestFocus(_passwordFocusNode),
@@ -60,7 +67,14 @@ class SignUpForm extends StatelessWidget {
               },
               obscureText: true,
               controller: _passwordTextController,
-              decoration: buildInputDecoration(context, 'password', ''),
+              decoration: buildInputDecoration(
+                context,
+                'password',
+                '',
+                suffixIcon: IconButton(
+                    onPressed: () => _passwordTextController.clear(),
+                    icon: const Icon(CupertinoIcons.delete_left)),
+              ),
               textInputAction: TextInputAction.next,
               focusNode: _passwordFocusNode,
               onFieldSubmitted: (_) =>
