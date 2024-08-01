@@ -105,7 +105,7 @@ class LoginForm extends StatelessWidget {
                               'Content-Type': 'application/json',
                               'cf-turnstile-response': turnstileToken.text
                             });
-                        final msg = json.decode(res.body)['detail'];
+                        final msg = json.decode(res.body)['detail'] as String?;
                         switch (res.statusCode) {
                           case 404:
                             emailNotFound = msg;

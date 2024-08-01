@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:html' as html;
 
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -15,15 +16,13 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   setPathUrlStrategy();
   EasyLocalization.ensureInitialized().then((_) {
+    const support = [Locale('en'), Locale('zh', 'CN'), Locale('zh', 'TW')];
     runApp(
       EasyDynamicThemeWidget(
         child: EasyLocalization(
           child: MyApp(),
-          supportedLocales: const [
-            Locale('en'),
-            Locale('zh', 'CN'),
-            Locale('zh', 'TW')
-          ],
+          supportedLocales: support,
+          startLocale: getBrowserLocale(support),
           path: 'assets/langs/langs.yaml',
           fallbackLocale: Locale('en'),
           assetLoader: YamlSingleAssetLoader(),
@@ -81,4 +80,14 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
+}
+
+Locale getBrowserLocale(List<Locale> supports) {
+  String browserLanguage = html.window.navigator.language;
+  // print('\x1b[43mBrowser language: $browserLanguage\x1b[0m');
+  final langCountry = browserLanguage.split("-");
+  final browserLocale = Locale.fromSubtags(
+      languageCode: langCountry.first, countryCode: langCountry.lastOrNull);
+  return supports.firstWhere((loc) => loc == browserLocale,
+      orElse: () => const Locale('en'));
 }
