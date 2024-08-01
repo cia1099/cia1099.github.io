@@ -1,0 +1,36 @@
+name: Build and Deploy Flutter Web
+
+on:
+  push:
+    branches:
+      - main  # Or any other branch you wish to trigger a deployment
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # Set Flutter Environmental
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.16.9'  # Replace your Flutter version
+
+      - name: Create web application
+        run: flutter create --platform=web
+
+      # Get Flutter dependencies
+      - name: Install dependencies
+        run: flutter pub get && flutter pub run flutter_launcher_icons
+
+      - name: Build Flutter Web
+        run: flutter build web --release
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.MY_TOKEN }}
+          publish_dir: build/web
