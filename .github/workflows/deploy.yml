@@ -20,7 +20,10 @@ jobs:
           flutter-version: '3.16.9'  # Replace your Flutter version
 
       - name: Create web application
-        run: flutter create --platform=web .
+        run: flutter create --platform=web example
+
+      - name: Move web manifest.json
+        run: mv example/web/manifest.json web/
 
       # Get Flutter dependencies
       - name: Install dependencies
