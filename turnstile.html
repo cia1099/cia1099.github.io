@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cloudflare Turnstile View</title>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</head>
+
+<body>
+    <div class="cf-turnstile" data-sitekey="0x4AAAAAAAf8TH8pzrBHQzOS" data-callback="onSuccess"></div>
+    <script>
+        function onSuccess(token) {
+            window.parent.postMessage(token, '*');
+        }
+    </script>
+</body>
+
+</html>
