@@ -5,9 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:portfolio/api/user_api.dart';
-import 'package:portfolio/main.dart';
 import 'package:portfolio/widgets/turnstile.dart';
-import 'package:http/http.dart' as http;
 
 import 'input_decorator.dart';
 

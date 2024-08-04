@@ -5,10 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:http/http.dart' as http;
 import 'package:portfolio/api/user_api.dart';
 
-import '../main.dart';
 import 'input_decorator.dart';
 
 class SignUpForm extends StatelessWidget {
