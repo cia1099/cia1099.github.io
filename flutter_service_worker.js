@@ -50,8 +50,8 @@ const RESOURCES = {"assets/assets/images/cover.jpg": "e1e4b2e46b8d6eabb7330afb0c
 "assets/packages/flutter_inappwebview/assets/t_rex_runner/t-rex.html": "16911fcc170c8af1c5457940bd0bf055",
 "assets/packages/flutter_inappwebview/assets/t_rex_runner/t-rex.css": "5a8d0222407e388155d7d1395a75d5b9",
 "flutter.js": "7d69e653079438abfbb24b82a655b0a4",
-"index.html": "6cbb814af746ef76c0bb1e4863ebc394",
-"/": "6cbb814af746ef76c0bb1e4863ebc394",
+"index.html": "d3cea403102cdbd27742bc01d711719b",
+"/": "d3cea403102cdbd27742bc01d711719b",
 "canvaskit/skwasm.worker.js": "bfb704a6c714a75da9ef320991e88b03",
 "canvaskit/skwasm.wasm": "2fc47c0a0c3c7af8542b601634fe9674",
 "canvaskit/canvaskit.js": "eb8797020acdbdf96a12fb0405582c1b",
@@ -66,7 +66,7 @@ const RESOURCES = {"assets/assets/images/cover.jpg": "e1e4b2e46b8d6eabb7330afb0c
 "favicon.png": "79fbe5b05a1fa5a7db9897d077d20712",
 "manifest.json": "cd7a31e869734e249c887c0110402ae1",
 "turnstile.html": "47320cfde63e4bb33236024cf3e61123",
-"main.dart.js": "53cbc2918ee983fd6302359a4cdc28d6",
+"main.dart.js": "f343349ad66add9c9bfb53d800001340",
 "version.json": "009c9e65172e010890f7f65fde438006"};
 // The application shell files that are downloaded before a service worker can
 // start.
