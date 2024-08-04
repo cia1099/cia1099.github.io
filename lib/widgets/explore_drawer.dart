@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:portfolio/api/user_api.dart';
 import 'package:portfolio/dialogs/login_dialog.dart';
 import 'package:portfolio/main.dart';
 
@@ -25,23 +26,31 @@ class ExploreDrawer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                InkWell(
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    showAdaptiveDialog(
-                      context: context,
-                      barrierDismissible: true,
-                      builder: (context) => LoginDialog(),
-                    );
-                  },
-                  onHover: (value) => setState(() => isHover[0] = value),
-                  child: Text(
-                    'login',
-                    style: TextStyle(
-                        color: isHover[0] ? Colors.blue[200] : Colors.white,
-                        fontSize: 22),
-                  ).tr(),
-                ),
+                StreamBuilder(
+                    stream: UserAPI.instance.authStateQueue,
+                    builder: (context, snapshot) {
+                      final user = snapshot.data;
+                      return InkWell(
+                        onTap: user == null
+                            ? () {
+                                Navigator.of(context).pop();
+                                showAdaptiveDialog(
+                                  context: context,
+                                  barrierDismissible: true,
+                                  builder: (context) => LoginDialog(),
+                                );
+                              }
+                            : null,
+                        onHover: (value) => setState(() => isHover[0] = value),
+                        child: Text(
+                          user == null ? 'login'.tr() : 'Hi, ${user.email}',
+                          style: TextStyle(
+                              color:
+                                  isHover[0] ? Colors.blue[200] : Colors.white,
+                              fontSize: 22),
+                        ),
+                      );
+                    }),
                 Padding(
                   padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
                   child: Divider(
@@ -49,24 +58,32 @@ class ExploreDrawer extends StatelessWidget {
                     thickness: 2,
                   ),
                 ),
-                InkWell(
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    showAdaptiveDialog(
-                      context: context,
-                      barrierDismissible: true,
-                      builder: (context) =>
-                          LoginDialog(isCreatedAccountClicked: true),
-                    );
-                  },
-                  onHover: (value) => setState(() => isHover[1] = value),
-                  child: Text(
-                    'sign_up',
-                    style: TextStyle(
-                        color: isHover[1] ? Colors.blue[200] : Colors.white,
-                        fontSize: 22),
-                  ).tr(),
-                ),
+                StreamBuilder(
+                    stream: UserAPI.instance.authStateQueue,
+                    builder: (context, snapshot) {
+                      final user = snapshot.data;
+                      return InkWell(
+                        onTap: user == null
+                            ? () {
+                                Navigator.of(context).pop();
+                                showAdaptiveDialog(
+                                  context: context,
+                                  barrierDismissible: true,
+                                  builder: (context) => LoginDialog(
+                                      isCreatedAccountClicked: true),
+                                );
+                              }
+                            : UserAPI().logout,
+                        onHover: (value) => setState(() => isHover[1] = value),
+                        child: Text(
+                          user == null ? 'sign_up' : 'logout',
+                          style: TextStyle(
+                              color:
+                                  isHover[1] ? Colors.blue[200] : Colors.white,
+                              fontSize: 22),
+                        ).tr(),
+                      );
+                    }),
                 Padding(
                   padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
                   child: Divider(

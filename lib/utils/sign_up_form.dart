@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:http/http.dart' as http;
+import 'package:portfolio/api/user_api.dart';
 
 import '../main.dart';
 import 'input_decorator.dart';
@@ -95,13 +96,8 @@ class SignUpForm extends StatelessWidget {
                   textStyle: TextStyle(fontSize: 18)),
               onPressed: () async {
                 if (!_globalKey!.currentState!.validate()) return;
-                final url = Uri.parse('${MyApp.monitorUrl}/register');
-                final res = await http.post(url,
-                    body: jsonEncode({
-                      'email': _emailTextController.text,
-                      'password': _passwordTextController.text
-                    }),
-                    headers: {'Content-Type': 'application/json'});
+                final res = await UserAPI().signUp(
+                    _emailTextController.text, _passwordTextController.text);
                 final msg = json.decode(res.body)['detail'];
                 switch (res.statusCode) {
                   case 400:

@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:portfolio/api/user_api.dart';
 import 'package:portfolio/main.dart';
 import 'package:portfolio/widgets/turnstile.dart';
 import 'package:http/http.dart' as http;
@@ -95,16 +96,10 @@ class LoginForm extends StatelessWidget {
                     ? null
                     : () async {
                         if (!_globalKey!.currentState!.validate()) return;
-                        final url = Uri.parse('${MyApp.monitorUrl}/login');
-                        final res = await http.post(url,
-                            body: jsonEncode({
-                              'email': _emailTextController.text,
-                              'password': _passwordTextController.text
-                            }),
-                            headers: {
-                              'Content-Type': 'application/json',
-                              'cf-turnstile-response': turnstileToken.text
-                            });
+                        final res = await UserAPI().login(
+                            _emailTextController.text,
+                            _passwordTextController.text,
+                            turnstileToken.text);
                         final msg = json.decode(res.body)['detail'] as String?;
                         switch (res.statusCode) {
                           case 404:
@@ -113,8 +108,9 @@ class LoginForm extends StatelessWidget {
                           case 403:
                             errorPassword = msg;
                             break;
-                          case 201:
+                          case 202:
                             print("successful login to get access token");
+                            Navigator.of(context).pop();
                             break;
                           default:
                             showToast(msg,

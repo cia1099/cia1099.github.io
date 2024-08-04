@@ -4,6 +4,7 @@ import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:portfolio/api/user_api.dart';
 import 'package:portfolio/dialogs/contact_dialog.dart';
 import 'package:portfolio/dialogs/login_dialog.dart';
 import 'package:portfolio/main.dart';
@@ -208,46 +209,68 @@ class _TopBarContentsState extends State<TopBarContents> {
                 ),
               ),
               SizedBox(width: 10),
-              InkWell(
-                onHover: (value) {
-                  setState(() {
-                    value ? _isHovering[2] = true : _isHovering[2] = false;
-                  });
-                },
-                onTap: () => showAdaptiveDialog(
-                  context: context,
-                  barrierDismissible: true,
-                  builder: (context) =>
-                      LoginDialog(isCreatedAccountClicked: true),
-                ),
-                child: Text(
-                  'sign_up',
-                  style: TextStyle(
-                    color: _isHovering[2] ? Colors.blue[200] : Colors.white70,
-                  ),
-                ).tr(),
-              ),
+              StreamBuilder(
+                  stream: UserAPI.instance.authStateQueue,
+                  builder: (context, snapshot) {
+                    final user = snapshot.data;
+                    return InkWell(
+                      onHover: (value) {
+                        setState(() {
+                          value
+                              ? _isHovering[2] = true
+                              : _isHovering[2] = false;
+                        });
+                      },
+                      onTap: user == null
+                          ? () => showAdaptiveDialog(
+                                context: context,
+                                barrierDismissible: true,
+                                builder: (context) =>
+                                    LoginDialog(isCreatedAccountClicked: true),
+                              )
+                          : null,
+                      child: Text(
+                        user == null ? 'sign_up'.tr() : 'Hi, ${user.email}',
+                        style: TextStyle(
+                          color: _isHovering[2]
+                              ? Colors.blue[200]
+                              : Colors.white70,
+                        ),
+                      ),
+                    );
+                  }),
               SizedBox(
                 width: screenSize.width / 50,
               ),
-              InkWell(
-                onHover: (value) {
-                  setState(() {
-                    value ? _isHovering[3] = true : _isHovering[3] = false;
-                  });
-                },
-                onTap: () => showAdaptiveDialog(
-                  context: context,
-                  barrierDismissible: true,
-                  builder: (context) => LoginDialog(),
-                ),
-                child: Text(
-                  'login',
-                  style: TextStyle(
-                    color: _isHovering[3] ? Colors.blue[200] : Colors.white70,
-                  ),
-                ).tr(),
-              ),
+              StreamBuilder(
+                  stream: UserAPI.instance.authStateQueue,
+                  builder: (context, snapshot) {
+                    final user = snapshot.data;
+                    return InkWell(
+                      onHover: (value) {
+                        setState(() {
+                          value
+                              ? _isHovering[3] = true
+                              : _isHovering[3] = false;
+                        });
+                      },
+                      onTap: user == null
+                          ? () => showAdaptiveDialog(
+                                context: context,
+                                barrierDismissible: true,
+                                builder: (context) => LoginDialog(),
+                              )
+                          : UserAPI().logout,
+                      child: Text(
+                        user == null ? 'login' : 'logout',
+                        style: TextStyle(
+                          color: _isHovering[3]
+                              ? Colors.blue[200]
+                              : Colors.white70,
+                        ),
+                      ).tr(),
+                    );
+                  }),
             ],
           ),
         ),
