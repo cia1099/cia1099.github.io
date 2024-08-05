@@ -43,7 +43,6 @@ class ExperiencePage extends StatelessWidget {
 
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: Theme.of(context).colorScheme.background,
       extendBodyBehindAppBar: true,
       drawer: ExploreDrawer(innerScaffoldKey: innerScaffoldKey),
       appBar: isSmall
@@ -59,6 +58,7 @@ class ExperiencePage extends StatelessWidget {
             ),
       body: Scaffold(
         key: innerScaffoldKey,
+        backgroundColor: Theme.of(context).colorScheme.background,
         drawer: const LanguageDrawer(),
         body: Stack(
           children: [

@@ -61,11 +61,12 @@ class _LoginWidgetState extends State<LoginDialog> {
                   ),
                   label: Text(
                     isCreatedAccountClicked
-                        ? 'Already have an account?'
-                        : 'Create Account',
+                        ? 'dialog.already_account'
+                        : 'dialog.create_account',
                     style: TextStyle(
-                        color: Theme.of(context).textTheme.headline1!.color),
-                  ),
+                        color: Theme.of(context).textTheme.headline1!.color,
+                        fontFamily: 'Montserrat'),
+                  ).tr(),
                   style: TextButton.styleFrom(
                       textStyle: const TextStyle(
                           fontSize: 18, fontStyle: FontStyle.italic))),

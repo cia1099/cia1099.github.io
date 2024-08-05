@@ -51,7 +51,6 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: Theme.of(context).colorScheme.background,
       extendBodyBehindAppBar: true,
       appBar: ResponsiveWidget.isSmallScreen(context)
           ? generateAppBar(context)
@@ -62,6 +61,7 @@ class _HomePageState extends State<HomePage> {
       drawer: ExploreDrawer(innerScaffoldKey: innerScaffoldKey),
       body: Scaffold(
         key: innerScaffoldKey,
+        backgroundColor: Theme.of(context).colorScheme.background,
         drawer: LanguageDrawer(),
         body: WebScrollbar(
           color: Colors.red,

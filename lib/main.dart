@@ -48,7 +48,6 @@ class MyApp extends StatelessWidget {
       supportedLocales: context.supportedLocales,
       localizationsDelegates: context.localizationDelegates,
       locale: context.locale,
-      home: HomePage(),
       initialRoute: MyApp.home,
       onGenerateRoute: (settings) => PageRouteBuilder(
         settings: settings,

@@ -25,13 +25,4 @@ class User {
         "token_type": tokenType,
         "email": email,
       };
-
-  // void _update(User newUser) {
-  //   email = newUser.email;
-  //   tokenType = newUser.tokenType;
-  //   accessToken = newUser.accessToken;
-  //   notifyListeners();
-  // }
-
-  // set data(User newUser) => _update(newUser);
 }

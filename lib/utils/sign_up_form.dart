@@ -37,9 +37,9 @@ class SignUpForm extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'Please enter a valid email and password that is arbitrary characters.',
+            'dialog.sign_up_intro',
             style: Theme.of(context).primaryTextTheme.subtitle1,
-          ),
+          ).tr(),
           Padding(
             padding: const EdgeInsets.all(15.0),
             child: TextFormField(
