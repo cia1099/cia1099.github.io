@@ -31,6 +31,10 @@ en:
   github: Github
   medium: Medium
   download: Download
+  dialog:
+    sign_up_intro: Please enter a valid email and password that is arbitrary characters.
+    already_account: Already have an account?
+    create_account: Create Account
 # experiences
   bobi:
     name: Bobi Entertainment
@@ -109,6 +113,10 @@ zh_CN:
   github: Github
   medium: Medium
   download: 下载
+  dialog:
+    sign_up_intro: 请输入有效的电子邮件和任意字符的密码。
+    already_account: 已有账户？
+    create_account: 创建账户
   # experiences
   bobi:
     name: 波比娛乐有限公司
@@ -200,6 +208,10 @@ zh_TW:
   github: Github
   medium: Medium
   download: 下載
+  dialog:
+    sign_up_intro: 請輸入有效的電子郵件和任意字符的密碼。
+    already_account: 已有賬戶？
+    create_account: 創建賬戶
   # experiences
   bobi:
     name: 波比娛樂有限公司
