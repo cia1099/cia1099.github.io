@@ -35,6 +35,9 @@ en:
     sign_up_intro: Please enter a valid email and password that is arbitrary characters.
     already_account: Already have an account?
     create_account: Create Account
+    mail_me: Mail me a message!
+    say_hello: Got a question or proposal, or just want to say hello? Go ahead.
+    shoot: Shoot
 # experiences
   bobi:
     name: Bobi Entertainment
@@ -117,6 +120,9 @@ zh_CN:
     sign_up_intro: 请输入有效的电子邮件和任意字符的密码。
     already_account: 已有账户？
     create_account: 创建账户
+    mail_me: 给我留言
+    say_hello: 有问题或建议，或者只是想打个招呼？来吧：
+    shoot: 发送
   # experiences
   bobi:
     name: 波比娛乐有限公司
@@ -212,6 +218,9 @@ zh_TW:
     sign_up_intro: 請輸入有效的電子郵件和任意字符的密碼。
     already_account: 已有賬戶？
     create_account: 創建賬戶
+    mail_me: 給我發郵件！
+    say_hello: 有問題或建議，或只是想打聲招呼？說吧：
+    shoot: 發送
   # experiences
   bobi:
     name: 波比娛樂有限公司
