@@ -1,5 +1,10 @@
+import 'dart:convert';
+
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:portfolio/api/user_api.dart';
 import 'package:portfolio/utils/input_decorator.dart';
 
 class ContactMeDialog extends StatelessWidget {
@@ -23,17 +28,17 @@ class ContactMeDialog extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  'Mail me a message!',
+                  'dialog.mail_me',
                   style: TextStyle(
                       fontSize: isSmall ? 24 : 40,
                       fontFamily: 'Montserrat',
                       fontWeight: FontWeight.bold),
-                ),
+                ).tr(),
                 const SizedBox(height: 2),
                 Text(
-                  'Got a question or proposal, or just want to say hello? Go ahead.',
+                  'dialog.say_hello',
                   style: Theme.of(context).primaryTextTheme.subtitle2,
-                ),
+                ).tr(),
                 SizedBox(height: width * .1),
                 Form(
                   key: formKey,
@@ -45,6 +50,8 @@ class ContactMeDialog extends StatelessWidget {
                         width: 200,
                         child: TextFormField(
                           controller: nameTextController,
+                          validator: (value) =>
+                              value!.isEmpty ? 'Please leave your Name' : null,
                           decoration: buildInputDecoration(
                               context, 'Your Name', 'Leave your name'),
                           textInputAction: TextInputAction.next,
@@ -54,6 +61,7 @@ class ContactMeDialog extends StatelessWidget {
                         width: 300,
                         child: TextFormField(
                           controller: emailTextController,
+                          validator: isValidEmail,
                           decoration: buildInputDecoration(
                               context, 'Email', 'Enter your email'),
                           textInputAction: TextInputAction.next,
@@ -65,6 +73,8 @@ class ContactMeDialog extends StatelessWidget {
                         // color: Colors.green,
                         child: TextFormField(
                           controller: contentTextController,
+                          validator: (value) =>
+                              value!.isEmpty ? 'Please leave your Name' : null,
                           decoration: buildInputDecoration(
                               context,
                               'Your Message',
@@ -80,7 +90,31 @@ class ContactMeDialog extends StatelessWidget {
                 const Expanded(child: SizedBox()),
                 StatefulBuilder(
                   builder: (context, setState) => TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      if (!formKey.currentState!.validate()) return;
+                      UserAPI()
+                          .sayHello(
+                              nameTextController.text,
+                              emailTextController.text,
+                              contentTextController.text)
+                          .then((res) {
+                        final detail =
+                            json.decode(res.body)['detail'] ?? res.body;
+                        showToast(detail,
+                            context: context,
+                            textStyle: TextStyle(
+                                color: res.statusCode == 201
+                                    ? null
+                                    : Theme.of(context).errorColor),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(8)),
+                            position: StyledToastPosition.center,
+                            animation: StyledToastAnimation.scale);
+                        if (res.statusCode == 201) {
+                          Navigator.of(context).pop();
+                        }
+                      });
+                    },
                     onHover: (value) => setState(() => isHover = value),
                     style: TextButton.styleFrom(
                         primary: isHover
@@ -114,7 +148,7 @@ class ContactMeDialog extends StatelessWidget {
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                Text('Shoot'),
+                                Text('dialog.shoot').tr(),
                                 Transform(
                                     transform: Matrix4.diagonal3Values(4, 1, 1)
                                       ..translate(-7),

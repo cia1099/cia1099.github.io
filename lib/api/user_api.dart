@@ -77,4 +77,18 @@ class UserAPI with ChangeNotifier {
       return http.Response('$e', 408);
     }
   }
+
+  Future<http.Response> sayHello(
+      String name, String email, String message) async {
+    final url = Uri.parse('${MyApp.monitorUrl}/profile/post');
+    try {
+      return http.post(url,
+          body: jsonEncode({'email': email, 'name': name, 'message': message}),
+          headers: {
+            'Content-Type': 'application/json'
+          }).timeout(const Duration(seconds: 5));
+    } catch (e) {
+      return http.Response('$e', 408);
+    }
+  }
 }
