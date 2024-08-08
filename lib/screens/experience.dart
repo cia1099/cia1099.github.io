@@ -23,21 +23,21 @@ class ExperiencePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // for app bar
-    double _opacity = 0;
     var isHover = false;
     final scaffoldKey = GlobalKey<ScaffoldState>();
     final innerScaffoldKey = GlobalKey<ScaffoldState>();
     final experienceColumnKey = GlobalKey();
     // for main scaffold
-    double _scrollPosition = 0;
     final _scrollController = ScrollController();
     final screenSize = MediaQuery.of(context).size;
-    _scrollController.addListener(() {
-      _scrollPosition = _scrollController.position.pixels;
-      _opacity = _scrollPosition < screenSize.height * 0.40
-          ? _scrollPosition / (screenSize.height * 0.40)
-          : 1;
-    });
+    // double _opacity = 0;
+    // double _scrollPosition = 0;
+    // _scrollController.addListener(() {
+    //   _scrollPosition = _scrollController.position.pixels;
+    //   _opacity = _scrollPosition < screenSize.height * 0.40
+    //       ? _scrollPosition / (screenSize.height * 0.40)
+    //       : 1;
+    // });
     final isSmall = ResponsiveWidget.isSmallScreen(context);
     double? leftSideHeight;
 
@@ -46,81 +46,57 @@ class ExperiencePage extends StatelessWidget {
       extendBodyBehindAppBar: true,
       drawer: ExploreDrawer(innerScaffoldKey: innerScaffoldKey),
       appBar: isSmall
-          ? generateAppBar(
-              context, _opacity, isHover, scaffoldKey, innerScaffoldKey)
+          ? generateAppBar(context, 1, isHover, scaffoldKey, innerScaffoldKey)
           : PreferredSize(
-              preferredSize: Size(screenSize.width, 1000),
-              child: AnimatedBuilder(
-                  animation: _scrollController,
-                  builder: (context, child) {
-                    return TopBarContents(_opacity);
-                  }),
+              preferredSize: Size(screenSize.width, kToolbarHeight + 40),
+              child: TopBarContents(1),
             ),
       body: Scaffold(
         key: innerScaffoldKey,
         backgroundColor: Theme.of(context).colorScheme.background,
         drawer: const LanguageDrawer(),
-        body: Stack(
-          children: [
-            Container(
-              color: Theme.of(context).bottomAppBarColor,
-              height: kToolbarHeight,
-            ),
-            SingleChildScrollView(
-              padding: EdgeInsets.only(
-                top: kToolbarHeight,
-              ),
-              controller: _scrollController,
-              child: Column(
-                children: [
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: screenSize.width / 15),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Offstage(
-                          offstage: isSmall,
-                          child: StatefulBuilder(
-                            builder: (context, setState) {
-                              WidgetsBinding.instance.addPostFrameCallback(
-                                (_) => setState(() {
-                                  final renderBox = experienceColumnKey
-                                      .currentContext
-                                      ?.findRenderObject() as RenderBox;
-                                  leftSideHeight = renderBox.size.height;
-                                }),
-                              );
-                              return Container(
-                                margin: EdgeInsets.only(right: 32),
-                                decoration: const BoxDecoration(
-                                    border: Border(
-                                        right: BorderSide(
-                                            width: 1,
-                                            color: Color(0x8ACBC6D1)))),
-                                padding: EdgeInsets.only(top: 16),
-                                width: 200,
-                                height: leftSideHeight,
-                                child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      HighlineText(
-                                          '${"core_technologies".tr()}:'),
-                                      SelectableText(
-                                          coreTechnologies
-                                              .map((e) =>
-                                                  String.fromCharCode(9635) +
-                                                  ' $e')
-                                              .join('\n'),
-                                          style: Theme.of(context)
-                                              .primaryTextTheme
-                                              .subtitle2
-                                              ?.apply(heightDelta: 0.8)),
-                                      HighlineText(
-                                          '${'kernel_competence'.tr()}:'),
-                                      SelectableText(
-                                        kernelCompetence
+        body: SingleChildScrollView(
+          padding: EdgeInsets.only(
+            top: kToolbarHeight + (isSmall ? 0 : 40),
+          ),
+          controller: _scrollController,
+          child: SelectionArea(
+            child: Column(
+              children: [
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: screenSize.width / 15),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Offstage(
+                        offstage: isSmall,
+                        child: StatefulBuilder(
+                          builder: (context, setState) {
+                            WidgetsBinding.instance.addPostFrameCallback(
+                              (_) => setState(() {
+                                final renderBox = experienceColumnKey
+                                    .currentContext
+                                    ?.findRenderObject() as RenderBox;
+                                leftSideHeight = renderBox.size.height;
+                              }),
+                            );
+                            return Container(
+                              margin: EdgeInsets.only(right: 32),
+                              decoration: const BoxDecoration(
+                                  border: Border(
+                                      right: BorderSide(
+                                          width: 1, color: Color(0x8ACBC6D1)))),
+                              padding: EdgeInsets.only(top: 16),
+                              width: 200,
+                              height: leftSideHeight,
+                              child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    HighlineText(
+                                        '${"core_technologies".tr()}:'),
+                                    Text(
+                                        coreTechnologies
                                             .map((e) =>
                                                 String.fromCharCode(9635) +
                                                 ' $e')
@@ -128,68 +104,77 @@ class ExperiencePage extends StatelessWidget {
                                         style: Theme.of(context)
                                             .primaryTextTheme
                                             .subtitle2
-                                            ?.apply(heightDelta: 0.8),
-                                      ),
-                                      if (leftSideHeight != null)
-                                        ...[
-                                              const Expanded(child: SizedBox()),
-                                              HighlineText(
-                                                  '${'education'.tr()}:'),
-                                            ] +
-                                            degreeEdu
-                                                .map((e) => SelectableText.rich(
-                                                    TextSpan(children: [
-                                                      const WidgetSpan(
-                                                          child: Icon(
-                                                        Icons.school_sharp,
-                                                        size: 16,
-                                                      )),
-                                                      TextSpan(
-                                                          text:
-                                                              '${'$e.degree'.tr()}@${'$e.subject'.tr()}'),
-                                                      TextSpan(
-                                                          text:
-                                                              '\n${'$e.school'.tr()}',
-                                                          style: Theme.of(
-                                                                  context)
-                                                              .primaryTextTheme
-                                                              .subtitle2),
-                                                    ]),
-                                                    style: Theme.of(context)
-                                                        .primaryTextTheme
-                                                        .button))
-                                                .toList(),
-                                    ]),
-                              );
-                            },
-                          ),
+                                            ?.apply(heightDelta: 0.8)),
+                                    HighlineText(
+                                        '${'kernel_competence'.tr()}:'),
+                                    Text(
+                                      kernelCompetence
+                                          .map((e) =>
+                                              String.fromCharCode(9635) + ' $e')
+                                          .join('\n'),
+                                      style: Theme.of(context)
+                                          .primaryTextTheme
+                                          .subtitle2
+                                          ?.apply(heightDelta: 0.8),
+                                    ),
+                                    if (leftSideHeight != null)
+                                      ...[
+                                            const Expanded(child: SizedBox()),
+                                            HighlineText(
+                                                '${'education'.tr()}:'),
+                                          ] +
+                                          degreeEdu
+                                              .map((e) => Text.rich(
+                                                  TextSpan(children: [
+                                                    const WidgetSpan(
+                                                        child: Icon(
+                                                      Icons.school_sharp,
+                                                      size: 16,
+                                                    )),
+                                                    TextSpan(
+                                                        text:
+                                                            '${'$e.degree'.tr()}@${'$e.subject'.tr()}'),
+                                                    TextSpan(
+                                                        text:
+                                                            '\n${'$e.school'.tr()}',
+                                                        style: Theme.of(context)
+                                                            .primaryTextTheme
+                                                            .subtitle2),
+                                                  ]),
+                                                  style: Theme.of(context)
+                                                      .primaryTextTheme
+                                                      .button))
+                                              .toList(),
+                                  ]),
+                            );
+                          },
                         ),
-                        Expanded(
-                          child: ExperienceColumn(
-                              key: experienceColumnKey,
-                              screenSize: screenSize,
-                              isSmall: isSmall),
-                        ),
-                      ],
-                    ),
+                      ),
+                      Expanded(
+                        child: ExperienceColumn(
+                            key: experienceColumnKey,
+                            screenSize: screenSize,
+                            isSmall: isSmall),
+                      ),
+                    ],
                   ),
-                  // Container(
-                  //   padding: const EdgeInsets.all(30),
-                  //   width: double.maxFinite,
-                  //   color: Theme.of(context).bottomAppBarColor,
-                  //   child: Text(
-                  //     'Copyright © 2024 | Otto Lin',
-                  //     style: TextStyle(
-                  //       color: Colors.blueGrey[300],
-                  //       fontSize: 14,
-                  //     ),
-                  //   ),
-                  // ),
-                  BottomBar()
-                ],
-              ),
+                ),
+                // Container(
+                //   padding: const EdgeInsets.all(30),
+                //   width: double.maxFinite,
+                //   color: Theme.of(context).bottomAppBarColor,
+                //   child: Text(
+                //     'Copyright © 2024 | Otto Lin',
+                //     style: TextStyle(
+                //       color: Colors.blueGrey[300],
+                //       fontSize: 14,
+                //     ),
+                //   ),
+                // ),
+                BottomBar()
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
@@ -268,8 +253,7 @@ class HighlineText extends StatelessWidget {
         end: Alignment.bottomCenter,
         stops: [.6, .61, .85, .86],
       )),
-      child: SelectableText(text,
-          style: Theme.of(context).primaryTextTheme.subtitle1),
+      child: Text(text, style: Theme.of(context).primaryTextTheme.subtitle1),
     );
   }
 }
@@ -315,7 +299,7 @@ class ExperienceColumn extends StatelessWidget {
                       WidgetSpan(
                           child: HighlineText(' ${'core_technologies'.tr()}:')),
                     ])),
-                SelectableText(coreTechnologies.join(', '),
+                Text(coreTechnologies.join(', '),
                     style: Theme.of(context).primaryTextTheme.subtitle2),
                 Text.rich(TextSpan(
                     text: String.fromCharCode(9635),
@@ -324,7 +308,7 @@ class ExperienceColumn extends StatelessWidget {
                       WidgetSpan(
                           child: HighlineText(' ${'kernel_competence'.tr()}:')),
                     ])),
-                SelectableText(kernelCompetence.join(', '),
+                Text(kernelCompetence.join(', '),
                     style: Theme.of(context).primaryTextTheme.subtitle2)
               ]
             ],
@@ -332,7 +316,7 @@ class ExperienceColumn extends StatelessWidget {
           Transform.translate(
             offset: Offset(0, 32),
             child: Container(
-              child: SelectableText('introduce.advantage'.tr(),
+              child: Text('introduce.advantage'.tr(),
                   style: Theme.of(context).primaryTextTheme.subtitle1),
             ),
           ),
@@ -353,7 +337,7 @@ class ExperienceColumn extends StatelessWidget {
                   children: [
                     Container(
                         // color: Colors.blue,
-                        child: SelectableText.rich(
+                        child: Text.rich(
                       TextSpan(text: '${experiences[i]}.name'.tr(), children: [
                         WidgetSpan(child: Icon(CupertinoIcons.minus)),
                         TextSpan(
@@ -365,7 +349,7 @@ class ExperienceColumn extends StatelessWidget {
                     Container(
                         width: 150,
                         // color: Colors.red,
-                        child: SelectableText.rich(
+                        child: Text.rich(
                           TextSpan(
                             // text: "${experiences[i]}.address".tr() + "\n",
                             children: [
@@ -398,7 +382,7 @@ class ExperienceColumn extends StatelessWidget {
                             Container(
                               width: constraints.maxWidth -
                                   previewWidth * (isSmall ? 0 : 1),
-                              child: SelectableText(
+                              child: Text(
                                 '${experiences[i]}.content'.tr(),
                                 style: Theme.of(context)
                                     .primaryTextTheme

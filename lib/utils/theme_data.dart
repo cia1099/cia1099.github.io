@@ -25,6 +25,7 @@ var lightThemeData = ThemeData(
   bottomAppBarColor: Colors.blueGrey.shade900,
   iconTheme: IconThemeData(color: Colors.blueGrey),
   brightness: Brightness.light,
+  appBarTheme: AppBarTheme(iconTheme: IconThemeData(color: Colors.white70)),
 );
 
 var darkThemeData = ThemeData(

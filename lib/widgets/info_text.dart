@@ -21,7 +21,7 @@ class InfoText extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SelectableText(
+        Text(
           '${type.tr()}: ',
           style: TextStyle(
             color: Colors.blueGrey[300],
@@ -33,13 +33,12 @@ class InfoText extends StatelessWidget {
             builder: (context, setState) => InkWell(
               onHover: (value) => setState(() => isHover = value),
               onTap: onTap,
-              child: SelectableText(
+              child: Text(
                 '${onTap == null ? text : text.tr()}',
                 style: TextStyle(
                   color: isHover ? Colors.blue[200] : Colors.blueGrey[100],
                   fontSize: 16,
                 ),
-                onTap: onTap,
               ),
             ),
           ),

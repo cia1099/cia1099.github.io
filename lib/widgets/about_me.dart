@@ -45,12 +45,12 @@ class AboutMe extends StatelessWidget {
               padding: isSmall
                   ? null
                   : EdgeInsets.only(left: 4, right: screenWidth / 15),
-              child: SelectableText(
-                "introduce.detail".tr(),
+              child: Text(
+                "introduce.detail",
                 // textAlign: TextAlign.justify,
                 // overflow: TextOverflow.visible,
                 style: Theme.of(context).primaryTextTheme.subtitle1,
-              ),
+              ).tr(),
             ),
           ),
         ],

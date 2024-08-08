@@ -55,7 +55,7 @@ class _HomePageState extends State<HomePage> {
       appBar: ResponsiveWidget.isSmallScreen(context)
           ? generateAppBar(context)
           : PreferredSize(
-              preferredSize: Size(screenSize.width, 1000),
+              preferredSize: Size(screenSize.width, kToolbarHeight + 40),
               child: TopBarContents(_opacity),
             ),
       drawer: ExploreDrawer(innerScaffoldKey: innerScaffoldKey),
@@ -76,77 +76,79 @@ class _HomePageState extends State<HomePage> {
             child: SingleChildScrollView(
               controller: _scrollController,
               physics: ClampingScrollPhysics(),
-              child: Column(
-                children: [
-                  Container(
-                    color: Colors.grey,
-                    height: screenSize.height * 0.45,
-                    width: screenSize.width,
-                    child: Stack(
-                      children: [
-                        Image.asset(
-                          'assets/images/cover.jpg',
-                          width: screenSize.width,
-                          height: screenSize.height * 0.45,
-                          fit: BoxFit.cover,
-                        ),
-                        // FloatingQuickAccessBar(screenSize: screenSize),
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Container(
-                            // margin: EdgeInsets.only(top: 50),
-                            height: 210,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                CircleAvatar(
-                                  backgroundImage: NetworkImage(
-                                      MyApp.monitorUrl +
-                                          '/profile/assets/otto.jpeg'),
-                                  radius: screenSize.width / 20,
-                                  backgroundColor: Colors.transparent,
-                                ),
-                                Container(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: screenSize.width / 15),
-                                  color: Colors.black12,
-                                  child: Transform.translate(
-                                    offset: Offset(0, 20),
-                                    child: SelectableText(
-                                        "introduce.rough".tr(),
-                                        // textAlign: TextAlign.justify,
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w500,
-                                          fontFamily: 'Montserrat',
-                                          color: Colors.white.withOpacity(0.8),
-                                        )),
-                                  ),
-                                ),
-                              ],
-                            ),
+              child: SelectionArea(
+                child: Column(
+                  children: [
+                    Container(
+                      color: Colors.grey,
+                      height: screenSize.height * 0.45,
+                      width: screenSize.width,
+                      child: Stack(
+                        children: [
+                          Image.asset(
+                            'assets/images/cover.jpg',
+                            width: screenSize.width,
+                            height: screenSize.height * 0.45,
+                            fit: BoxFit.cover,
                           ),
-                        )
-                      ],
+                          // FloatingQuickAccessBar(screenSize: screenSize),
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Container(
+                              // margin: EdgeInsets.only(top: 50),
+                              height: 210,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  CircleAvatar(
+                                    backgroundImage: NetworkImage(
+                                        MyApp.monitorUrl +
+                                            '/profile/assets/otto.jpeg'),
+                                    radius: screenSize.width / 20,
+                                    backgroundColor: Colors.transparent,
+                                  ),
+                                  Container(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: screenSize.width / 15),
+                                    color: Colors.black12,
+                                    child: Transform.translate(
+                                      offset: Offset(0, 20),
+                                      child: Text("introduce.rough",
+                                          // textAlign: TextAlign.justify,
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w500,
+                                            fontFamily: 'Montserrat',
+                                            color:
+                                                Colors.white.withOpacity(0.8),
+                                          )).tr(),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                  Container(
-                    child: Column(
-                      children: [
-                        FeaturedHeading(
-                          screenSize: screenSize,
-                        ),
-                        FeaturedTiles(screenSize: screenSize)
-                      ],
+                    Container(
+                      child: Column(
+                        children: [
+                          FeaturedHeading(
+                            screenSize: screenSize,
+                          ),
+                          FeaturedTiles(screenSize: screenSize)
+                        ],
+                      ),
                     ),
-                  ),
-                  AboutMe(key: aboutMeKey),
-                  // SizedBox(height: screenSize.height / 8),
-                  DestinationHeading(screenSize: screenSize),
-                  DestinationCarousel(),
-                  SizedBox(height: screenSize.height / 10),
-                  BottomBar(scrollCall: scrollToAboutMe),
-                ],
+                    AboutMe(key: aboutMeKey),
+                    // SizedBox(height: screenSize.height / 8),
+                    DestinationHeading(screenSize: screenSize),
+                    DestinationCarousel(),
+                    SizedBox(height: screenSize.height / 10),
+                    BottomBar(scrollCall: scrollToAboutMe),
+                  ],
+                ),
               ),
             ),
           ),

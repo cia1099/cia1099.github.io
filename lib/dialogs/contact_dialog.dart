@@ -47,7 +47,7 @@ class ContactMeDialog extends StatelessWidget {
                     runSpacing: width * .05,
                     children: [
                       Container(
-                        width: 200,
+                        width: isSmall ? 300 : 200,
                         child: TextFormField(
                           controller: nameTextController,
                           validator: (value) =>
@@ -68,7 +68,7 @@ class ContactMeDialog extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        width: width * .8,
+                        width: isSmall ? 300 : width * .8,
                         height: 200,
                         // color: Colors.green,
                         child: TextFormField(
