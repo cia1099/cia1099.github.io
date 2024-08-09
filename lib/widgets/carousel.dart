@@ -4,6 +4,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:easy_localization/easy_localization.dart'
     show StringTranslateExtension;
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:portfolio/widgets/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -63,14 +64,15 @@ class _DestinationCarouselState extends State<DestinationCarousel>
     txtSliders![_current] = _createTextTiles(
         screenSize, places[_current], Colors.white.withOpacity(0.7));
     // }
+    final isSmall = ResponsiveWidget.isSmallScreen(context);
 
     return Stack(
       children: [
         Center(
           child: SizedBox(
-            width: screenSize.width * 3 / 4,
+            width: screenSize.width * (isSmall ? 0.85 : 3 / 4),
             child: AspectRatio(
-              aspectRatio: 16 / 9,
+              aspectRatio: isSmall ? 4 / 3 : 16 / 9,
               child: AnimatedSwitcher(
                   duration: Duration(milliseconds: 200),
                   transitionBuilder: (child, animation) => SlideTransition(
@@ -97,7 +99,7 @@ class _DestinationCarouselState extends State<DestinationCarousel>
         CarouselSlider(
           items: txtSliders,
           options: CarouselOptions(
-            viewportFraction: 0.6,
+            viewportFraction: isSmall ? 1 : 0.6,
             enlargeCenterPage: true,
             aspectRatio: 18 / 8,
             autoPlay: true,
@@ -218,7 +220,8 @@ class _DestinationCarouselState extends State<DestinationCarousel>
 
   List<Widget> generateTextTiles(screenSize, ctx) {
     return places
-        .map((e) => Center(
+        .map((e) => Align(
+              alignment: FractionalOffset(0.5, 0.1),
               child: AutoSizeText(
                 e.tr(),
                 style: GoogleFonts.electrolize(
@@ -233,7 +236,8 @@ class _DestinationCarouselState extends State<DestinationCarousel>
   }
 
   Widget _createTextTiles(screenSize, String str, myColor) {
-    return Center(
+    return Align(
+      alignment: FractionalOffset(0.5, 0.1),
       child: AutoSizeText(
         str.tr(),
         style: GoogleFonts.electrolize(

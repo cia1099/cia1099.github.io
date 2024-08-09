@@ -14,9 +14,10 @@ class DestinationHeading extends StatelessWidget {
   Widget build(BuildContext context) {
     return ResponsiveWidget.isSmallScreen(context)
         ? Container(
+            // color: Colors.red,
             padding: EdgeInsets.only(
-              top: screenSize.height / 20,
-              // bottom: screenSize.height / 20,
+              // top: screenSize.height / 30,
+              bottom: screenSize.height / 30,
             ),
             width: screenSize.width,
             // color: Colors.black,

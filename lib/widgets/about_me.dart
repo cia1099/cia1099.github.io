@@ -12,8 +12,9 @@ class AboutMe extends StatelessWidget {
     final isSmall = ResponsiveWidget.isSmallScreen(context);
     final screenWidth = MediaQuery.of(context).size.width;
     return Container(
-      margin: EdgeInsets.only(top: isSmall ? 16 : 64, bottom: isSmall ? 32 : 0),
-      height: isSmall ? 260 : 160,
+      // color: Colors.green,
+      margin: EdgeInsets.only(top: isSmall ? 16 : 64),
+      height: isSmall ? 200 : 160,
       padding:
           isSmall ? EdgeInsets.symmetric(horizontal: screenWidth / 15) : null,
       child: Flex(
