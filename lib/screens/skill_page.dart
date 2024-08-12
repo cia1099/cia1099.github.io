@@ -52,15 +52,12 @@ class SkillPage extends StatelessWidget {
                     child: Center(
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
-                        child: SingleChildScrollView(
-                          child: SelectableText(
-                            lorem(
-                                paragraphs: 10,
-                                words: 5000), //logo.description,
-                            style: GoogleFonts.notoSans(
-                              fontSize: 18,
-                              // color: antiFlashColor,
-                            ),
+                        child: SelectableText(
+                          lorem(
+                              paragraphs: 10, words: 5000), //logo.description,
+                          style: GoogleFonts.notoSans(
+                            fontSize: 18,
+                            // color: antiFlashColor,
                           ),
                         ),
                       ),
@@ -80,7 +77,7 @@ class SkillPage extends StatelessWidget {
             child: Container(
               padding: EdgeInsets.all(16),
               decoration: BoxDecoration(
-                  color: Colors.black87.withOpacity(.75),
+                  color: Theme.of(context).bottomAppBarColor.withOpacity(.75),
                   borderRadius: BorderRadius.circular(20)),
               child: Row(
                 children: [

@@ -61,6 +61,7 @@ class FeaturedTiles extends StatelessWidget {
   }
 
   Widget wideScreenLayout(BuildContext context) {
+    var hoverIndex = -1;
     return Padding(
       padding: EdgeInsets.only(
         top: screenSize.height * 0.06,
@@ -75,35 +76,53 @@ class FeaturedTiles extends StatelessWidget {
           ...Iterable<int>.generate(assets.length).map(
             (int pageIndex) => Column(
               children: [
-                SizedBox(
-                  height: screenSize.width / 6,
-                  width: screenSize.width / 3.8,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(5.0),
-                    child: InkWell(
-                      onTap: () => Navigator.of(context).push(PageRouteBuilder(
-                        opaque: false,
-                        barrierDismissible: true,
-                        transitionDuration: const Duration(milliseconds: 600),
-                        pageBuilder: (context, animation, secondaryAnimation) =>
-                            SkillPage(logo: logos[pageIndex]),
-                        transitionsBuilder:
-                            (context, animation, secondaryAnimation, child) {
-                          final opacityTween =
-                              Tween<double>(begin: 0, end: 1).chain(
-                            CurveTween(curve: Curves.easeOut),
-                          );
-                          return FadeTransition(
-                            opacity: animation.drive(opacityTween),
-                            child: child,
-                          );
-                        },
-                      )),
-                      child: Hero(
-                        tag: logos[pageIndex].tag,
-                        child: Image.asset(
-                          assets[pageIndex],
-                          fit: BoxFit.cover,
+                StatefulBuilder(
+                  builder: (context, setState) => AnimatedPhysicalModel(
+                    duration: Durations.extralong4,
+                    shape: BoxShape.rectangle,
+                    elevation: hoverIndex == pageIndex ? 12 : 0,
+                    color: Theme.of(context).backgroundColor,
+                    shadowColor:
+                        Theme.of(context).primaryTextTheme.headline2!.color!,
+                    borderRadius: BorderRadius.circular(5),
+                    curve: Curves.fastOutSlowIn,
+                    child: SizedBox(
+                      height: screenSize.width / 6,
+                      width: screenSize.width / 3.8,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(5.0),
+                        child: InkWell(
+                          onHover: (value) => setState(
+                              () => hoverIndex = value ? pageIndex : -1),
+                          onTap: () =>
+                              //ref. https://stackoverflow.com/questions/44403417/hero-animation-with-an-alertdialog
+                              Navigator.of(context).push(PageRouteBuilder(
+                            opaque: false,
+                            barrierDismissible: true,
+                            transitionDuration:
+                                const Duration(milliseconds: 600),
+                            pageBuilder:
+                                (context, animation, secondaryAnimation) =>
+                                    SkillPage(logo: logos[pageIndex]),
+                            transitionsBuilder: (context, animation,
+                                secondaryAnimation, child) {
+                              final opacityTween =
+                                  Tween<double>(begin: 0, end: 1).chain(
+                                CurveTween(curve: Curves.easeOut),
+                              );
+                              return FadeTransition(
+                                opacity: animation.drive(opacityTween),
+                                child: child,
+                              );
+                            },
+                          )),
+                          child: Hero(
+                            tag: logos[pageIndex].tag,
+                            child: Image.asset(
+                              assets[pageIndex],
+                              fit: BoxFit.cover,
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -133,6 +152,7 @@ class FeaturedTiles extends StatelessWidget {
   }
 
   Widget narrowScreenLayout(BuildContext context) {
+    var hoverIndex = -1;
     return Padding(
       padding: EdgeInsets.only(top: screenSize.height / 50),
       child: SingleChildScrollView(
@@ -147,38 +167,54 @@ class FeaturedTiles extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(
-                        height: screenSize.width / 2.5,
-                        width: screenSize.width / 1.5,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(5.0),
-                          child: InkWell(
-                            onTap: () =>
-                                Navigator.of(context).push(PageRouteBuilder(
-                              opaque: false,
-                              barrierDismissible: true,
-                              transitionDuration:
-                                  const Duration(milliseconds: 600),
-                              pageBuilder:
-                                  (context, animation, secondaryAnimation) =>
+                      StatefulBuilder(
+                        builder: (context, setState) => AnimatedPhysicalModel(
+                          duration: Durations.extralong4,
+                          shape: BoxShape.rectangle,
+                          elevation: hoverIndex == pageIndex ? 12 : 0,
+                          color: Theme.of(context).backgroundColor,
+                          shadowColor: Theme.of(context)
+                              .primaryTextTheme
+                              .headline2!
+                              .color!,
+                          borderRadius: BorderRadius.circular(5),
+                          curve: Curves.fastOutSlowIn,
+                          child: SizedBox(
+                            height: screenSize.width / 2.5,
+                            width: screenSize.width / 1.5,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(5.0),
+                              child: InkWell(
+                                onHover: (value) => setState(
+                                    () => hoverIndex = value ? pageIndex : -1),
+                                onTap: () =>
+                                    Navigator.of(context).push(PageRouteBuilder(
+                                  opaque: false,
+                                  barrierDismissible: true,
+                                  transitionDuration:
+                                      const Duration(milliseconds: 600),
+                                  pageBuilder: (context, animation,
+                                          secondaryAnimation) =>
                                       SkillPage(logo: logos[pageIndex]),
-                              transitionsBuilder: (context, animation,
-                                  secondaryAnimation, child) {
-                                final opacityTween =
-                                    Tween<double>(begin: 0, end: 1).chain(
-                                  CurveTween(curve: Curves.easeOut),
-                                );
-                                return FadeTransition(
-                                  opacity: animation.drive(opacityTween),
-                                  child: child,
-                                );
-                              },
-                            )),
-                            child: Hero(
-                              tag: logos[pageIndex].tag,
-                              child: Image.asset(
-                                assets[pageIndex],
-                                fit: BoxFit.cover,
+                                  transitionsBuilder: (context, animation,
+                                      secondaryAnimation, child) {
+                                    final opacityTween =
+                                        Tween<double>(begin: 0, end: 1).chain(
+                                      CurveTween(curve: Curves.easeOut),
+                                    );
+                                    return FadeTransition(
+                                      opacity: animation.drive(opacityTween),
+                                      child: child,
+                                    );
+                                  },
+                                )),
+                                child: Hero(
+                                  tag: logos[pageIndex].tag,
+                                  child: Image.asset(
+                                    assets[pageIndex],
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
