@@ -1,5 +1,8 @@
+import 'package:portfolio/models/logo.dart';
 import 'package:portfolio/widgets/responsive.dart';
 import 'package:flutter/material.dart';
+
+import '../screens/skill_page.dart';
 
 class FeaturedTiles extends StatelessWidget {
   FeaturedTiles({
@@ -25,6 +28,29 @@ class FeaturedTiles extends StatelessWidget {
     'Computer Vision',
     'C++',
     'Git Version Control'
+  ];
+  final logos = [
+    LogoModel(tag: 'flutter', description: 'description.flutter'),
+    LogoModel(
+        tag: 'swift',
+        description: 'description.swift',
+        assetPath: 'assets/images/logo_swift.png'),
+    LogoModel(
+        tag: 'python',
+        description: 'description.python',
+        assetPath: 'assets/images/logo_python.png'),
+    LogoModel(
+        tag: 'computer_vision',
+        description: 'description.computer_vision',
+        assetPath: 'assets/images/logo_cv.png'),
+    LogoModel(
+        tag: 'cpp',
+        description: 'description.cpp',
+        assetPath: 'assets/images/logo_cpp.png'),
+    LogoModel(
+        tag: 'git',
+        description: 'description.git',
+        assetPath: 'assets/images/logo_git.png')
   ];
 
   @override
@@ -54,9 +80,32 @@ class FeaturedTiles extends StatelessWidget {
                   width: screenSize.width / 3.8,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(5.0),
-                    child: Image.asset(
-                      assets[pageIndex],
-                      fit: BoxFit.cover,
+                    child: InkWell(
+                      onTap: () => Navigator.of(context).push(PageRouteBuilder(
+                        opaque: false,
+                        barrierDismissible: true,
+                        transitionDuration: const Duration(milliseconds: 600),
+                        pageBuilder: (context, animation, secondaryAnimation) =>
+                            SkillPage(logo: logos[pageIndex]),
+                        transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) {
+                          final opacityTween =
+                              Tween<double>(begin: 0, end: 1).chain(
+                            CurveTween(curve: Curves.easeOut),
+                          );
+                          return FadeTransition(
+                            opacity: animation.drive(opacityTween),
+                            child: child,
+                          );
+                        },
+                      )),
+                      child: Hero(
+                        tag: logos[pageIndex].tag,
+                        child: Image.asset(
+                          assets[pageIndex],
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -103,9 +152,35 @@ class FeaturedTiles extends StatelessWidget {
                         width: screenSize.width / 1.5,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(5.0),
-                          child: Image.asset(
-                            assets[pageIndex],
-                            fit: BoxFit.cover,
+                          child: InkWell(
+                            onTap: () =>
+                                Navigator.of(context).push(PageRouteBuilder(
+                              opaque: false,
+                              barrierDismissible: true,
+                              transitionDuration:
+                                  const Duration(milliseconds: 600),
+                              pageBuilder:
+                                  (context, animation, secondaryAnimation) =>
+                                      SkillPage(logo: logos[pageIndex]),
+                              transitionsBuilder: (context, animation,
+                                  secondaryAnimation, child) {
+                                final opacityTween =
+                                    Tween<double>(begin: 0, end: 1).chain(
+                                  CurveTween(curve: Curves.easeOut),
+                                );
+                                return FadeTransition(
+                                  opacity: animation.drive(opacityTween),
+                                  child: child,
+                                );
+                              },
+                            )),
+                            child: Hero(
+                              tag: logos[pageIndex].tag,
+                              child: Image.asset(
+                                assets[pageIndex],
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                           ),
                         ),
                       ),

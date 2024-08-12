@@ -35,9 +35,17 @@ en:
     sign_up_intro: Please enter a valid email and password that is arbitrary characters.
     already_account: Already have an account?
     create_account: Create Account
-    mail_me: Mail me a message!
-    say_hello: Got a question or proposal, or just want to say hello? Go ahead.
+    mail_me: Send me a message by e-mail!
+    say_hello: Do you have a question, suggestion, or just want to say hello? Feel free to do so.
     shoot: Shoot
+  description:
+    flutter: Flutter is Google's UI toolkit for building beautiful, natively compiled applications for mobile, web, and desktop from a single codebase. My PROFILE - this app is made in Flutter :)
+    swift: Swift is a general-purpose, multi-paradigm, compiled programming language developed by Apple Inc. for iOS, iPadOS, macOS, watchOS, tvOS, Linux, and z/OS. Swift is designed to work with Apple's Cocoa and Cocoa Touch frameworks and the large body of existing Objective-C code written for Apple products.
+    cpp: C++ is a cross-platform language that can be used to create high-performance applications. C++ was created as an extension to the C language. However, C becomes a subset of C++, because C++ has revolute modern and more complex features now. There are the best compilers for C++ that building apps have really good performance in most platforms.
+    python: Python is an interpreted, object-oriented, high-level programming language with dynamic semantics. Its high-level built in data structures, combined with dynamic typing and dynamic binding, make it very attractive for Rapid Application Development.
+    git: Git is a fast, scalable, distributed revision control system with an unusually rich command set that provides both high-level operations and full access to internals.
+    computer_vision: Computer vision is a field of computer science that focuses on enabling computers to identify and understand objects and people in images and videos. Like other types of AI, computer vision seeks to perform and automate tasks that replicate human capabilities.
+
 # experiences
   bobi:
     name: Bobi Entertainment
