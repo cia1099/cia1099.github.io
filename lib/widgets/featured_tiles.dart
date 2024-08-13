@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:portfolio/models/logo.dart';
 import 'package:portfolio/widgets/responsive.dart';
 import 'package:flutter/material.dart';
@@ -32,27 +30,35 @@ class FeaturedTiles extends StatelessWidget {
     'Git Version Control'
   ];
   final logos = [
-    LogoModel(tag: 'flutter', description: 'description.flutter'),
+    LogoModel(
+        tag: 'flutter',
+        description: 'description.flutter',
+        roadmapPath: 'roadmap_full_stack.html'),
     LogoModel(
         tag: 'swift',
         description: 'description.swift',
-        assetPath: 'assets/images/logo_swift.png'),
+        assetPath: 'assets/images/logo_swift.png',
+        roadmapPath: 'roadmap_full_stack.html'),
     LogoModel(
         tag: 'python',
         description: 'description.python',
-        assetPath: 'assets/images/logo_python.png'),
+        assetPath: 'assets/images/logo_python.png',
+        roadmapPath: 'roadmap_full_stack.html'),
     LogoModel(
         tag: 'computer_vision',
         description: 'description.computer_vision',
-        assetPath: 'assets/images/logo_cv.png'),
+        assetPath: 'assets/images/logo_cv.png',
+        roadmapPath: 'roadmap_cv.html'),
     LogoModel(
         tag: 'cpp',
         description: 'description.cpp',
-        assetPath: 'assets/images/logo_cpp.png'),
+        assetPath: 'assets/images/logo_cpp.png',
+        roadmapPath: 'roadmap_cv.html'),
     LogoModel(
         tag: 'git',
         description: 'description.git',
-        assetPath: 'assets/images/logo_git.png')
+        assetPath: 'assets/images/logo_git.png',
+        roadmapPath: 'roadmap_git.html')
   ];
 
   @override

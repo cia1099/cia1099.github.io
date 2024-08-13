@@ -2,10 +2,7 @@ import 'dart:math';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_villains/villain.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_lorem/flutter_lorem.dart';
-import 'package:portfolio/widgets/responsive.dart';
+import 'package:portfolio/widgets/roadmap_view.dart';
 
 import '../models/logo.dart';
 
@@ -19,57 +16,37 @@ class SkillPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isSmall = ResponsiveWidget.isSmallScreen(context);
     return Stack(
       children: <Widget>[
         Align(
           alignment: Alignment.bottomCenter,
-          child:
-              // Villain(
-              //   villainAnimation: VillainAnimation.fromBottom(
-              //     from: const Duration(milliseconds: 300),
-              //     to: const Duration(milliseconds: 600),
-              //   ),
-              //   child:
-              FractionallySizedBox(
-            heightFactor: 0.75,
-            child: Transform.translate(
-              offset: Offset(0, 40),
-              // padding: const EdgeInsets.all(32.0),
-              child: Dialog(
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).cardColor,
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Colors.black87,
-                          blurRadius: 10,
-                          offset: Offset(7, 7),
-                        )
-                      ],
-                      borderRadius: BorderRadius.circular(20)),
-                  child: FractionallySizedBox(
-                    heightFactor: 0.8,
-                    widthFactor: isSmall ? null : 0.6,
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: SelectableText(
-                          lorem(
-                              paragraphs: 10, words: 5000), //logo.description,
-                          style: GoogleFonts.notoSans(
-                            fontSize: 18,
-                            // color: antiFlashColor,
-                          ),
-                        ),
-                      ),
+          child: FractionallySizedBox(
+            heightFactor: .85,
+            widthFactor: .95,
+            child: Dialog(
+              child: Container(
+                decoration: BoxDecoration(
+                    color: Theme.of(context).cardColor,
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.black87,
+                        blurRadius: 10,
+                        offset: Offset(7, 7),
+                      )
+                    ],
+                    borderRadius: BorderRadius.circular(20)),
+                child: FractionallySizedBox(
+                  heightFactor: 0.8,
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: RoadmapView(whichMap: logo.roadmapPath),
                     ),
                   ),
                 ),
               ),
             ),
           ),
-          // ),
         ),
         Align(
           alignment: const Alignment(0, -0.8),
@@ -89,18 +66,21 @@ class SkillPage extends StatelessWidget {
                             fit: BoxFit.fitHeight,
                           ),
                     flightShuttleBuilder: (flightContext, animation,
-                            flightDirection, fromHeroContext, toHeroContext) =>
-                        AnimatedBuilder(
-                            animation: animation,
-                            builder: (context, child) {
-                              final rotTween = Tween(begin: .0, end: 4 * pi);
-                              return Transform(
-                                  alignment: Alignment.center,
-                                  transform: Matrix4.rotationY(
-                                      rotTween.evaluate(animation)),
-                                  child: child);
-                            },
-                            child: toHeroContext.widget)),
+                        flightDirection, fromHeroContext, toHeroContext) {
+                      final rot = CurvedAnimation(
+                          parent: animation, curve: Curves.ease);
+                      return AnimatedBuilder(
+                          animation: rot,
+                          builder: (context, child) {
+                            final rotTween = Tween(begin: .0, end: 4 * pi);
+                            return Transform(
+                                alignment: Alignment.center,
+                                transform:
+                                    Matrix4.rotationY(rotTween.evaluate(rot)),
+                                child: child);
+                          },
+                          child: toHeroContext.widget);
+                    }),
                 SizedBox.square(dimension: 20),
                 Expanded(
                   child: Container(
