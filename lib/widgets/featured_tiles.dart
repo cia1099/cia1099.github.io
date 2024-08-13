@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:portfolio/models/logo.dart';
 import 'package:portfolio/widgets/responsive.dart';
 import 'package:flutter/material.dart';
@@ -86,42 +88,69 @@ class FeaturedTiles extends StatelessWidget {
                         Theme.of(context).primaryTextTheme.headline2!.color!,
                     borderRadius: BorderRadius.circular(5),
                     curve: Curves.fastOutSlowIn,
-                    child: SizedBox(
-                      height: screenSize.width / 6,
-                      width: screenSize.width / 3.8,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(5.0),
-                        child: InkWell(
-                          onHover: (value) => setState(
-                              () => hoverIndex = value ? pageIndex : -1),
-                          onTap: () =>
-                              //ref. https://stackoverflow.com/questions/44403417/hero-animation-with-an-alertdialog
-                              Navigator.of(context).push(PageRouteBuilder(
-                            opaque: false,
-                            barrierDismissible: true,
-                            transitionDuration:
-                                const Duration(milliseconds: 600),
-                            pageBuilder:
-                                (context, animation, secondaryAnimation) =>
-                                    SkillPage(logo: logos[pageIndex]),
-                            transitionsBuilder: (context, animation,
-                                secondaryAnimation, child) {
-                              final opacityTween =
-                                  Tween<double>(begin: 0, end: 1).chain(
-                                CurveTween(curve: Curves.easeOut),
-                              );
-                              return FadeTransition(
-                                opacity: animation.drive(opacityTween),
-                                child: child,
-                              );
-                            },
-                          )),
-                          child: Hero(
-                            tag: logos[pageIndex].tag,
-                            child: Image.asset(
-                              assets[pageIndex],
-                              fit: BoxFit.cover,
-                            ),
+                    child: ShaderMask(
+                      shaderCallback: (bounds) => RadialGradient(
+                              radius: .9,
+                              colors: hoverIndex == pageIndex
+                                  ? [
+                                      Theme.of(context)
+                                          .primaryTextTheme
+                                          .headline2!
+                                          .color!,
+                                      Colors.black87
+                                    ]
+                                  : [Colors.white, Colors.white])
+                          .createShader(bounds),
+                      child: SizedBox(
+                        height: screenSize.width / 6,
+                        width: screenSize.width / 3.8,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(5.0),
+                          child: InkWell(
+                            onHover: (value) => setState(
+                                () => hoverIndex = value ? pageIndex : -1),
+                            onTap: () =>
+                                //ref. https://stackoverflow.com/questions/44403417/hero-animation-with-an-alertdialog
+                                Navigator.of(context).push(PageRouteBuilder(
+                              opaque: false,
+                              barrierDismissible: true,
+                              transitionDuration:
+                                  const Duration(milliseconds: 600),
+                              pageBuilder:
+                                  (context, animation, secondaryAnimation) =>
+                                      SkillPage(logo: logos[pageIndex]),
+                              transitionsBuilder: (context, animation,
+                                  secondaryAnimation, child) {
+                                final opacityTween =
+                                    Tween<double>(begin: 0, end: 1).chain(
+                                  CurveTween(curve: Curves.easeOut),
+                                );
+                                return FadeTransition(
+                                  opacity: animation.drive(opacityTween),
+                                  child: child,
+                                );
+                              },
+                            )),
+                            child: Hero(
+                                tag: logos[pageIndex].tag,
+                                child: Image.asset(
+                                  assets[pageIndex],
+                                  fit: BoxFit.cover,
+                                ),
+                                placeholderBuilder:
+                                    (context, heroSize, child) => ShaderMask(
+                                          shaderCallback: (bounds) =>
+                                              RadialGradient(
+                                                  radius: .9,
+                                                  colors: [
+                                                Theme.of(context)
+                                                    .primaryTextTheme
+                                                    .headline2!
+                                                    .color!,
+                                                Colors.black87
+                                              ]).createShader(bounds),
+                                          child: child,
+                                        )),
                           ),
                         ),
                       ),
@@ -179,41 +208,69 @@ class FeaturedTiles extends StatelessWidget {
                               .color!,
                           borderRadius: BorderRadius.circular(5),
                           curve: Curves.fastOutSlowIn,
-                          child: SizedBox(
-                            height: screenSize.width / 2.5,
-                            width: screenSize.width / 1.5,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(5.0),
-                              child: InkWell(
-                                onHover: (value) => setState(
-                                    () => hoverIndex = value ? pageIndex : -1),
-                                onTap: () =>
-                                    Navigator.of(context).push(PageRouteBuilder(
-                                  opaque: false,
-                                  barrierDismissible: true,
-                                  transitionDuration:
-                                      const Duration(milliseconds: 600),
-                                  pageBuilder: (context, animation,
-                                          secondaryAnimation) =>
-                                      SkillPage(logo: logos[pageIndex]),
-                                  transitionsBuilder: (context, animation,
-                                      secondaryAnimation, child) {
-                                    final opacityTween =
-                                        Tween<double>(begin: 0, end: 1).chain(
-                                      CurveTween(curve: Curves.easeOut),
-                                    );
-                                    return FadeTransition(
-                                      opacity: animation.drive(opacityTween),
-                                      child: child,
-                                    );
-                                  },
-                                )),
-                                child: Hero(
-                                  tag: logos[pageIndex].tag,
-                                  child: Image.asset(
-                                    assets[pageIndex],
-                                    fit: BoxFit.cover,
-                                  ),
+                          child: ShaderMask(
+                            shaderCallback: (bounds) => RadialGradient(
+                                    radius: .9,
+                                    colors: hoverIndex == pageIndex
+                                        ? [
+                                            Theme.of(context)
+                                                .primaryTextTheme
+                                                .headline2!
+                                                .color!,
+                                            Colors.black87
+                                          ]
+                                        : [Colors.white, Colors.white])
+                                .createShader(bounds),
+                            child: SizedBox(
+                              height: screenSize.width / 2.5,
+                              width: screenSize.width / 1.5,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(5.0),
+                                child: InkWell(
+                                  onHover: (value) => setState(() =>
+                                      hoverIndex = value ? pageIndex : -1),
+                                  onTap: () => Navigator.of(context)
+                                      .push(PageRouteBuilder(
+                                    opaque: false,
+                                    barrierDismissible: true,
+                                    transitionDuration:
+                                        const Duration(milliseconds: 600),
+                                    pageBuilder: (context, animation,
+                                            secondaryAnimation) =>
+                                        SkillPage(logo: logos[pageIndex]),
+                                    transitionsBuilder: (context, animation,
+                                        secondaryAnimation, child) {
+                                      final opacityTween =
+                                          Tween<double>(begin: 0, end: 1).chain(
+                                        CurveTween(curve: Curves.easeOut),
+                                      );
+                                      return FadeTransition(
+                                        opacity: animation.drive(opacityTween),
+                                        child: child,
+                                      );
+                                    },
+                                  )),
+                                  child: Hero(
+                                      tag: logos[pageIndex].tag,
+                                      child: Image.asset(
+                                        assets[pageIndex],
+                                        fit: BoxFit.cover,
+                                      ),
+                                      placeholderBuilder:
+                                          (context, heroSize, child) =>
+                                              ShaderMask(
+                                                shaderCallback: (bounds) =>
+                                                    RadialGradient(
+                                                        radius: .9,
+                                                        colors: [
+                                                      Theme.of(context)
+                                                          .primaryTextTheme
+                                                          .headline2!
+                                                          .color!,
+                                                      Colors.black87
+                                                    ]).createShader(bounds),
+                                                child: child,
+                                              )),
                                 ),
                               ),
                             ),

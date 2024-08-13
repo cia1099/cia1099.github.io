@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_villains/villain.dart';
@@ -74,14 +76,9 @@ class SkillPage extends StatelessWidget {
           child: FractionallySizedBox(
             heightFactor: 0.3,
             widthFactor: 0.6,
-            child: Container(
-              padding: EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                  color: Theme.of(context).bottomAppBarColor.withOpacity(.75),
-                  borderRadius: BorderRadius.circular(20)),
-              child: Row(
-                children: [
-                  Hero(
+            child: Row(
+              children: [
+                Hero(
                     tag: logo.tag,
                     child: logo.assetPath.isEmpty
                         ? FlutterLogo(size: 100)
@@ -91,9 +88,28 @@ class SkillPage extends StatelessWidget {
                             height: 125,
                             fit: BoxFit.fitHeight,
                           ),
-                  ),
-                  SizedBox.square(dimension: 20),
-                  Expanded(
+                    flightShuttleBuilder: (flightContext, animation,
+                            flightDirection, fromHeroContext, toHeroContext) =>
+                        AnimatedBuilder(
+                            animation: animation,
+                            builder: (context, child) {
+                              final rotTween = Tween(begin: .0, end: 4 * pi);
+                              return Transform(
+                                  alignment: Alignment.center,
+                                  transform: Matrix4.rotationY(
+                                      rotTween.evaluate(animation)),
+                                  child: child);
+                            },
+                            child: toHeroContext.widget)),
+                SizedBox.square(dimension: 20),
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                        color: Theme.of(context)
+                            .bottomAppBarColor
+                            .withOpacity(.75),
+                        borderRadius: BorderRadius.circular(20)),
                     child: SelectableText(
                       logo.description.tr(),
                       style: Theme.of(context)
@@ -102,8 +118,8 @@ class SkillPage extends StatelessWidget {
                           .apply(color: Colors.white),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
