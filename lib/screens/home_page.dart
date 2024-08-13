@@ -24,15 +24,16 @@ class _HomePageState extends State<HomePage> {
   late ScrollController _scrollController;
   double _scrollPosition = 0;
   double _opacity = 0;
-  var isHover = false;
   final innerScaffoldKey = GlobalKey<ScaffoldState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final aboutMeKey = GlobalKey();
+  late var screenSize = MediaQuery.of(context).size;
 
   _scrollListener() {
-    setState(() {
-      _scrollPosition = _scrollController.position.pixels;
-    });
+    _scrollPosition = _scrollController.position.pixels;
+    _opacity = _scrollPosition < screenSize.height * 0.40
+        ? _scrollPosition / (screenSize.height * 0.40)
+        : 1;
   }
 
   @override
@@ -44,20 +45,25 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
-    _opacity = _scrollPosition < screenSize.height * 0.40
-        ? _scrollPosition / (screenSize.height * 0.40)
-        : 1;
-
+    screenSize = MediaQuery.of(context).size;
+    final isSmall = ResponsiveWidget.isSmallScreen(context);
+    final appBarSize =
+        Size(screenSize.width, kToolbarHeight + (isSmall ? 0 : 40));
     return Scaffold(
       key: scaffoldKey,
       extendBodyBehindAppBar: true,
-      appBar: ResponsiveWidget.isSmallScreen(context)
-          ? generateAppBar(context)
-          : PreferredSize(
-              preferredSize: Size(screenSize.width, kToolbarHeight + 40),
-              child: TopBarContents(_opacity),
-            ),
+      appBar: PreferredSize(
+        preferredSize: appBarSize,
+        child: AnimatedBuilder(
+          animation: _scrollController,
+          builder: (context, child) => _opacity > .95
+              ? child!
+              : isSmall
+                  ? generateAppBar(context, _opacity)
+                  : TopBarContents(_opacity),
+          child: isSmall ? generateAppBar(context, 1) : TopBarContents(1.0),
+        ),
+      ),
       drawer: ExploreDrawer(innerScaffoldKey: innerScaffoldKey),
       body: Scaffold(
         key: innerScaffoldKey,
@@ -169,10 +175,10 @@ class _HomePageState extends State<HomePage> {
         duration: Durations.extralong1, curve: Curves.ease);
   }
 
-  AppBar generateAppBar(BuildContext context) {
+  AppBar generateAppBar(BuildContext context, double opacity) {
+    var isHover = false;
     return AppBar(
-      backgroundColor:
-          Theme.of(context).bottomAppBarColor.withOpacity(_opacity),
+      backgroundColor: Theme.of(context).bottomAppBarColor.withOpacity(opacity),
       elevation: 0,
       centerTitle: true,
       leading: IconButton(
@@ -194,21 +200,23 @@ class _HomePageState extends State<HomePage> {
           },
         ),
       ],
-      title: InkWell(
-        onHover: (value) => setState(() => isHover = value),
-        onTap: () =>
-            Navigator.of(context).popUntil(ModalRoute.withName(MyApp.home)),
-        hoverColor: Colors.transparent,
-        child: Text(
-          'profile',
-          style: TextStyle(
-            color: isHover ? Colors.blue[200] : Colors.blueGrey.shade100,
-            fontSize: 20,
-            fontFamily: 'Montserrat',
-            fontWeight: FontWeight.w400,
-            letterSpacing: 3,
-          ),
-        ).tr(),
+      title: StatefulBuilder(
+        builder: (context, setState) => InkWell(
+          onHover: (value) => setState(() => isHover = value),
+          onTap: () =>
+              Navigator.of(context).popUntil(ModalRoute.withName(MyApp.home)),
+          hoverColor: Colors.transparent,
+          child: Text(
+            'profile',
+            style: TextStyle(
+              color: isHover ? Colors.blue[200] : Colors.blueGrey.shade100,
+              fontSize: 20,
+              fontFamily: 'Montserrat',
+              fontWeight: FontWeight.w400,
+              letterSpacing: 3,
+            ),
+          ).tr(),
+        ),
       ),
     );
   }

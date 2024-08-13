@@ -23,21 +23,12 @@ class ExperiencePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // for app bar
-    var isHover = false;
     final scaffoldKey = GlobalKey<ScaffoldState>();
     final innerScaffoldKey = GlobalKey<ScaffoldState>();
     final experienceColumnKey = GlobalKey();
     // for main scaffold
     final _scrollController = ScrollController();
     final screenSize = MediaQuery.of(context).size;
-    // double _opacity = 0;
-    // double _scrollPosition = 0;
-    // _scrollController.addListener(() {
-    //   _scrollPosition = _scrollController.position.pixels;
-    //   _opacity = _scrollPosition < screenSize.height * 0.40
-    //       ? _scrollPosition / (screenSize.height * 0.40)
-    //       : 1;
-    // });
     final isSmall = ResponsiveWidget.isSmallScreen(context);
     double? leftSideHeight;
 
@@ -46,7 +37,7 @@ class ExperiencePage extends StatelessWidget {
       extendBodyBehindAppBar: true,
       drawer: ExploreDrawer(innerScaffoldKey: innerScaffoldKey),
       appBar: isSmall
-          ? generateAppBar(context, 1, isHover, scaffoldKey, innerScaffoldKey)
+          ? generateAppBar(context, 1, scaffoldKey, innerScaffoldKey)
           : PreferredSize(
               preferredSize: Size(screenSize.width, kToolbarHeight + 40),
               child: TopBarContents(1),
@@ -159,18 +150,6 @@ class ExperiencePage extends StatelessWidget {
                     ],
                   ),
                 ),
-                // Container(
-                //   padding: const EdgeInsets.all(30),
-                //   width: double.maxFinite,
-                //   color: Theme.of(context).bottomAppBarColor,
-                //   child: Text(
-                //     'Copyright © 2024 | Otto Lin',
-                //     style: TextStyle(
-                //       color: Colors.blueGrey[300],
-                //       fontSize: 14,
-                //     ),
-                //   ),
-                // ),
                 BottomBar()
               ],
             ),
@@ -183,9 +162,9 @@ class ExperiencePage extends StatelessWidget {
   AppBar generateAppBar(
       BuildContext context,
       double opacity,
-      bool isHover,
       GlobalKey<ScaffoldState> scaffoldKey,
       GlobalKey<ScaffoldState> innerScaffoldKey) {
+    var isHover = false;
     return AppBar(
       backgroundColor: Theme.of(context).bottomAppBarColor.withOpacity(opacity),
       elevation: 0,
