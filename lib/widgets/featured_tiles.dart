@@ -116,27 +116,7 @@ class FeaturedTiles extends StatelessWidget {
                             onHover: (value) => setState(
                                 () => hoverIndex = value ? pageIndex : -1),
                             onTap: () =>
-                                //ref. https://stackoverflow.com/questions/44403417/hero-animation-with-an-alertdialog
-                                Navigator.of(context).push(PageRouteBuilder(
-                              opaque: false,
-                              barrierDismissible: true,
-                              transitionDuration:
-                                  const Duration(milliseconds: 600),
-                              pageBuilder:
-                                  (context, animation, secondaryAnimation) =>
-                                      SkillPage(logo: logos[pageIndex]),
-                              transitionsBuilder: (context, animation,
-                                  secondaryAnimation, child) {
-                                final opacityTween =
-                                    Tween<double>(begin: 0, end: 1).chain(
-                                  CurveTween(curve: Curves.easeOut),
-                                );
-                                return FadeTransition(
-                                  opacity: animation.drive(opacityTween),
-                                  child: child,
-                                );
-                              },
-                            )),
+                                displayDialog(context, logos[pageIndex]),
                             child: Hero(
                                 tag: logos[pageIndex].tag,
                                 child: Image.asset(
@@ -184,6 +164,26 @@ class FeaturedTiles extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void displayDialog(BuildContext context, LogoModel logo) {
+    //ref. https://stackoverflow.com/questions/44403417/hero-animation-with-an-alertdialog
+    Navigator.of(context).push(PageRouteBuilder(
+      opaque: false,
+      barrierDismissible: true,
+      transitionDuration: const Duration(milliseconds: 600),
+      pageBuilder: (context, animation, secondaryAnimation) =>
+          SkillPage(logo: logo),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        final opacityTween = Tween<double>(begin: 0, end: 1).chain(
+          CurveTween(curve: Curves.easeInQuart),
+        );
+        return FadeTransition(
+          opacity: animation.drive(opacityTween),
+          child: child,
+        );
+      },
+    ));
   }
 
   Widget narrowScreenLayout(BuildContext context) {
@@ -235,27 +235,8 @@ class FeaturedTiles extends StatelessWidget {
                                 child: InkWell(
                                   onHover: (value) => setState(() =>
                                       hoverIndex = value ? pageIndex : -1),
-                                  onTap: () => Navigator.of(context)
-                                      .push(PageRouteBuilder(
-                                    opaque: false,
-                                    barrierDismissible: true,
-                                    transitionDuration:
-                                        const Duration(milliseconds: 600),
-                                    pageBuilder: (context, animation,
-                                            secondaryAnimation) =>
-                                        SkillPage(logo: logos[pageIndex]),
-                                    transitionsBuilder: (context, animation,
-                                        secondaryAnimation, child) {
-                                      final opacityTween =
-                                          Tween<double>(begin: 0, end: 1).chain(
-                                        CurveTween(curve: Curves.easeOut),
-                                      );
-                                      return FadeTransition(
-                                        opacity: animation.drive(opacityTween),
-                                        child: child,
-                                      );
-                                    },
-                                  )),
+                                  onTap: () =>
+                                      displayDialog(context, logos[pageIndex]),
                                   child: Hero(
                                       tag: logos[pageIndex].tag,
                                       child: Image.asset(

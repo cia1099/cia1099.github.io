@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:portfolio/widgets/responsive.dart';
 import 'package:portfolio/widgets/roadmap_view.dart';
 
 import '../models/logo.dart';
@@ -16,31 +17,35 @@ class SkillPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isSmall = ResponsiveWidget.isSmallScreen(context);
     return Stack(
       children: <Widget>[
         Align(
           alignment: Alignment.bottomCenter,
           child: FractionallySizedBox(
-            heightFactor: .85,
-            widthFactor: .95,
-            child: Dialog(
-              child: Container(
-                decoration: BoxDecoration(
-                    color: Theme.of(context).cardColor,
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.black87,
-                        blurRadius: 10,
-                        offset: Offset(7, 7),
-                      )
-                    ],
-                    borderRadius: BorderRadius.circular(20)),
-                child: FractionallySizedBox(
-                  heightFactor: 0.8,
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: RoadmapView(whichMap: logo.roadmapPath),
+            heightFactor: .8,
+            widthFactor: isSmall ? null : .95,
+            child: SlideAppear(
+              isHorizontal: false,
+              child: Dialog(
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).cardColor,
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.black87,
+                          blurRadius: 10,
+                          offset: Offset(7, 7),
+                        )
+                      ],
+                      borderRadius: BorderRadius.circular(20)),
+                  child: FractionallySizedBox(
+                    heightFactor: 1.0,
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: RoadmapView(whichMap: logo.roadmapPath),
+                      ),
                     ),
                   ),
                 ),
@@ -52,7 +57,7 @@ class SkillPage extends StatelessWidget {
           alignment: const Alignment(0, -0.8),
           child: FractionallySizedBox(
             heightFactor: 0.3,
-            widthFactor: 0.6,
+            widthFactor: isSmall ? null : 0.6,
             child: Row(
               children: [
                 Hero(
@@ -83,19 +88,21 @@ class SkillPage extends StatelessWidget {
                     }),
                 SizedBox.square(dimension: 20),
                 Expanded(
-                  child: Container(
-                    padding: EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                        color: Theme.of(context)
-                            .bottomAppBarColor
-                            .withOpacity(.75),
-                        borderRadius: BorderRadius.circular(20)),
-                    child: SelectableText(
-                      logo.description.tr(),
-                      style: Theme.of(context)
-                          .primaryTextTheme
-                          .subtitle1!
-                          .apply(color: Colors.white),
+                  child: SlideAppear(
+                    child: Container(
+                      padding: EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                          color: Theme.of(context)
+                              .bottomAppBarColor
+                              .withOpacity(.75),
+                          borderRadius: BorderRadius.circular(20)),
+                      child: SelectableText(
+                        logo.description.tr(),
+                        style: Theme.of(context)
+                            .primaryTextTheme
+                            .subtitle1!
+                            .apply(color: Colors.white),
+                      ),
                     ),
                   ),
                 ),
@@ -104,6 +111,40 @@ class SkillPage extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class SlideAppear extends StatefulWidget {
+  final bool isHorizontal;
+  final Widget child;
+  const SlideAppear({super.key, required this.child, this.isHorizontal = true});
+
+  @override
+  State<SlideAppear> createState() => _SlideAppearState();
+}
+
+class _SlideAppearState extends State<SlideAppear> {
+  late var offset = widget.isHorizontal
+      ? Offset.fromDirection(0, 1.5)
+      : Offset.fromDirection(-pi / 2, 1.5);
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      setState(() {
+        offset = Offset.zero;
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedSlide(
+      offset: offset,
+      duration: Durations.long3,
+      curve: Curves.fastOutSlowIn,
+      child: widget.child,
     );
   }
 }
