@@ -71,4 +71,7 @@ Flutter Web is really latency in initialization, we can embed static element for
 2. https://docs.flutter.dev/platform-integration/web/initialization-legacy
 3. [example code for initialization](https://github.com/flutter/gallery/blob/main/web/index.html)
 
+# Activities
+![Alt](https://repobeats.axiom.co/api/embed/3a230d8b8d8b2de34686ba6bc7046e4860911ee7.svg "Repobeats analytics image")
+
 
