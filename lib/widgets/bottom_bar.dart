@@ -65,7 +65,7 @@ class BottomBar extends StatelessWidget {
                 SizedBox(height: 20),
                 InfoText(
                   type: 'email',
-                  text: 'otto@cia1099.cloudns.ch',
+                  text: 'otto@hello.cia1099.cloudns.ch',
                 ),
                 SizedBox(height: 5),
                 InfoText(
@@ -135,7 +135,7 @@ class BottomBar extends StatelessWidget {
                       children: [
                         InfoText(
                           type: 'email',
-                          text: 'otto@cia1099.cloudns.ch',
+                          text: 'otto@hello.cia1099.cloudns.ch',
                         ),
                         SizedBox(height: 5),
                         InfoText(

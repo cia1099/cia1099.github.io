@@ -1,6 +1,6 @@
 # portfolio
 
-My profile project!
+My profile project! Flutter version tag at `3.16.9`
 
 ## Using Nginx to share port in a domain
 * Installation
@@ -61,7 +61,11 @@ python3 -m http.server $PORT -b $HOST -d $DIRECTORY
 ```
 
 # Flutter Launcher Icon
-Just use the package [flutter_launcher_icons](https://pub.dev/packages/flutter_launcher_icons), this is recommended in official document.\
+Just use the package [flutter_launcher_icons](https://pub.dev/packages/flutter_launcher_icons), this is recommended in official document.
+```sh
+flutter pub get
+dart run flutter_launcher_icons
+```
 You can download icons from there:
 1. https://icons8.com/
 2. https://www.flaticon.com/
