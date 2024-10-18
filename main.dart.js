@@ -97870,7 +97870,7 @@ r=A.mh(q,q,q,A.kO(B.q1,q,q,q),q,new A.afa(d,c),q,q,q,q,q)
 return A.aN2(A.a([A.mh(q,q,B.y,A.kO(B.ls,q,q,q),q,new A.afb(a),q,B.y,q,q,q)],t.p),s,!0,0,r,new A.hz(new A.afc(p),q))}}
 A.af6.prototype={
 $2(a,b){var s,r,q,p,o,n,m,l=null,k=this.a
-$.aF.rx$.push(new A.af2(k,b,this.b))
+if(k.a==null)$.aF.rx$.push(new A.af2(k,b,this.b))
 s=k.a
 r=A.dy("core_technologies")
 q=$.aMy()
@@ -98304,7 +98304,7 @@ m=h?k:B.cD
 l=h?k:new A.al(4,0,g/15,0)
 return A.bh(k,A.aOu(A.a([new A.nV(1,B.hL,n,k),new A.nV(3,B.hL,A.bh(m,A.dp(A.bm(j,k,k,k,k,k,k,k,r,k,k,k,k)),B.l,k,k,k,k,k,k,k,l,k,k,k),k)],t.p),B.bk,o,k,B.I,B.N,k,k,B.d7),B.l,k,k,k,k,s,k,new A.al(0,i,0,0),p,k,k,k)}}
 A.zw.prototype={
-H(a){var s,r,q=null,p="about_me",o="work_experience",n="community",m=17976931348623157e292,l="otto@hello.cia1099.cloudns.ch",k="download",j="Copyright \xa9 2024 | Otto Lin",i=A.Q(a).Q
+H(a){var s,r,q=null,p="about_me",o="work_experience",n="community",m=17976931348623157e292,l="otto@cia1099.cloudns.ch",k="download",j="Copyright \xa9 2024 | Otto Lin",i=A.Q(a).Q
 i.toString
 s=t.p
 r=this.c
