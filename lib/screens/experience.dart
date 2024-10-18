@@ -64,14 +64,15 @@ class ExperiencePage extends StatelessWidget {
                         offstage: isSmall,
                         child: StatefulBuilder(
                           builder: (context, setState) {
-                            WidgetsBinding.instance.addPostFrameCallback(
-                              (_) => setState(() {
-                                final renderBox = experienceColumnKey
-                                    .currentContext
-                                    ?.findRenderObject() as RenderBox;
-                                leftSideHeight = renderBox.size.height;
-                              }),
-                            );
+                            if (leftSideHeight == null)
+                              WidgetsBinding.instance.addPostFrameCallback(
+                                (_) => setState(() {
+                                  final renderBox = experienceColumnKey
+                                      .currentContext
+                                      ?.findRenderObject() as RenderBox;
+                                  leftSideHeight = renderBox.size.height;
+                                }),
+                              );
                             return Container(
                               margin: EdgeInsets.only(right: 32),
                               decoration: const BoxDecoration(
