@@ -2,13 +2,12 @@ import 'dart:isolate';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:easy_localization/easy_localization.dart'
-    show StringTranslateExtension;
-import 'package:portfolio/widgets/responsive.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'game_widgets.dart';
+import 'package:portfolio/widgets/game_widgets.dart';
+import 'package:portfolio/widgets/responsive.dart';
 
 class DecodeParam {
   final ByteData byteData;
@@ -18,6 +17,8 @@ class DecodeParam {
 }
 
 class DestinationCarousel extends StatefulWidget {
+  const DestinationCarousel({super.key});
+
   @override
   _DestinationCarouselState createState() => _DestinationCarouselState();
 }
@@ -28,9 +29,10 @@ class _DestinationCarouselState extends State<DestinationCarousel>
 
   late CarouselController _controller; // = CarouselController();
   late List<Widget> imageSliders;
+  // late Locale locale;
 
-  List _isHovering = [false, false, false, false, false, false, false];
-  List _isSelected = [true, false, false, false, false, false, false];
+  final List _isHovering = [false, false, false, false, false, false, false];
+  final List _isSelected = [true, false, false, false, false, false, false];
 
   int _current = 0;
   List<Widget>? txtSliders;
@@ -50,14 +52,14 @@ class _DestinationCarouselState extends State<DestinationCarousel>
 
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
+    final screenSize = MediaQuery.sizeOf(context);
     // if (txtSliders == null) {
-    // for localization rebuild languange
+    // for localization rebuild language
     imageSliders = [
-      createRoulette(Duration(seconds: 7)),
-      createFastFurious(Duration(seconds: 5)),
-      createSlotMachine(Duration(seconds: 4)),
-      createDice(Duration(seconds: 4), context),
+      createRoulette(const Duration(seconds: 7)),
+      createFastFurious(const Duration(seconds: 5)),
+      createSlotMachine(const Duration(seconds: 4)),
+      createDice(const Duration(seconds: 4), context),
     ];
     txtSliders = generateTextTiles(screenSize, context);
     txtSliders![_current] = _createTextTiles(
@@ -73,10 +75,11 @@ class _DestinationCarouselState extends State<DestinationCarousel>
             child: AspectRatio(
               aspectRatio: isSmall ? 4 / 3 : 16 / 9,
               child: AnimatedSwitcher(
-                  duration: Duration(milliseconds: 200),
+                  duration: const Duration(milliseconds: 200),
                   transitionBuilder: (child, animation) => SlideTransition(
                         position: Tween<Offset>(
-                                begin: Offset(0, 1), end: Offset(0, 0))
+                                begin: const Offset(0, 1),
+                                end: const Offset(0, 0))
                             .animate(animation),
                         child: child,
                       ),
@@ -122,41 +125,66 @@ class _DestinationCarouselState extends State<DestinationCarousel>
           ),
           carouselController: _controller,
         ),
-        Offstage(
-          offstage: ResponsiveWidget.isSmallScreen(context),
-          child: AspectRatio(
-            aspectRatio: 17 / 8,
-            child: Center(
-              heightFactor: 1,
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    left: screenSize.width / 8,
-                    right: screenSize.width / 8,
+        if (isSmall)
+          AspectRatio(
+            aspectRatio: 1.565,
+            child: Align(
+                alignment: const Alignment(0, 1),
+                child: Container(
+                  width: screenSize.width / 4,
+                  decoration: BoxDecoration(
+                    color: Colors.black12,
+                    borderRadius: BorderRadius.circular(kRadialReactionRadius),
                   ),
-                  child: Card(
-                    elevation: 5,
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                        top: screenSize.height / 50,
-                        bottom: screenSize.height / 50,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          for (int i = 0; i < places.length; i++)
-                            Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                InkWell(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: List.generate(
+                        places.length,
+                        (index) => GestureDetector(
+                              onTap: () {
+                                _controller.animateToPage(index);
+                              },
+                              child: TabPageSelectorIndicator(
+                                  backgroundColor: index == _current
+                                      ? Colors.white
+                                      : Colors.grey[700]!,
+                                  borderColor: const Color(0x00000000),
+                                  size: 12),
+                            )),
+                  ),
+                )),
+          )
+        else
+          AspectRatio(
+            aspectRatio: 17 / 8,
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: EdgeInsets.only(
+                  left: screenSize.width / 8,
+                  right: screenSize.width / 8,
+                ),
+                child: Card(
+                  elevation: 5,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      top: screenSize.height / 50,
+                      bottom: screenSize.height / 50,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        for (int i = 0; i < places.length; i++)
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              StatefulBuilder(
+                                builder: (context, setState) => InkWell(
                                   splashColor: Colors.transparent,
                                   hoverColor: Colors.transparent,
                                   onHover: (value) {
                                     setState(() {
-                                      value
-                                          ? _isHovering[i] = true
-                                          : _isHovering[i] = false;
+                                      _isHovering[i] = value;
                                     });
                                   },
                                   onTap: () {
@@ -172,47 +200,46 @@ class _DestinationCarouselState extends State<DestinationCarousel>
                                         color: _isHovering[i]
                                             ? Theme.of(context)
                                                 .primaryTextTheme
-                                                .button!
+                                                .labelLarge!
                                                 .decorationColor
                                             : Theme.of(context)
                                                 .primaryTextTheme
-                                                .button!
+                                                .labelLarge!
                                                 .color,
                                       ),
                                     ),
                                   ),
                                 ),
-                                Visibility(
-                                  maintainSize: true,
-                                  maintainAnimation: true,
-                                  maintainState: true,
-                                  visible: _isSelected[i],
-                                  child: AnimatedOpacity(
-                                    duration: Duration(milliseconds: 400),
-                                    opacity: _isSelected[i] ? 1 : 0,
-                                    child: Container(
-                                      height: 5,
-                                      decoration: BoxDecoration(
-                                        color: Colors.blueGrey,
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(10),
-                                        ),
+                              ),
+                              Visibility(
+                                maintainSize: true,
+                                maintainAnimation: true,
+                                maintainState: true,
+                                visible: _isSelected[i],
+                                child: AnimatedOpacity(
+                                  duration: const Duration(milliseconds: 400),
+                                  opacity: _isSelected[i] ? 1 : 0,
+                                  child: Container(
+                                    height: 5,
+                                    decoration: const BoxDecoration(
+                                      color: Colors.blueGrey,
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
                                       ),
-                                      width: screenSize.width / 10,
                                     ),
+                                    width: screenSize.width / 10,
                                   ),
-                                )
-                              ],
-                            ),
-                        ],
-                      ),
+                                ),
+                              )
+                            ],
+                          ),
+                      ],
                     ),
                   ),
                 ),
               ),
             ),
           ),
-        ),
       ],
     );
   }
@@ -220,7 +247,7 @@ class _DestinationCarouselState extends State<DestinationCarousel>
   List<Widget> generateTextTiles(screenSize, ctx) {
     return places
         .map((e) => Align(
-              alignment: FractionalOffset(0.5, 0.1),
+              alignment: const FractionalOffset(0.5, 0.1),
               child: AutoSizeText(
                 e.tr(),
                 style: GoogleFonts.electrolize(
@@ -236,7 +263,7 @@ class _DestinationCarouselState extends State<DestinationCarousel>
 
   Widget _createTextTiles(screenSize, String str, myColor) {
     return Align(
-      alignment: FractionalOffset(0.5, 0.1),
+      alignment: const FractionalOffset(0.5, 0.1),
       child: AutoSizeText(
         str.tr(),
         style: GoogleFonts.electrolize(

@@ -1,12 +1,13 @@
 import 'dart:math';
 
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:path/path.dart' as p;
+import 'package:any_link_preview/any_link_preview.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:path/path.dart' as p;
 import 'package:portfolio/main.dart';
 import 'package:portfolio/utils/global_data.dart';
 import 'package:portfolio/widgets/bottom_bar.dart';
@@ -27,8 +28,8 @@ class ExperiencePage extends StatelessWidget {
     final innerScaffoldKey = GlobalKey<ScaffoldState>();
     final experienceColumnKey = GlobalKey();
     // for main scaffold
-    final _scrollController = ScrollController();
-    final screenSize = MediaQuery.of(context).size;
+    final scrollController = ScrollController();
+    final screenSize = MediaQuery.sizeOf(context);
     final isSmall = ResponsiveWidget.isSmallScreen(context);
     double? leftSideHeight;
 
@@ -50,7 +51,7 @@ class ExperiencePage extends StatelessWidget {
           padding: EdgeInsets.only(
             top: kToolbarHeight + (isSmall ? 0 : 40),
           ),
-          controller: _scrollController,
+          controller: scrollController,
           child: SelectionArea(
             child: Column(
               children: [
@@ -64,7 +65,7 @@ class ExperiencePage extends StatelessWidget {
                         offstage: isSmall,
                         child: StatefulBuilder(
                           builder: (context, setState) {
-                            if (leftSideHeight == null)
+                            if (leftSideHeight == null) {
                               WidgetsBinding.instance.addPostFrameCallback(
                                 (_) => setState(() {
                                   final renderBox = experienceColumnKey
@@ -73,13 +74,14 @@ class ExperiencePage extends StatelessWidget {
                                   leftSideHeight = renderBox.size.height;
                                 }),
                               );
+                            }
                             return Container(
-                              margin: EdgeInsets.only(right: 32),
+                              margin: const EdgeInsets.only(right: 32),
                               decoration: const BoxDecoration(
                                   border: Border(
                                       right: BorderSide(
                                           width: 1, color: Color(0x8ACBC6D1)))),
-                              padding: EdgeInsets.only(top: 16),
+                              padding: const EdgeInsets.only(top: 16),
                               width: 200,
                               height: leftSideHeight,
                               child: Column(
@@ -90,23 +92,22 @@ class ExperiencePage extends StatelessWidget {
                                     Text(
                                         coreTechnologies
                                             .map((e) =>
-                                                String.fromCharCode(9635) +
-                                                ' $e')
+                                                '${String.fromCharCode(9635)} $e')
                                             .join('\n'),
                                         style: Theme.of(context)
                                             .primaryTextTheme
-                                            .subtitle2
+                                            .titleSmall
                                             ?.apply(heightDelta: 0.8)),
                                     HighlineText(
                                         '${'kernel_competence'.tr()}:'),
                                     Text(
                                       kernelCompetence
                                           .map((e) =>
-                                              String.fromCharCode(9635) + ' $e')
+                                              '${String.fromCharCode(9635)} $e')
                                           .join('\n'),
                                       style: Theme.of(context)
                                           .primaryTextTheme
-                                          .subtitle2
+                                          .titleSmall
                                           ?.apply(heightDelta: 0.8),
                                     ),
                                     if (leftSideHeight != null)
@@ -131,11 +132,11 @@ class ExperiencePage extends StatelessWidget {
                                                             '\n${'$e.school'.tr()}',
                                                         style: Theme.of(context)
                                                             .primaryTextTheme
-                                                            .subtitle2),
+                                                            .titleSmall),
                                                   ]),
                                                   style: Theme.of(context)
                                                       .primaryTextTheme
-                                                      .button))
+                                                      .labelLarge))
                                               .toList(),
                                   ]),
                             );
@@ -151,7 +152,7 @@ class ExperiencePage extends StatelessWidget {
                     ],
                   ),
                 ),
-                BottomBar()
+                const BottomBar()
               ],
             ),
           ),
@@ -171,7 +172,7 @@ class ExperiencePage extends StatelessWidget {
       elevation: 0,
       centerTitle: true,
       leading: IconButton(
-        icon: Icon(Icons.menu),
+        icon: const Icon(Icons.menu),
         onPressed: () {
           if (innerScaffoldKey.currentState!.isDrawerOpen) {
             innerScaffoldKey.currentState?.closeDrawer();
@@ -181,7 +182,7 @@ class ExperiencePage extends StatelessWidget {
       ),
       actions: [
         IconButton(
-          icon: Icon(Icons.brightness_6),
+          icon: const Icon(Icons.brightness_6),
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
           onPressed: () {
@@ -231,9 +232,9 @@ class HighlineText extends StatelessWidget {
         ],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
-        stops: [.6, .61, .85, .86],
+        stops: const [.6, .61, .85, .86],
       )),
-      child: Text(text, style: Theme.of(context).primaryTextTheme.subtitle1),
+      child: Text(text, style: Theme.of(context).primaryTextTheme.titleMedium),
     );
   }
 }
@@ -250,8 +251,9 @@ class ExperienceColumn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const experiences = ['bobi', 'patere', 'foxconn', 'lips'];
-    const expMapImg = {1: '3dGaze.webp', 3: 'people_counting.png'};
+    const experiences = ['ai-vocabulary', 'bobi', 'patere', 'foxconn', 'lips'];
+    const expMapImg = {'patere': '3dGaze.webp', 'lips': 'people_counting.png'};
+    const mapLink = {'ai-vocabulary': 'https://ai-vocabulary.com'};
     return LayoutBuilder(
       builder: (context, constraints) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -264,53 +266,56 @@ class ExperienceColumn extends StatelessWidget {
                 style: GoogleFonts.electrolize(
                   letterSpacing: 2,
                   fontSize: screenSize.width / 8,
-                  color: Theme.of(context).primaryTextTheme.headline2!.color,
+                  color:
+                      Theme.of(context).primaryTextTheme.displayMedium!.color,
                 ),
               ),
               Text(
                 "Expert Flutter Developer and Vision Algorithm Engineer",
-                style: Theme.of(context).primaryTextTheme.subtitle2,
+                style: Theme.of(context).primaryTextTheme.titleSmall,
               ),
               if (isSmall) ...[
                 Text.rich(TextSpan(
                     text: String.fromCharCode(9635),
-                    style: Theme.of(context).primaryTextTheme.subtitle2,
+                    style: Theme.of(context).primaryTextTheme.titleSmall,
                     children: [
                       WidgetSpan(
                           child: HighlineText(' ${'core_technologies'.tr()}:')),
                     ])),
                 Text(coreTechnologies.join(', '),
-                    style: Theme.of(context).primaryTextTheme.subtitle2),
+                    style: Theme.of(context).primaryTextTheme.titleSmall),
                 Text.rich(TextSpan(
                     text: String.fromCharCode(9635),
-                    style: Theme.of(context).primaryTextTheme.subtitle2,
+                    style: Theme.of(context).primaryTextTheme.titleSmall,
                     children: [
                       WidgetSpan(
                           child: HighlineText(' ${'kernel_competence'.tr()}:')),
                     ])),
                 Text(kernelCompetence.join(', '),
-                    style: Theme.of(context).primaryTextTheme.subtitle2)
+                    style: Theme.of(context).primaryTextTheme.titleSmall)
               ]
             ],
           ),
           Transform.translate(
-            offset: Offset(0, 32),
+            offset: const Offset(0, 32),
             child: Container(
               child: Text('introduce.advantage'.tr(),
-                  style: Theme.of(context).primaryTextTheme.subtitle1),
+                  style: Theme.of(context).primaryTextTheme.titleMedium),
             ),
           ),
-          Divider(height: 32),
+          const Divider(height: 32),
           ...List.generate(
             experiences.length,
             (i) {
-              final previewWidth = expMapImg.containsKey(i)
-                  ? isSmall
-                      ? constraints.maxWidth
-                      : 160.0
-                  : .0;
+              final expKey = experiences[i];
+              final previewWidth =
+                  expMapImg.containsKey(expKey) || mapLink.containsKey(expKey)
+                      ? isSmall
+                          ? constraints.maxWidth
+                          : 160.0
+                      : .0;
               return Container(
-                margin: EdgeInsets.only(bottom: 10),
+                margin: const EdgeInsets.only(bottom: 10),
                 child: Wrap(
                   alignment: WrapAlignment.spaceBetween,
                   crossAxisAlignment: WrapCrossAlignment.end,
@@ -319,14 +324,15 @@ class ExperienceColumn extends StatelessWidget {
                         // color: Colors.blue,
                         child: Text.rich(
                       TextSpan(text: '${experiences[i]}.name'.tr(), children: [
-                        WidgetSpan(child: Icon(CupertinoIcons.minus)),
+                        const WidgetSpan(child: Icon(CupertinoIcons.minus)),
                         TextSpan(
                             text: '${experiences[i]}.title'.tr(),
-                            style: Theme.of(context).primaryTextTheme.button)
+                            style:
+                                Theme.of(context).primaryTextTheme.labelLarge)
                       ]),
-                      style: Theme.of(context).primaryTextTheme.headline2,
+                      style: Theme.of(context).primaryTextTheme.displayMedium,
                     )),
-                    Container(
+                    SizedBox(
                         width: 150,
                         // color: Colors.red,
                         child: Text.rich(
@@ -337,36 +343,45 @@ class ExperienceColumn extends StatelessWidget {
                                   text: DateFormat.yMMM().format(
                                       DateFormat("d/M/yyyy").parse(
                                           '${experiences[i]}.start'.tr()))),
-                              TextSpan(text: " ~ "),
+                              const TextSpan(text: " ~ "),
                               TextSpan(
                                   text: DateFormat.yMMM().format(
                                       DateFormat('d/M/yyyy').parse(
                                           '${experiences[i]}.end'.tr()))),
                             ],
                           ),
-                          style: Theme.of(context).primaryTextTheme.subtitle2,
+                          style: Theme.of(context).primaryTextTheme.titleSmall,
                         )),
                     Container(
                       // color: Colors.green,
-                      margin: EdgeInsets.only(top: 10),
+                      margin: const EdgeInsets.only(top: 10),
                       width: constraints.maxWidth,
                       child: Flex(
                           direction: isSmall ? Axis.vertical : Axis.horizontal,
                           children: [
-                            if (expMapImg.containsKey(i))
+                            if (expMapImg[expKey] != null)
                               MediaPreview(
                                 previewWidth: previewWidth,
-                                assetName: expMapImg[i]!,
+                                assetName: expMapImg[expKey]!,
                                 embeddingPlayer: isSmall,
                               ),
-                            Container(
+                            if (mapLink[expKey] != null)
+                              Container(
+                                  padding: const EdgeInsets.only(right: 10),
+                                  constraints:
+                                      BoxConstraints(maxWidth: previewWidth),
+                                  child: AnyLinkPreview(
+                                    link: mapLink[expKey]!,
+                                    // previewHeight: 250,
+                                  )),
+                            SizedBox(
                               width: constraints.maxWidth -
                                   previewWidth * (isSmall ? 0 : 1),
                               child: Text(
                                 '${experiences[i]}.content'.tr(),
                                 style: Theme.of(context)
                                     .primaryTextTheme
-                                    .subtitle1,
+                                    .titleMedium,
                                 // textAlign: TextAlign.justify,
                               ),
                             )
@@ -406,7 +421,7 @@ class _MediaPreviewState extends State<MediaPreview> {
     final width = widget.previewWidth - 10;
     final height = widget.previewWidth < 180 ? width * .8 : width / 2;
     return isPlayer
-        ? Container(
+        ? SizedBox(
             width: width,
             height: height,
             child: InAppWebView(
@@ -452,7 +467,7 @@ class _MediaPreviewState extends State<MediaPreview> {
   Uri getUri() {
     final baseName = p.basenameWithoutExtension(widget.assetName);
     return Uri.parse(
-        MyApp.monitorUrl + '/profile/media?filename=$baseName.mp4');
+        '${MyApp.monitorUrl}/profile/media?filename=$baseName.mp4');
   }
 }
 

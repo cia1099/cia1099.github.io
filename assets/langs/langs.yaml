@@ -47,6 +47,14 @@ en:
     computer_vision: Computer vision is a field of computer science that focuses on enabling computers to identify and understand objects and people in images and videos. Like other types of AI, computer vision seeks to perform and automate tasks that replicate human capabilities.
 
 # experiences
+  ai-vocabulary:
+    name: Self-Employed
+    start: 18/10/2024
+    end: 13/8/2025
+    address: Taipei Taiwan
+    title: Senior Software Engineer
+    content: |
+      Developed an AI-powered vocabulary learning application that integrates a self-maintained dictionary, utilizing a relational database for scalability and populated through web crawlers. Enhanced user experience with lazy loading lists, instant theme switching, TikTok-like gesture navigation. The fetching data has been engineered to prioritize local database queries over remote sources to optimize data retrieval and ensure the most efficient use of local resources, thereby reducing HTTP request count and loading latency. Applied OOP principles to achieve in-text word search, allowing users to tap a word and instantly retrieve its definitions and examples. Implemented AI-driven features such as speech-to-text for pronunciation practice and an interactive chatbot that helps users practice constructing English sentences. Designed a spaced repetition review system based on the Ebbinghaus forgetting curve and a custom calendar to visualize learning progress. Built scalable dictionary APIs with FastAPI and SQLAlchemy, and configured Nginx for multiple subdomains and paths routing. Containerized services with Docker and deployed them on Google Cloud Run to deliver a scalable and reliable web server.
   bobi:
     name: Bobi Entertainment
     start: 1/10/2022
@@ -96,7 +104,7 @@ zh_CN:
   skills: 技能集
   introduce:
     rough: |
-      嗨，我是Otto，一个全端开发者，喜欢打造动态交互界面，和出色的用户体验产品。可以让使用者惊艳和容易上手的交互操作，是我开发工程的信心，给客户能有满足的心情。
+      嗨，我是Otto，一个全栈开发者，喜欢打造动态交互界面，和出色的用户体验产品。可以让使用者惊艳和容易上手的交互操作，是我开发工程的信心，给客户能有满足的心情。
     detail: |
       开发AI结合视觉应用：智能家居，人流计数；擅长空间视觉定位，使相机能够感知周围的环境，可以做空间数位建模和3D空间识别；致力于边缘运算，目标是将AI模型在边缘设备上执行，以大幅缩减项目落地的成本，并发展更多AI应用的场景，将AI落实在大众的设备上，让AI融入在我们的生活里。
     skill: 综观工作经历以及习得的技能
@@ -140,6 +148,25 @@ zh_CN:
     computer_vision: 计算机视觉是计算机科学的一个领域，主要研究如何让计算机识别和理解图像和视频中的物体和人物。与其他类型的人工智能一样，计算机视觉也致力于执行和自动化复制人类能力的任务。
 
   # experiences
+  ai-vocabulary:
+    name: 独立开发
+    start: 18/10/2024
+    end: 13/8/2025
+    address: 台北 台湾
+    title: 资深软件开发工程师
+    content: |
+      内容: 开发了一款运用人工智能的词汇学习应用程序，该应用集成了一个自主维护的词典，采用关系型数据库以实现可扩展性，并通过网络爬虫进行数据填充。
+      成绩:
+        1. 实现了一个自定义列表视图，支持懒加载功能：在向下滚动时加载更多数据，向上滚动时刷新列表。
+        2. 开发了一个即时主题切换器，可无缝切换多种颜色主题和深色模式。
+        3. 应用面向对象编程（OOP）原则实现文本内单词搜索功能，用户可点击单词立即获取其定义和示例。
+        4. 优化数据获取流程，优先使用本地数据库查询，必要时回退到远程数据源，从而减少HTTP请求次数并降低加载延迟。
+        5. 设计并实现了一个类似TikTok的手势导航系统，用户可通过向左滑动切换至其他页面。
+        6. 基于艾宾浩斯遗忘曲线模型创建间隔重复复习系统。
+        7. 构建自定义日历Widget以可视化用户学习进度。
+        8. 使用FastAPI和SQLAlchemy ORM开发可扩展的词典API。
+        9. 配置Nginx以处理单个域名下的多个子域名和路径，将请求路由至相应API。
+        10. 使用Docker容器化服务并部署于Google Cloud Run以实现可扩展性和可靠性。
   bobi:
     name: 波比娛乐有限公司
     start: 1/10/2022
@@ -245,6 +272,25 @@ zh_TW:
     git: Git 是一個快速、可擴展的分布式修訂控製系統，擁有異常豐富的命令集，既能進行高級操作，也能完全訪問內部結構。
     computer_vision: 計算機視覺是計算機科學的一個領域，主要研究如何讓計算機識別和理解圖像和視頻中的物體和人物。與其他類型的人工智能一樣，計算機視覺也致力於執行和自動化復製人類能力的任務。
   # experiences
+  ai-vocabulary:
+    name: 自主開發
+    start: 18/10/2024
+    end: 13/8/2025
+    address: 台北 台灣
+    title: 資深軟體開發工程師
+    content: |
+      內容: 開發了一款運用人工智能的詞匯學習應用程序，該應用集成了一個自主維護的詞典，采用關系型數據庫以實現可擴展性，並通過網絡爬蟲進行數據填充。
+      成績:
+        1. 實現了一個自定義列表視圖，支持懶加載功能：在向下滾動時加載更多數據，向上滾動時刷新列表。
+        2. 開發了一個即時主題切換器，可無縫切換多種顏色主題和深色模式。
+        3. 應用面向對象編程（OOP）原則實現文本內單詞搜索功能，用戶可點擊單詞立即獲取其定義和示例。
+        4. 優化數據獲取流程，優先使用本地數據庫查詢，必要時回退到遠程數據源，從而減少HTTP請求次數並降低加載延遲。
+        5. 設計並實現了一個類似TikTok的手勢導航系統，用戶可通過向左滑動切換至其他頁面。
+        6. 基於艾賓浩斯遺忘曲線模型創建間隔重復復習系統。
+        7. 構建自定義日歷Widget来可視化用戶學習進度。
+        8. 使用FastAPI和SQLAlchemy ORM開發可擴展的詞典API。
+        9. 配置Nginx以處理單個域名下的多個子域名和路徑，將請求路由至相應API。
+        10. 使用Docker容器化服務並部署於Google Cloud Run以實現可擴展性和可靠性。
   bobi:
     name: 波比娛樂有限公司
     start: 1/10/2022

@@ -30,6 +30,7 @@ dependencies:
   url_launcher: ^6.3.0
   flutter_inappwebview: ^6.0.0
   flutter_styled_toast: ^2.2.1
+  any_link_preview: ^3.0.1
 
 dev_dependencies:
   flutter_test:
