@@ -251,8 +251,19 @@ class ExperienceColumn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const experiences = ['ai-vocabulary', 'bobi', 'patere', 'foxconn', 'lips'];
-    const expMapImg = {'patere': '3dGaze.webp', 'lips': 'people_counting.png'};
+    const experiences = [
+      'yolo-ffi',
+      'ai-vocabulary',
+      'bobi',
+      'patere',
+      'foxconn',
+      'lips'
+    ];
+    const expMapImg = {
+      'patere': '3dGaze.webp',
+      'lips': 'people_counting.png',
+      'yolo-ffi': 'yolo_ffi.jpg'
+    };
     const mapLink = {'ai-vocabulary': 'https://ai-vocabulary.com'};
     return LayoutBuilder(
       builder: (context, constraints) => Column(

@@ -47,6 +47,19 @@ en:
     computer_vision: Computer vision is a field of computer science that focuses on enabling computers to identify and understand objects and people in images and videos. Like other types of AI, computer vision seeks to perform and automate tasks that replicate human capabilities.
 
 # experiences
+  yolo-ffi:
+    name: Self-Employed
+    start: 18/10/2025
+    end: 14/12/2025
+    address: Taipei Taiwan
+    title: Senior Flutter / Performance Engineer
+    content: |
+      Led the design and implementation of a high-performance edge AI inference system for real-time object detection on Android and iOS, using Flutter as the unified UI layer.
+      Architected a C++-centric inference pipeline (preprocess → inference → postprocess) and integrated it with Flutter via Dart FFI, replacing MethodChannel to eliminate serialization overhead and cross-language data copying.
+      Optimized memory management and data flow with zero/low-copy strategies, ensuring cache-friendly continuous memory access and minimizing allocation churn.
+      Implemented UI–inference isolation using Dart Isolates and lock-free queues, maintaining smooth UI rendering under heavy AI workloads.
+      Tuned CPU / GPU / Neural Engine execution paths (CoreML on iOS, NCNN/MNN on Android) to balance latency, throughput, and power efficiency.
+      Achieved stable 60 FPS real-time detection on edge devices with zero UI frame drops, fully offline without server-side inference.
   ai-vocabulary:
     name: Self-Employed
     start: 18/10/2024
@@ -148,6 +161,43 @@ zh_CN:
     computer_vision: 计算机视觉是计算机科学的一个领域，主要研究如何让计算机识别和理解图像和视频中的物体和人物。与其他类型的人工智能一样，计算机视觉也致力于执行和自动化复制人类能力的任务。
 
   # experiences
+  yolo-ffi:
+    name: 独立开发
+    start: 18/10/2025
+    end: 14/12/2025
+    address: 台北 台湾
+    title: 资深Flutter性能工程师
+    content: |
+      设计并实现一套 高性能、低延迟的边缘端实时目标检测系统，在 Android 与 iOS 设备上以 Flutter 作为统一 UI 框架，通过原生 C++ 推理引擎与零拷贝内存设计，在不牺牲 UI 流畅度的前提下，实现 60 FPS 实时目标检测，完全脱离云端推理依赖。
+      核心技术实现：
+        1. 跨平台高性能推理架构设计
+          • 将 YOLO 系列模型部署至移动端边缘设备，统一在 C++ 推理层完成图像前处理、模型推理与后处理，避免多语言重复实现与性能损耗
+          • 针对 Android / iOS 平台差异，抽象统一的推理接口层，提升系统可维护性与可扩展性
+        2. Flutter ↔ 原生通信性能重构（FFI 替代 MethodChannel）
+          • 在 iOS 端采用 Objective-C++ + CoreML 混合编译，直接暴露 C ABI 给 Dart FFI
+          • 完全绕过 MethodChannel 的消息编解码与对象重建流程，避免 Dart VM 与原生层之间因序列化、内存复制及类型转换带来的额外开销
+          • 将推理全流程（preprocess → inference → postprocess）收敛至 C++ 层，仅回传最终结构化结果至 Dart
+        3. 极致内存管理与零拷贝优化
+          • 重构图像与张量数据结构，复用同一块连续内存区域完成图像采集、前处理与推理
+          • 避免不必要的 malloc / free 与中间 buffer 分配，显著降低 GC 与内存抖动
+        4. CPU / GPU / Neural Engine 调度优化
+          • 在 iOS 端基于 CoreML 的 Compute Units 策略，动态选择 CPU / GPU / Neural Engine，结合OpenCV库，对 ARM 架构优化运算处理图像数据
+          • 针对不同模型规模与设备性能，评估能耗与延迟表现，平衡实时性与功耗
+          • Android 端结合 NCNN / MNN 框架和OpenCV库，针对 ARM 架构优化算子执行路径
+        5. 多线程与并发模型设计（Flutter Isolate）
+          • 严格分离 UI 与模型推理逻辑
+          • 使用 Dart Isolate 独立运行推理任务，确保主线程专注于 UI 渲染与用户交互
+          • 通过 无锁（lock-free）队列 缓存相机帧数据，避免推理阻塞相机串流与画面显示
+        6. 原生库跨平台构建体系
+          • 使用 NDK + CMake 构建 Android 平台 ONNX、OpenCV、NCNN、MNN 等原生库
+          • 通过 Objective-C++ 在同一编译单元内直接调用 Apple 原生 SDK 与 C++ 推理与图像处理库，规避 JNI / FFI / PlatformChannel 等跨层通信模型，减少 ABI 边界、对象封装及内存拷贝带来的性能损耗
+          • 统一管理编译参数与 ABI，确保在多设备架构下的稳定性与性能一致性
+      项目成果：
+        1. 在 Android 与 iOS 边缘设备 上实现 60 FPS 实时目标检测，UI 刷新零掉帧
+        2. 每一帧影像可实时记录目标位置与分类结果，无需依赖任何远程服务器推理
+        3. Flutter 应用在高负载 AI 推理场景下依然保持流畅交互体验
+        4. 显著降低跨语言通信开销与内存占用，系统整体延迟大幅下降
+        5. 架构具备高度可扩展性，可快速替换不同模型与推理后端
   ai-vocabulary:
     name: 独立开发
     start: 18/10/2024
@@ -272,6 +322,43 @@ zh_TW:
     git: Git 是一個快速、可擴展的分布式修訂控製系統，擁有異常豐富的命令集，既能進行高級操作，也能完全訪問內部結構。
     computer_vision: 計算機視覺是計算機科學的一個領域，主要研究如何讓計算機識別和理解圖像和視頻中的物體和人物。與其他類型的人工智能一樣，計算機視覺也致力於執行和自動化復製人類能力的任務。
   # experiences
+  yolo-ffi:
+    name: 獨立開發
+    start: 18/10/2025
+    end: 14/12/2025
+    address: 台北 台灣
+    title: 資深Flutter性能工程師
+    content: |
+      設計並實現一套 高性能、低延遲的邊緣端實時目標檢測系統，在 Android 與 iOS 設備上以 Flutter 作為統一 UI 框架，通過原生 C++ 推理引擎與零拷貝內存設計，在不犧牲 UI 流暢度的前提下，實現 60 FPS 實時目標檢測，完全脫離雲端推理依賴。
+      核心技術實現：
+        1. 跨平台高性能推理架構設計
+          • 將 YOLO 系列模型部署至移動端邊緣設備，統一在 C++ 推理層完成圖像前處理、模型推理與後處理，避免多語言重覆實現與性能損耗
+          • 針對 Android / iOS 平台差異，抽象統一的推理接口層，提升系統可維護性與可擴展性
+        2. Flutter ↔ 原生通信性能重構（FFI 替代 MethodChannel）
+          • 在 iOS 端采用 Objective-C++ + CoreML 混合編譯，直接暴露 C ABI 給 Dart FFI
+          • 完全繞過 MethodChannel 的消息編解碼與對象重建流程，避免 Dart VM 與原生層之間因序列化、內存覆制及類型轉換帶來的額外開銷
+          • 將推理全流程（preprocess → inference → postprocess）收斂至 C++ 層，僅回傳最終結構化結果至 Dart
+        3. 極致內存管理與零拷貝優化
+          • 重構圖像與張量數據結構，覆用同一塊連續內存區域完成圖像采集、前處理與推理
+          • 避免不必要的 malloc / free 與中間 buffer 分配，顯著降低 GC 與內存抖動
+        4. CPU / GPU / Neural Engine 調度優化
+          • 在 iOS 端基於 CoreML 的 Compute Units 策略，動態選擇 CPU / GPU / Neural Engine，結合OpenCV庫，對 ARM 架構優化運算處理圖像數據
+          • 針對不同模型規模與設備性能，評估能耗與延遲表現，平衡實時性與功耗
+          • Android 端結合 NCNN / MNN 框架和OpenCV庫，針對 ARM 架構優化算子執行路徑
+        5. 多線程與並發模型設計（Flutter Isolate）
+          • 嚴格分離 UI 與模型推理邏輯
+          • 使用 Dart Isolate 獨立運行推理任務，確保主線程專註於 UI 渲染與用戶交互
+          • 通過 無鎖（lock-free）隊列 緩存相機幀數據，避免推理阻塞相機串流與畫面顯示
+        6. 原生庫跨平台構建體系
+          • 使用 NDK + CMake 構建 Android 平台 ONNX、OpenCV、NCNN、MNN 等原生庫
+          • 通過 Objective-C++ 在同一編譯單元內直接調用 Apple 原生 SDK 與 C++ 推理與圖像處理庫，規避 JNI / FFI / PlatformChannel 等跨層通信模型，減少 ABI 邊界、對象封裝及內存拷貝帶來的性能損耗
+          • 統一管理編譯參數與 ABI，確保在多設備架構下的穩定性與性能一致性
+      項目成果：
+        1. 在 Android 與 iOS 邊緣設備 上實現 60 FPS 實時目標檢測，UI 刷新零掉幀
+        2. 每一幀影像可實時記錄目標位置與分類結果，無需依賴任何遠程服務器推理
+        3. Flutter 應用在高負載 AI 推理場景下依然保持流暢交互體驗
+        4. 顯著降低跨語言通信開銷與內存占用，系統整體延遲大幅下降
+        5. 架構具備高度可擴展性，可快速替換不同模型與推理後端
   ai-vocabulary:
     name: 自主開發
     start: 18/10/2024
